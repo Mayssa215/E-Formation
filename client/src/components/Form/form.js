@@ -14,7 +14,7 @@ import moment from 'moment';
 
 
 const Form = ({ currentId, setCurrentId }) => {
-  const [formationData, setformationData] = useState({ nom: '', formateur: '', categorie: '', date: '', horaire: '', lieu: '', prix: '', Nombredeplace: '', description: '', selectedFile: '' });
+  const [formationData, setformationData] = useState({ nomformation: '', coach: '', categorie: '', date: '', horaire: '', lieu: '', prix: '', Nombredeplace: '', description: '', selectedFile: '' });
   const formation = useSelector((state) => currentId ? state.formations.find((f) => f._id === currentId) : null);
   const [error, setError] = React.useState(false);
   const [helperText, setHelperText] = React.useState('');
@@ -23,7 +23,7 @@ const Form = ({ currentId, setCurrentId }) => {
   const dispatch = useDispatch();
 
   const clear = () => {
-    setformationData({ nom: '', formateur: '', categorie: '', date: '', horaire: '', lieu: '', prix: '', Nombredeplace: '', description: '', selectedFile: ' ' });
+    setformationData({ nomformation: '', coach: '', categorie: '', date: '', horaire: '', lieu: '', prix: '', Nombredeplace: '', description: '', selectedFile: ' ' });
   }
 
   useEffect (()=> {
@@ -35,7 +35,6 @@ const Form = ({ currentId, setCurrentId }) => {
       dispatch(getcategorie());
       } ,[]  ) 
 
-  
     const categorie = useSelector (state => state.categorie)
     const value2 = formationData.selectedFile.indexOf("/");
     const value3 = formationData.selectedFile.indexOf(";");
@@ -80,8 +79,8 @@ const Form = ({ currentId, setCurrentId }) => {
         <Grid container item xs={6} md={12} lg={12} >
 
           <Grid item xs={12} md={6} lg={6}  >
-            <TextField className={classes.Textfiled} required name='nom' variant="outlined" label="nom du formation" type="string" value={formationData.nom} onChange={(e) => setformationData({ ...formationData, nom: e.target.value })} style={{ width: 360, marginTop: 15 }}></TextField>
-            <TextField required name='formateur' variant="outlined" label="Nom  du formateur" type="string" value={formationData.formateur} onChange={(e) => setformationData({ ...formationData, formateur: e.target.value })} style={{ width: 360, marginTop: 15 }}></TextField>
+            <TextField className={classes.Textfiled} required name='nom' variant="outlined" label="nom du formation" type="string" value={formationData.nomformation} onChange={(e) => setformationData({ ...formationData, nomformation: e.target.value })} style={{ width: 360, marginTop: 15 }}></TextField>
+            <TextField required name='formateur' variant="outlined" label="Nom  du formateur" type="string" value={formationData.coach} onChange={(e) => setformationData({ ...formationData, coach: e.target.value })} style={{ width: 360, marginTop: 15 }}></TextField>
             <Select onChangeData={onChangeData2}  categorie={categorie} />
             <MaterialUIPickers onChangeDate={onChangeData1} date={moment(formationData.date).format("yyyy-MM-DD")}  />
             <Time onChangetime={onChangeTime} time={formationData.horaire} />

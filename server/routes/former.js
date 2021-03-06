@@ -1,8 +1,9 @@
 import express from 'express';
-import {getFormateur} from '../controllers/formateur.js';
+import {getFormer} from '../controllers/former.js';
 
 const router = express.Router();
 
-router.get('/', getFormateur );
+router.get('/', getFormer );
+
  
  export default router;

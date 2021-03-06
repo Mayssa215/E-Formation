@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
-const categSchema = mongoose.Schema({
+const categorieSchema = mongoose.Schema({
 nom:  String, 
 });
-const  CategMod= mongoose.model('CategMod', categSchema);
-export default CategMod; 
+const  categorie= mongoose.model('categorie', categorieSchema);
+export default categorie; 

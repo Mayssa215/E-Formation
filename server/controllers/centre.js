@@ -8,7 +8,7 @@ export const getCentre = async (req, res) => {
     const centres = await Centre.aggregate([
       {
         $lookup: {
-          from: "formations",
+          from: "trainings",
           localField: "formationdecentre",
           foreignField: "_id",
           as: "formationdecentre",

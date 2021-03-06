@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const centreSchema = mongoose.Schema({
     nomcentre: String,
     
-     formationdecentre: [{type: mongoose.Schema.ObjectId, ref : 'Formation'}]
+     formationdecentre: [{type: mongoose.Schema.ObjectId, ref : 'Training'}]
 
 
     });

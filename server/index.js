@@ -2,20 +2,20 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose'
 import cors from 'cors';
-import Formroutes from './routes/formations.js';
-import Categroutes from './routes/categories.js';
-import formateurRoutes from "./routes/formateur.js";
+import Formerroutes from './routes/former.js';
+import Categorieroutes from './routes/categorie.js';
+import Trainingroutees from "./routes/training.js";
 import centreRoutes from "./routes/centre.js";
-import paginationRoutes from "./routes/pagination.js";
+import Pagingroutes from "./routes/paging.js";
 const app = express();
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
-app.use('/formation', Formroutes);
-app.use('/categories', Categroutes);
-app.use("/formateur", formateurRoutes);
+app.use('/training', Trainingroutees);
+app.use('/categorie', Categorieroutes);
+app.use("/former", Formerroutes);
 app.use("/centre", centreRoutes);
-app.use("/pagination", paginationRoutes);
+app.use("/paging", Pagingroutes);
 
 const CONNECTION_URL = 'mongodb+srv://maissa:maissa123@cluster0.ikcvk.mongodb.net/<dbname>?retryWrites=true&w=majority';
 

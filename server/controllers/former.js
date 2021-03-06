@@ -1,14 +1,14 @@
-import Formateur from "../models/formateur.js";
+import Former from "../models/former.js";
 
-export const getFormateur = async (req, res) => {
+export const getFormer = async (req, res) => {
   try {
     console.log("params", req.query.InputSearch);
     const wordsearched = req.query.InputSearch.replace( /\s\s+/g, ' ' );
 
-    const formateurs = await Formateur.aggregate([
+    const formers = await Former.aggregate([
       {
         $lookup: {
-          from: "formations",
+          from: "trainings",
           localField: "formations",
           foreignField: "_id",
           as: "formations",
@@ -21,10 +21,10 @@ export const getFormateur = async (req, res) => {
       {
         $addFields: {
           fullName: {
-            $concat: ["$formations.nom"," ", "$formations.description"],
+            $concat: ["$formations.nomformation"," ", "$formations.description"],
           },
           fullNameInverse: {
-            $concat: ["$formations.nom"," ", "$formations.description"],
+            $concat: ["$formations.nomformation"," ", "$formations.description"],
           },
         },
       },
@@ -32,7 +32,7 @@ export const getFormateur = async (req, res) => {
       {
         $match: {
           $or: [
-            { nom: { $regex: wordsearched } },
+            { nomformateur: { $regex: wordsearched } },
             { prenom: { $regex: wordsearched } },
             { "formations.nomformation": { $regex: wordsearched } },
             { "formations.description": { $regex: wordsearched } },
@@ -43,8 +43,8 @@ export const getFormateur = async (req, res) => {
       },
     ]);
 
-    console.log("Formateurs", formateurs);
-    res.status(200).json(formateurs);
+    console.log("Formers", formers);
+    res.status(200).json(formers);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

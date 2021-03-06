@@ -5,7 +5,7 @@ const Formateur = ( {formt} ) => {
 
 return (
     <Card>
-        <Typography variant="h6">{formt.nom} {formt.prenom } </Typography>
+        <Typography variant="h6">{formt.nomformateur} {formt.prenom } </Typography>
     </Card>
 );
 
