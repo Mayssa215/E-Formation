@@ -190,42 +190,17 @@ export default makeStyles((theme) => ({
     
    },
    check: {
+      marginLeft : 10,
+      '&:checked': {
+         color: "#74B5BD",
+       },
       '@media  screen and (max-width: 960px)': {
          display: "inline-block",
          marginBottom: 10,
       },
 
    },
-   choix: {
-      display: "inline",
-      '@media  screen and (max-width: 600px)': {
-         display: "flex",      
-            marginLeft: 15,
-            marginTop: 10,
-            
-      },
-      '@media  screen and (max-width: 320px)': {
-         display: "inline",
-         paddingBottom: 35,
-         marginLeft: 0,
-         marginTop: 0,
-         marginRight: 2,
-
-          
-      },
-     
-   },
-   choix1 :{
-      '@media  screen and (max-width: 960px)':
-      {
-         marginTop: 22,
-      },
-      '@media  screen and (max-width: 600px)': {
-         marginTop: 2,
-      },
-     
-   },
-
+ 
    categnom: {
       fontSize: 14,
    },
@@ -279,6 +254,13 @@ export default makeStyles((theme) => ({
             marginLeft: "48%",
          },
 
+   },
+   openicongouver : {
+      marginLeft: 110,
+      color: 'transparent',
+      '&:hover': {
+         background: 'transparent',
+      },
    },
    categopen: {
       display: "flex",
@@ -347,5 +329,12 @@ export default makeStyles((theme) => ({
    formControl: {
       margin: theme.spacing(1),
       width: 240,
-    }
+    },
+    iconopenclosegouver : {
+
+    },
+    gouvernorat :{
+    width: 250,
+    marginTop: 12,
+    },
 }));

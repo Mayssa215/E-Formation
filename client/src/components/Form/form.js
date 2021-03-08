@@ -14,10 +14,10 @@ import moment from 'moment';
 
 
 const Form = ({ currentId, setCurrentId }) => {
-  const [formationData, setformationData] = useState({ nomformation: '', coach: '', categorie: '', date: '', horaire: '', lieu: '', prix: '', Nombredeplace: '', description: '', selectedFile: '' });
+  const [formationData, setformationData] = useState({ nomformation: '', coach: '', categorie: '', date: '', horaire: '', lieu: '', prix: '', Nombredeplace: '', description: '', selectedFile: '', idcategorie: ' ' });
   const formation = useSelector((state) => currentId ? state.formations.find((f) => f._id === currentId) : null);
   const [error, setError] = React.useState(false);
-  const [helperText, setHelperText] = React.useState('');
+  const [helperText, setHelperText] = useState('');
 
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -33,17 +33,16 @@ const Form = ({ currentId, setCurrentId }) => {
 
     useEffect (()=> {
       dispatch(getcategorie());
-      } ,[]  ) 
-
+      } ,[]) 
     const categorie = useSelector (state => state.categorie)
+
     const value2 = formationData.selectedFile.indexOf("/");
     const value3 = formationData.selectedFile.indexOf(";");
     const file = formationData.selectedFile;
     const number = value3 - value2;
-    const extension = file.substr(value2, number);
-    const { value } = formationData.categorie; 
-  const onChangeData2 = (e) => {
-    setformationData({ ...formationData, categorie: e.target.value })
+    const extension = file.substr(value2, number);    
+  const onChangeData2 = (e, val) => {
+    setformationData({ ...formationData, idcategorie: val._id })
   }
   const onChangeData1 = (e) => {
     setformationData({ ...formationData, date: e.target.value })
@@ -51,7 +50,6 @@ const Form = ({ currentId, setCurrentId }) => {
   const onChangeTime = (e) => {
     setformationData({ ...formationData, horaire: e.target.value })
   }
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if(currentId  && (extension === "/jpeg" || extension === "/jpg" || extension === "/png" )) {

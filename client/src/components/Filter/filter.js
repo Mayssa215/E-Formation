@@ -4,6 +4,7 @@ import { Paper} from '@material-ui/core';
 import Categorie from './categorie';
 import Infos from './index';
 import Date from './date';
+import Gouvernorat from './gouvernorat'
 import useStyles from './styles';
 import { Scrollbars } from 'rc-scrollbars';
 
@@ -16,6 +17,7 @@ const Filter = () => {
     <Paper className={classes.Paper}>
      <Scrollbars autoHide className={classes.scroll}>       
      <Categorie />
+     <Gouvernorat />
      <Infos />
      <Date />
     </Scrollbars>

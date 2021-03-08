@@ -16,17 +16,17 @@ const Training = () => {
 
     return (
         <div >
-              <Grid   spacing={1}>
+              <Grid container  spacing={1}>
                 <Recherche onClick={onClick} show={show} />
                 <Grid item xs={12} sm={6}>
                 { show ?
                     <Filter />
                     : null}
             </Grid>
-            <Grid item xs={12} sm={6}>
+            {/* <Grid item xs={12} sm={6}>
 
                 <Paging />
-            </Grid>
+            </Grid> */}
             </Grid>
         </div>
 

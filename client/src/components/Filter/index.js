@@ -30,7 +30,7 @@ const Filter = () => {
   const handleChange1 = (event, newheur) => {
     setheur(newheur);
   };
-  const [showcateg, setShowcateg] = useState(true);
+ 
  
   return (
     <div >
@@ -40,6 +40,7 @@ const Filter = () => {
             <Typography id="range-slider" className={classes.prix}>
               Prix
            </Typography>
+           
             <Slider
               value={value}
               onChange={handleChange}
@@ -52,28 +53,7 @@ const Filter = () => {
               className={classes.div}
 
             />
-            <div className={classes.div2}>
-              <TextField name='Lieu' label={<span className={classes.gouvernorat}> Gouvernorat </span>} type="string"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      < PlaceIcon className={classes.icon} />
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </div>
-            <div className={classes.div2}>
-              <TextField name='Lieu' label={<span className={classes.gouvernorat}> Ville </span>} type="string"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      < PlaceIcon className={classes.icon} />
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </div>
+            
             <div>
             <Typography id="range-slider" className={classes.dureenom} gutterBottom>
               Durée de formation

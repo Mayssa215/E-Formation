@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const url = 'http://localhost:5000/training';
+const url = 'http://localhost:5006/training';
 
-const url2 = 'http://localhost:5000/paging/page';
+const url2 = 'http://localhost:5006/paging/page';
 
 export const fetchTraining = (page) => {
   return axios.get(url2, {

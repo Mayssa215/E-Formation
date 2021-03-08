@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
     <Autocomplete
       className={classes.Text}
       id="categ"
-      onSelect={onChangeData}
+      onChange={onChangeData}
       options={categorie}
       getOptionLabel={(option) => option.nom}
       renderInput={(params) => <TextField   required {...params} label="Categorie"   

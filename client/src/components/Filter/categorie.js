@@ -39,7 +39,7 @@ const Categorie = () => {
                         Categories.map((c) => (
                             <FormControlLabel
                                 key={c._id}
-                                control={<Checkbox name="gilad" color="primary" size="medium"
+                                control={<Checkbox name="gilad"  size="medium" 
                                 />}
                                 label={<span className={classes.categnom}>{c.nom}</span>}
                             />
