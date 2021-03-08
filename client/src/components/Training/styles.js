@@ -4,7 +4,9 @@ import { makeStyles } from "@material-ui/core/styles";
 export default makeStyles((theme) => ({
   root: {
     marginTop: 20,
-    width: 300,
+    width: 420,
+    height:550,
+    marginRight: 150,
   },
   
   media: {

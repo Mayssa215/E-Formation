@@ -58,7 +58,6 @@ switch (selectBox) {
         >
           <option>Formation</option>
           <option>Formateur</option>
-
           <option>Centres de formation</option>
         </Select>
 

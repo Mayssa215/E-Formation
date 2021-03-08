@@ -5,6 +5,7 @@ export default makeStyles((theme) => ({
       padding: theme.spacing(2),
       width: 280,
       height: 520,
+      marginLeft:15,
       '@media  screen and (max-width: 960px)': {
          width: 750,
          height: 200,
@@ -151,9 +152,10 @@ export default makeStyles((theme) => ({
 
    },
    rech: {
-      width: 130,
+      width: 180,
       marginLeft: 600,
       fontSize: 8,
+      marginRight:250,
       '@media  screen and (max-width: 960px)': {
          marginLeft: 350,
       },
@@ -177,18 +179,7 @@ export default makeStyles((theme) => ({
       },
    },
 
-   btn: {
-      width: 90,
-      marginTop: 20,
-      marginLeft: 20,
-      marginRight: 210,
-      fontSize: 11,
-      '@media  screen and (max-width: 960px)': {
-         marginLeft: 15,
-         marginTop: 20,
-         marginRight: 2,
-      },
-   },
+ 
    filedbtn: {
       display: "flex",
    },
@@ -241,6 +232,7 @@ export default makeStyles((theme) => ({
    prix: {
       fontSize: 16,
       marginTop: 12,
+      "fontFamily": `"Spectral"', serif`,
       '@media  screen and (max-width: 960px)':
       {
          fontSize: 14,
@@ -351,5 +343,9 @@ export default makeStyles((theme) => ({
           
       },
 
-   }
+   },
+   formControl: {
+      margin: theme.spacing(1),
+      width: 240,
+    }
 }));

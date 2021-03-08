@@ -12,9 +12,9 @@ const Recherche = ({ onClick, show }) => {
     const classes = useStyles();
     return (
         <div className={classes.barre}>
-            <div  className={classes.filedbtn}> <TextField
+            <div  className={classes.filedbtn}> 
+            <TextField
                 className={classes.rech}
-               value=""
                 InputProps={{
                     startAdornment: (
                         <InputAdornment position="start">
@@ -24,9 +24,7 @@ const Recherche = ({ onClick, show }) => {
                 }}
 
             />
-           <div> <Button type="submit" size="small" variant="outlined" className={classes.btn} >
-                Rechercher </Button>
-            </div>
+
             </div>
             <div className >
                 <Button
