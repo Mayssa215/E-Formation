@@ -113,9 +113,9 @@ export const getTrainings = async (req, res) => {
 };
 
 export const creatTraining= async (req, res) => {
-  const { nomformation, coach,  categorie, date, horaire, lieu, prix, Nombredeplace, description, selectedFile } = req.body;
+  const { nomformation, coach,  categorie, idcategorie, date, horaire, lieu, prix, Nombredeplace, description, selectedFile, } = req.body;
   
-  const newTraining= new Training({ nomformation, coach,  categorie, date, horaire, lieu, prix, Nombredeplace, description, selectedFile })
+  const newTraining= new Training({ nomformation, coach,  categorie,idcategorie, date, horaire, lieu, prix, Nombredeplace, description, selectedFile })
   try {
       await newTraining.save();
       res.status(201).json(newTraining );
@@ -141,3 +141,6 @@ export const deleteTraining = async (req, res) => {
    await Training.findByIdAndRemove(id);
   res.json({message : 'la formation a ete supprimer avec succés !'} );
 }
+
+
+            

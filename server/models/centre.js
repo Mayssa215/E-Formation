@@ -8,6 +8,5 @@ const centreSchema = mongoose.Schema({
 
     });
 
-
 const Centre = mongoose.model('Centre', centreSchema);
 export default Centre;

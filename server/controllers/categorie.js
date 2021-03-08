@@ -4,8 +4,6 @@ import categorie from '../models/categorie.js';
 
 const router = express.Router();
 
-
-
 export const getcategorie = async (req, res) => {
     try {
       const categories = await categorie.find();

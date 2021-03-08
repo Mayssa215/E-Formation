@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
 import cors from 'cors';
 import Formerroutes from './routes/former.js';
 import Categorieroutes from './routes/categorie.js';
+import Gouvernoratroutes from './routes/gouvernorat.js'
 import Trainingroutees from "./routes/training.js";
 import centreRoutes from "./routes/centre.js";
 import Pagingroutes from "./routes/paging.js";
@@ -16,10 +17,12 @@ app.use('/categorie', Categorieroutes);
 app.use("/former", Formerroutes);
 app.use("/centre", centreRoutes);
 app.use("/paging", Pagingroutes);
+app.use('/gouvernorat', Gouvernoratroutes);
+
 
 const CONNECTION_URL = 'mongodb+srv://maissa:maissa123@cluster0.ikcvk.mongodb.net/<dbname>?retryWrites=true&w=majority';
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5006;
 
 mongoose.connect(CONNECTION_URL,  {useNewUrlParser: true, useUnifiedTopology: true})
 .then(() => app.listen(PORT, () => console.log(`Server runnig on port: ${PORT}`) ))
