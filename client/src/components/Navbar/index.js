@@ -131,7 +131,7 @@ useEffect ( () => {
         ))}
       </div>
       </div>
-      <Button className={classes.button} size="large" variant= "contained">Connexion</Button>
+      <Button className={classes.button} size="medium" variant= "contained">Connexion</Button>
     </Toolbar>
   </AppBar>
   };

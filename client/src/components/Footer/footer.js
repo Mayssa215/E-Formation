@@ -15,27 +15,24 @@ const Footer = () => {
         <Toolbar>
           <div className={classes.toolbar}>
             <div className={classes.div1}>
-              <h1 className={classes.title}>E-Formation.tn</h1>
-              <Typography>
-                <p className={classes.paragraph}>
+              <h2 className={classes.title}>E-Formation.tn</h2>
+              <Typography className={classes.paragraph}>
                   E-Formation est une plateforme en ligne spécialisée dans la
                   vente des formations en présentiel. Grâce à E-Formation.tn,
                   vous allez pouvoir apprendre tout ce que vous voulez dans
-                  n'importe quel domaine et celà peu importe où vous vous situez
-                </p>
+                  n'importe quel domaine.
               </Typography>
             </div>
             <div>
               <h2 className={classes.contact}>Contacts</h2>
-            </div>
-            <div className={classes.div2}>
-              <div>
-                <MailOutlineIcon />
-
-                <PhoneInTalkIcon />
-             
-            </div>
-           
+              <div >
+                <div className={classes.div2}>
+                  <MailOutlineIcon className={classes.size2}  />
+                </div>
+                <div className={classes.div2}>
+                  <PhoneInTalkIcon  className={classes.size2}/>
+                </div>
+              </div>
             </div>
           </div>
         </Toolbar>
@@ -43,10 +40,15 @@ const Footer = () => {
           <h2 className={classes.suivez}>Suivez Nous </h2>
 
           <div className={classes.socialMedia}>
-            <FacebookIcon />
-            <LinkedInIcon />
-            <InstagramIcon />
+            <FacebookIcon className={classes.Size} />
+            <LinkedInIcon className={classes.Size} />
+            <InstagramIcon className={classes.Size} />
           </div>
+      
+        </div>
+        <div >
+        <hr className={classes.copyright} />
+        <span className={classes.copyrightext}>Copyright @ 2021 E-formation. Tous les droits sont réservés</span>
         </div>
       </AppBar>
     </Container>

@@ -27,25 +27,24 @@ const Cards = ({ Training}) => {
              {Training.coach.substr(0, 1)}
                 </Avatar>
         }
-      title={Training.nomformation} 
+      title={Training.nomformation}
         subheader={moment(Training.date).format("L")} 
 
 
       />
       <CardMedia className={classes.media} image={Training.selectedFile}  />
-      <Typography className={classes.prix}> {Training.prix}TND  </Typography>​ ​
-      <CardContent>
+      <Typography className={classes.price} > <span className={classes.prix}>{Training.prix}TND </span></Typography>​ ​
+      <CardContent className={classes.MuiCardContentroot}>
         ​
-        <Typography variant="h6" gutterBottom>
-          <PlaceIcon fontSize="large" />
+        <Typography >
+          <PlaceIcon className={classes.Placeicon} />
           {Training.lieu}
         </Typography>
-        <div>
-          <Typography variant="h6" gutterBottom>
-            <PeopleIcon fontSize="large" />
+          <Typography  >
+            <PeopleIcon className={classes.Placeicon}/>
             {Training.Nombredeplace}
             </Typography>
-        </div>
+    
         ​
       </CardContent>
       <CardActions>

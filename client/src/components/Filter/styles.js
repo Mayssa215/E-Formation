@@ -1,23 +1,25 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles,fade } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
    Paper: {
       padding: theme.spacing(2),
-      width: 280,
+      width: 230,
       height: 520,
-      marginLeft:15,
+      marginLeft:35,
+      marginRight:0,
+      borderRadius:0,
       '@media  screen and (max-width: 960px)': {
          width: 750,
          height: 200,
          marginLeft: "10%",
       },
       '@media  screen and (max-width: 600px)': {
-         width: 450,
-         marginLeft: 40,
+         width: 550,
+         marginLeft: 50,
       },
       '@media screen and (max-width: 500px)': {
-         width: 350,
-         marginLeft: 45,
+         width: 400,
+         marginLeft: 15,
       },
       '@media  screen and (max-width: 320px)': {
          width: 250,
@@ -29,32 +31,55 @@ export default makeStyles((theme) => ({
    },
 
    div: {
-      marginTop: 5,
-      width: 230,
+      marginTop: 2,
+      width: 180,
       marginLeft: 16,
-      color: "#74B5BD",
+      color: "#fa7d39",
       '@media  screen and (max-width: 960px)': {
-         marginTop: 42,
          width: 140,
-         marginRight: 20,
-         marginLeft: 2,
+         marginRight: 0,
+         marginLeft: 5,
+
       },
       '@media  screen and (max-width: 600px)': {
-         marginTop: 5,
+         marginTop: 0,
          width: 140,
          marginRight: 20,
-         marginLeft: 12,
+         marginLeft: 30,
       },
       '@media  screen and (max-width: 320px)': {
       
-         width: 160,
-         marginLeft: 22,
+         width: 180,
+         marginLeft: 25,
+          
+      },
+   },
+   prix: {
+      fontSize: 16,
+      marginTop: 12,
+      fontFamily:"Noto Sans KR",
+  
+      '@media  screen and (max-width: 960px)':
+      {
+         fontSize: 16,
+         marginTop: 10,
+
+      },
+      '@media  screen and (max-width: 600px)': {
+      
+         marginLeft: 18,
+          
+      },
+      '@media  screen and (max-width: 320px)': {
+         fontSize: 14,
+
+         marginLeft: 16,
           
       },
    },
 
    div2: {
-      width: 240,
+      width: 210,
       marginLeft: 5,
       marginTop: 5,
       marginBottom: 12,
@@ -71,31 +96,32 @@ export default makeStyles((theme) => ({
       },
    },
    div3 : {
-      width: 240,
+      width: 200,
       marginLeft: 5,
-      marginTop: 5,
+      marginTop: 15,
       marginBottom: 12,
       '@media  screen and (max-width: 960px)': {
          width: 180,
-         marginRight: 52,
+         marginTop: 8,
+         marginRight:28,
       },
       '@media  screen and (max-width: 600px)': {
          width: 180,
-         marginRight: 0,
+         marginRight: 75,
          marginBottom:28,
          marginTop: 0,
       },
       '@media screen and (max-width: 500px)': {
-         width: 130,
-         marginRight: 0,
+         width: 150,
+         marginRight: 35,
          marginBottom:28,
         
       },
       '@media  screen and (max-width: 320px)': {
-      
-         width: 160,
-         marginLeft: 22,
-         marginBottom:23,
+         marginTop: 15,
+         width: 195,
+         marginLeft: 4,
+         marginBottom:10,
 
 
           
@@ -103,24 +129,9 @@ export default makeStyles((theme) => ({
      
    },
   
-   prixgouville: {
-      '@media  screen and (max-width: 960px)': {
-         display: "flex",
-         marginLeft: 15,
-      },
-      '@media  screen and (max-width: 600px)': {
-         display: "inline-block",      
-            marginLeft: 15,
-      },
-
-   },
-   gouvernorat: {
-      fontSize: 16,
-      '@media  screen and (max-width: 960px)': {
-         fontSize: 14,
-
-      },
-   },
+  
+ 
+   
 
    hide: {
       marginTop: 15,
@@ -130,19 +141,19 @@ export default makeStyles((theme) => ({
          background: 'transparent',
       },
       '@media  screen and (max-width: 960px)': {
-         marginLeft: "70%",
+         marginLeft: "75%",
          marginBottom: 10,
          marginTop: 20,
 
       },
       '@media  screen and (max-width: 600px)': {
          marginBottom: 10,
-         marginLeft: "50%",
+         marginLeft: "60%",
 
 
       },
       '@media screen and (max-width: 500px)': {
-         marginLeft: "45%",
+         marginLeft: "70%",
 
       },
       '@media  screen and (max-width: 320px)': {
@@ -155,7 +166,7 @@ export default makeStyles((theme) => ({
       width: 180,
       marginLeft: 600,
       fontSize: 8,
-      marginRight:250,
+      marginRight:290,
       '@media  screen and (max-width: 960px)': {
          marginLeft: 350,
       },
@@ -163,12 +174,13 @@ export default makeStyles((theme) => ({
          marginLeft: 220,
       },
       '@media screen and (max-width: 500px)': {
-         marginLeft: 110,
-
+         marginLeft: 160,
+         marginRight:0,
 
       },
       '@media  screen and (max-width: 320px)': {
          marginLeft: 45,
+         marginRight:0,
       },
    },
    barre: {
@@ -185,7 +197,7 @@ export default makeStyles((theme) => ({
    },
 
    scroll: {
-      width: 270,
+      width: 280,
       height: 540,
     
    },
@@ -196,6 +208,10 @@ export default makeStyles((theme) => ({
        },
       '@media  screen and (max-width: 960px)': {
          display: "inline-block",
+         marginBottom: 38,
+      },
+      '@media  screen and (max-width: 320px)': {
+         display: "inline-block",
          marginBottom: 10,
       },
 
@@ -204,46 +220,48 @@ export default makeStyles((theme) => ({
    categnom: {
       fontSize: 14,
    },
-   prix: {
-      fontSize: 16,
-      marginTop: 12,
-      "fontFamily": `"Spectral"', serif`,
-      '@media  screen and (max-width: 960px)':
-      {
-         fontSize: 14,
-      },
-      '@media  screen and (max-width: 320px)': {
-      
-       
-         marginLeft: 14,
-          
-      },
-   },
+ 
    categlabel: {
       marginTop: 8,
       fontSize: 16,
+      marginLeft:10,
       '@media  screen and (max-width: 960px)':
       {
-         fontSize: 14,
+         fontSize: 16,
          marginBottom: 8,
       },
    },
+   /* categlabel2: {
+      marginTop: 8,
+      fontSize: 16,
+      marginLeft:2,
+      '@media  screen and (max-width: 960px)':
+      {
+         fontSize: 16,
+         marginBottom: 8,
+      },
+      '@media  screen and (max-width: 500px)':
+      {
+         fontSize: 16,
+         marginTop:0,
+      },
+   }, */
    icon: {
       fontSize: 22,
       color: "#74B5BD",
    },
    openicon: {
-      marginLeft: 140,
+      marginLeft: 85,
       
       color: 'transparent',
       '&:hover': {
          background: 'transparent',
       },
       '@media  screen and (max-width: 960px)': {
-         marginLeft: "83%",
+         marginLeft: "79%",
       },
          '@media  screen and (max-width: 600px)': {
-            marginLeft: "70%",
+            marginLeft: "73%",
          },
          '@media screen and (max-width: 500px)': {
             marginLeft:"62%",
@@ -251,7 +269,7 @@ export default makeStyles((theme) => ({
    
          },
          '@media  screen and (max-width: 320px)': {
-            marginLeft: "48%",
+            marginLeft: "42%",
          },
 
    },
@@ -272,7 +290,7 @@ export default makeStyles((theme) => ({
    dates : {
       '@media  screen and (max-width: 960px)': {
          display: "flex",
-         marginLeft: 28,
+         marginLeft: 13,
          '@media  screen and (max-width: 600px)': {
             display: "block",      
                marginLeft: 15,
@@ -281,20 +299,27 @@ export default makeStyles((theme) => ({
    },
    duree :{
       marginTop: 5,
-      width: 230,
+      width: 180,
       marginLeft: 16,
-      color: "#74B5BD",
+      color: "#fa7d39",
       
       '@media  screen and (max-width: 960px)':
       {
          width: 140,
-         marginTop: 8,
-         fontSize: 5
-       
+         marginTop: 0,
+         marginLeft: 20,
+
+      },
+      '@media  screen and (max-width: 600px)':
+      {
+         width: 140,
+         marginTop: 0,
+         marginLeft: 28,
+
       },
       '@media  screen and (max-width: 320px)': {
       
-         width: 160,
+         width: 190,
          marginLeft: 24,
           
       },
@@ -303,38 +328,157 @@ export default makeStyles((theme) => ({
    dureenom :{
       fontSize: 16,
       marginTop: 10,
+      marginLeft: 5,
+
+      fontFamily:'"Shippori Mincho", serif',
       '@media  screen and (max-width: 960px)':
       {
-         fontSize: 14,
+         fontSize: 16,
+         marginTop: 10,
+         marginLeft: 16,
+
       },
       '@media  screen and (max-width: 320px)':
       {
          fontSize: 14,
          marginLeft: 22,
-         marginTop: 22,
+         marginTop: 15,
       },
    },
 
-   all :{
-      '@media  screen and (max-width: 600px)': {
-         display: "flex",      
-          
-      },
-      '@media  screen and (max-width: 320px)': {
-         display: "block",      
-          
-      },
-
-   },
    formControl: {
       margin: theme.spacing(1),
       width: 240,
     },
-    iconopenclosegouver : {
+  
+    gouvernorat :{
+    width: 210,
+    marginTop: 12,
+    marginBottom:5,
+    '@media  screen and (max-width: 960px)': {
+     marginRight: 15,
+     width: 200,
+     marginLeft: 15,
+   },
+   '@media  screen and (max-width: 600px)': {
+      marginRight: 15,
+      width: 220,
+      marginLeft: 15,
+ 
+        
+    },
+    '@media  screen and (max-width: 500px)': {
+      marginRight: 15,
+      width: 160,
+      marginLeft: 15,
+ 
+        
+    },
+    '@media  screen and (max-width: 320px)': {
+      marginRight: 15,
+      width: 200,
+      marginLeft: 15,
+ 
+        
+    },
+    },
+    détails:{
+      width: 210,
+      marginTop: 12,
+      marginBottom:5,
+      '@media  screen and (max-width: 960px)': {
+      marginBottom:1,
+       width: 200,
+       marginLeft: 1,
+       marginTop: 2,
+       marginRight: 30,
+    },
+    '@media  screen and (max-width: 600px)': {
+      marginBottom:1,
+       width: 220,
+       marginLeft: 250,
+       marginTop: -60,
+       marginRight: 30,
+
+  
+    },
+    '@media  screen and (max-width: 500px)': {
+      marginBottom:1,
+       width: 160,
+       marginLeft: 190,
+       marginTop: -80,
+       marginRight: 30,
+
+  
+    },
+    '@media  screen and (max-width: 320px)': {
+      marginBottom:1,
+       width: 200,
+       marginLeft: 0,
+       marginTop: 0,
+       marginRight: 30,
 
     },
-    gouvernorat :{
-    width: 250,
-    marginTop: 12,
+   },
+    filtremasq : {
+      fontFamily: 'Raleway, Arial',
+    
     },
+    gouvVille : {
+      '@media  screen and (max-width: 960px)': {
+         display: "flex", 
+         marginBottom:0,     
+          
+      },
+      '@media  screen and (max-width: 320px)': {
+         display: "block", 
+         marginBottom:0,     
+          
+      },
+    },
+    sliders : {
+      '@media  screen and (max-width: 960px)': {
+         display: "flex",     
+      },
+      '@media  screen and (max-width: 600px)': {
+         display: "block",     
+
+          
+      },
+    },
+    debutfin : {
+      '@media  screen and (max-width: 960px)': {
+         display:"flex",
+     },
+      '@media  screen and (max-width: 600px)': {
+          display:"flex",
+      },
+      '@media  screen and (max-width: 320px)': {
+         display:"block",
+     },
+
+    },
+    /* openicon2: {
+      marginLeft: 170,
+      
+      color: 'transparent',
+      '&:hover': {
+         background: 'transparent',
+      },
+      '@media  screen and (max-width: 960px)': {
+         marginLeft: "79%",
+      },
+         '@media  screen and (max-width: 600px)': {
+            marginLeft: "73%",
+         },
+         '@media screen and (max-width: 500px)': {
+            marginLeft:"62%",
+   
+   
+         },
+         '@media  screen and (max-width: 320px)': {
+            marginLeft: "42%",
+         },
+
+   }, */
 }));

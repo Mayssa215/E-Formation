@@ -3,8 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 export default makeStyles(() => ({
   appBar: {
     justifyContent: "flex-end",
-
-    backgroundColor: "#74B5BD",
+    backgroundColor: "#4e3e8c",
     display: "flex",
     "@media (max-width: 900px)": {
       paddingLeft: 0,
@@ -43,7 +42,16 @@ export default makeStyles(() => ({
    
     button: {
         padding :"5px 10px",
-        margin:"0px 5px"
+        margin:"0px 5px",
+        color:"#ffffff",
+        borderRadius:"1",
+        backgroundColor:" #fa7d39",
+        '&:hover': {
+          background: "#fa7d39",
+     
+  
+  },
+
     },
     
 

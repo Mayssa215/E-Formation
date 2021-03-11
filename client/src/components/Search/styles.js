@@ -25,11 +25,16 @@ searchClass:{
 
 button:{
     padding :"17px 22px",
-    backgroundColor:"#74B5BD",
-    borderRadius:"0",
-    color:"#ffffff",
+    backgroundColor:" #ffffff",
+    borderRadius:"1",
+    color:"#fa7d39",
+    border:"1px solid",
+    borderColor:"#fa7d39",
+    fontFamily :'Open Sans', 
+    height: 55,
+    marginBottom:5,
     '&:hover': {
-        background: "#74B5BD",
+        background: "#ffffff",
    
 
 },

@@ -26,9 +26,9 @@ const Recherche = ({ onClick, show }) => {
             />
 
             </div>
-            <div className >
+            <div >
                 <Button
-                    endIcon={<TuneIcon style={{ fontSize: 22, color: "#74B5BD" }} />}
+                    endIcon={<TuneIcon style={{ fontSize: 22, color: "#fa7d39 " }} />}
                     className={classes.hide}
                     onClick={onClick}
                 > { <span className={classes.filtremasq}>{!show ? 'Afficher les filtres' : 'Masquer Les filtres'}</span>} </Button>

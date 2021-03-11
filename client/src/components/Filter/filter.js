@@ -17,8 +17,10 @@ const Filter = () => {
     <Paper className={classes.Paper}>
      <Scrollbars autoHide className={classes.scroll}>       
      <Categorie />
+     <div className={classes.sliders}>
      <Gouvernorat />
      <Infos />
+     </div>
      <Date />
     </Scrollbars>
     </Paper>

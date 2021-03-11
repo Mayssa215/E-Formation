@@ -13,8 +13,8 @@ const Training = ({Alltraining}) => {
   <Grid    container  
   >
       {Alltraining.map((Training) => (
-        <Grid  item xs={12} sm={6}>
-          <Cards Training={Training}   key={Training._id}/>
+        <Grid  key={Training._id}>
+          <Cards Training={Training}  />
         </Grid>
       ))}
     </Grid> 

@@ -13,13 +13,14 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 const Categorie = () => {
     const dispatch = useDispatch();
+    const [Categories, setCategories] = useState([]);
 
     useEffect(() => {
         dispatch(getcategorie()).then((res) => {
             setCategories(res);
         });
-    }, [])
-    const [Categories, setCategories] = useState([]);
+    }, []);
+
     const [showcateg, setShowcateg] = useState(true);
     const classes = useStyles();
 
@@ -39,7 +40,7 @@ const Categorie = () => {
                         Categories.map((c) => (
                             <FormControlLabel
                                 key={c._id}
-                                control={<Checkbox name="gilad"  size="medium" 
+                                control={<Checkbox name="gilad"  size="medium" style={{ color: "#4e3e8c"}}
                                 />}
                                 label={<span className={classes.categnom}>{c.nom}</span>}
                             />

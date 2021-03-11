@@ -1,62 +1,86 @@
-import React, {useState} from 'react';
-import { TextField } from '@material-ui/core';
+import React, { useState } from 'react';
+import { TextField, Typography } from '@material-ui/core';
 import useStyles from './styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import Slider from '@material-ui/core/Slider';
 
-const Date = () => {
+
+
+
+
+
+const states = [' Commence', ' Appartient', 'Termine'];
+
+
+export default function Date() {
+
     const classes = useStyles();
-    const [datestate, setdatestate] = useState("Commence ");
-    const handleChange = (event) => {
-        setdatestate(event.target.value);
-      };
-
+    const handleChange = (event, val) => {
+        setselected(val);
+    };
+    const [selected, setselected] = useState(states[0]);
+    const [heur, setheur] = React.useState(['', '']);
+    const handleChange1 = (event, newheur) => {
+    
+        setheur(newheur);
+    };
     return (
-        <div className={classes.dates}>
-               <div >
-                <FormControl className={classes.formControl}>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={datestate}
+        <div>
+            <div className={classes.dates}>
+                <div>
+                    <Autocomplete
+                        id="combo-box-demo"
+                        value={selected}
                         onChange={handleChange}
-                    >
-                        <MenuItem value="Commence ">Commence </MenuItem>
-                        <MenuItem value="Appartient">Appartient </MenuItem>
-                        <MenuItem value="Termine ">Termine </MenuItem>
-                    </Select>
-                </FormControl>
+                        options={states}
+                        getOptionLabel={(option) => option}
+                        renderInput={(params) => <TextField {...params} label="Détails" variant="outlined" className={classes.détails} />}
+                    />
+                </div>
+              <div className={classes.debutfin}>
+                <div noValidate>
+                    <TextField
+                        id="date"
+                        label="Date Début"
+                        type="date"
+                        name="date"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        className={classes.div3}
+                    />
+                </div>
+                <div noValidate>
+                    <TextField
+                        id="date"
+                        label={<span> Date Fin </span>}
+                        type="date"
+                        name="date"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        className={classes.div3}
+                    />
+                </div>
+                </div>
             </div>
-            <div noValidate>
-                <TextField
-                    id="date"
-                    label="Date Début"
-                    type="date"
-                    name="date"
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                    className={classes.div3}
-
+            <div>
+                <Typography id="range-slider" className={classes.dureenom} gutterBottom>
+                    Durée de formation
+           </Typography>
+                <Slider
+                    value={heur}
+                    onChange={handleChange1}
+                    valueLabelDisplay="auto"
+                    aria-labelledby="range-slider"
+                    step={1}
+                    min={0}
+                    max={150}
+                    className={classes.duree}
                 />
             </div>
-            <div noValidate>
-                <TextField
-                    id="date"
-                    label={<span> Date Fin </span>}
-                    type="date"
-                    name="date"
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                    className={classes.div3}
-                />
-            </div>
-         
         </div>
-    )
-};
-export default Date;
+    );
+}
+
+

@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { getTraining} from "../../actions/training";
-
+import useStyle from "./styles";
 import {  useDispatch } from "react-redux";
 import Training from "./training";
+import { Button } from "@material-ui/core";
 
 const Paging= () => {
  
   const [pageNumber, setPageNumber] = useState(1);
   const [Alltraining,setAlltraining]= useState([]);
-
-
+  const classes = useStyle();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -34,9 +34,11 @@ const showMore = () => {
     <div>
      
       <Training Alltraining={Alltraining} />
-
-      <button onClick={ showMore}>Voir Plus </button>
-    </div>
+      <div>
+      <Button  className={classes.voirplus}  onClick={ showMore}  size="large">Voir Plus </Button>
+      </div>
+      </div>
+     
   );
 };
 export default Paging;
