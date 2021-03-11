@@ -8,6 +8,8 @@ import Gouvernoratroutes from './routes/gouvernorat.js'
 import Trainingroutees from "./routes/training.js";
 import centreRoutes from "./routes/centre.js";
 import Pagingroutes from "./routes/paging.js";
+import Citiesroutes from "./routes/cities.js";
+
 const app = express();
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
@@ -18,6 +20,8 @@ app.use("/former", Formerroutes);
 app.use("/centre", centreRoutes);
 app.use("/paging", Pagingroutes);
 app.use('/gouvernorat', Gouvernoratroutes);
+app.use('/cities', Citiesroutes);
+
 
 
 const CONNECTION_URL = 'mongodb+srv://maissa:maissa123@cluster0.ikcvk.mongodb.net/<dbname>?retryWrites=true&w=majority';
