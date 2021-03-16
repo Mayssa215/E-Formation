@@ -5,7 +5,7 @@ export default makeStyles((theme) => ({
       padding: theme.spacing(2),
       width: 230,
       height: 520,
-      marginLeft:35,
+      marginLeft:45,
       marginRight:0,
       borderRadius:0,
       '@media  screen and (max-width: 960px)': {

@@ -6,16 +6,16 @@ import Slider from '@material-ui/core/Slider';
 
 
 
-const Filter = () => {
+const Filter = ( {OnfilterApplyPrice , OnfilterApplyDuree}  ) => {
   const classes = useStyles();
  
- 
 
-  const [value, setValue] =useState(['', '']);
+  const [pageNumber, setPageNumber] = useState(1);
 
+  const [value, setValue] = React.useState([0,10000]);
   const handleChange = (event, newValue) => {
-
     setValue(newValue);
+    OnfilterApplyPrice(newValue);
   };
   
  

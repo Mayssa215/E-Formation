@@ -26,7 +26,7 @@ app.use('/cities', Citiesroutes);
 
 const CONNECTION_URL = 'mongodb+srv://maissa:maissa123@cluster0.ikcvk.mongodb.net/<dbname>?retryWrites=true&w=majority';
 
-const PORT = process.env.PORT || 5006;
+const PORT = process.env.PORT || 5007;
 
 mongoose.connect(CONNECTION_URL,  {useNewUrlParser: true, useUnifiedTopology: true})
 .then(() => app.listen(PORT, () => console.log(`Server runnig on port: ${PORT}`) ))

@@ -1,4 +1,4 @@
-import React  from "react";
+/* import React  from "react";
 import {Grid} from "@material-ui/core";
 import Cards from "./cards";
 import useStyles from "./styles";
@@ -20,6 +20,6 @@ const Training = ({Alltraining}) => {
     </Grid> 
  
   );
-};
+}; */
 
  export default Training;

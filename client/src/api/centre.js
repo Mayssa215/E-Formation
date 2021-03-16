@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "http://localhost:5006/centre";
+const url = "http://localhost:5007/centre";
 
 export const fetchSearchedCentres = (InputSearch) => {
   return axios.get(url, {

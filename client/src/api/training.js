@@ -1,15 +1,21 @@
 import axios from "axios";
 
-const url = 'http://localhost:5006/training';
+const url = 'http://localhost:5007/training';
 
-const url2 = 'http://localhost:5006/paging/page';
+const url2 = 'http://localhost:5007/paging/page';
 
-export const fetchTraining = (page) => {
+
+
+export const fetchTraining = (page, value,categoriesids,heures) => {
   return axios.get(url2, {
-    params: { page, },
+    params: { page,value,categoriesids,heures }
   })
 };
-
+export const fetchcardTraining = () => {
+  return axios.get(url2
+  
+)
+};
 export const fetchSearchedTraining = (InputSearch) => {
   return axios.get(url, { params: { InputSearch, }, })
 };

@@ -15,11 +15,24 @@ import * as api from "../api/training";
   }
 }; 
  
-export const getTraining = (page) => async (dispatch) => {
+export const getTraining =(page,value,categoriesids,heures) => async (dispatch) => {
   
-  try {;
-    const {data} =  await api.fetchTraining(page);
-   console.log('page numero', page);
+  try {
+    const {data} =  await api.fetchTraining(page,value,categoriesids,heures);
+  // console.log('page numero', page);
+
+    dispatch ({ type: 'FETCH_ALL', payload: data }) ;
+     return data;
+  } catch (error) {
+    console.log('error action',error.message);
+   
+  }
+};
+export const getcardTraining =() => async (dispatch) => {
+  
+  try {
+    const {data} =  await api.fetchcardTraining();
+  // console.log('page numero', page);
 
     dispatch ({ type: 'FETCH_ALL', payload: data }) ;
      return data;

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://localhost:5006/cities';
+const url = 'http://localhost:5007/cities';
 
 
 export const fetchCity= () => axios.get(url);
