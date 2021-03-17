@@ -4,6 +4,7 @@ import useStyles from './styles';
 import TuneIcon from '@material-ui/icons/Tune';
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import InputBase from '@material-ui/core/InputBase';
 
 
 
@@ -11,23 +12,22 @@ const Recherche = ({ onClick, show }) => {
     const classes = useStyles();
     return (
         <div className={classes.barre}>
-            <div  className={classes.filedbtn}> 
-            <TextField
-                className={classes.rech}
-                InputProps={{
-                    startAdornment: (
-                        <InputAdornment position="start">
-                            < SearchIcon className={classes.icon} />
-                        </InputAdornment>
-                    ),
-                }}
-
-            />
-
+             <div className={classes.search1}>
+            <div className={classes.searchIcon1}>
+              <SearchIcon />
             </div>
-            <div >
+            <InputBase
+              placeholder="Rechercher..."
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+              inputProps={{ 'aria-label': 'search' }}
+            />
+          </div>
+            <div className={classes.btn} >
                 <Button
-                    endIcon={<TuneIcon style={{ fontSize: 22, color: "#fa7d39 " }} />}
+                    endIcon={<TuneIcon  className={classes.iconhide} />}
                     className={classes.hide}
                     onClick={onClick}
                 > { <span className={classes.filtremasq}>{!show ? 'Afficher les filtres' : 'Masquer Les filtres'}</span>} </Button>

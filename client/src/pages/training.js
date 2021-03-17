@@ -84,13 +84,13 @@ const Training = () => {
     <div className={classes.container}>
       <Grid container spacing={1}>
         <Recherche onClick={onClick} show={show} />
-        <Grid item xs={12} sm={4}>
+        <Grid item xs={12}md={3} sm={4}>
           {show ? <Filter OnfilterApply={filterApply} /> : null}
         </Grid>
         {!Alltraining ? null : (
             Alltraining.map((Training) => (
                 <Grid container item xs={12} md={4} sm={8}  key={Training._id} >
-                 <Cards Training={Training}    />
+                 <Cards Training={Training} />
                 </Grid>
               )) 
           

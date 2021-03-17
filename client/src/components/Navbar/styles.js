@@ -25,7 +25,7 @@ export default makeStyles(() => ({
  
  
   title1: {
-    margin: "0px 10px",
+    margin: "0px 15px",
   },
 
  titlebar : {
@@ -37,6 +37,8 @@ export default makeStyles(() => ({
 
   links: {
       color:"#ffffff",
+      fontSize:18,
+
     },
 
    

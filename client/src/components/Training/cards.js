@@ -8,25 +8,19 @@ import {
   Typography,
 } from "@material-ui/core";
 import { useDispatch } from "react-redux";
-import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import PlaceIcon from "@material-ui/icons/Place";
 import PeopleIcon from "@material-ui/icons/People";
 import moment from "moment";
-import Avatar from "@material-ui/core/Avatar";
+import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import useStyles from "./styles";
-import { getTraining } from "../../actions/training";
 import { ReactComponent as ReactLogo } from '../Pictures/Tracé 3.svg'
 
-const Cards = ({ Training }) => {
-  const  dispatch = useDispatch();
+const Cards = ({ Training}) => {
   const classes = useStyles();
   return (
     <Card className={classes.root}>
       <div>
         <div className={classes.svg}>
-          {/* <Avatar className={classes.avatar}>
-            {Training.coach.substr(0, 1).toUpperCase()}
-          </Avatar> */}
           <div className={classes.Container}>
           <div className={classes.price}>
           <span  className={classes.prix}>{Training.prix}</span>
@@ -41,34 +35,30 @@ const Cards = ({ Training }) => {
         <CardMedia className={classes.media} image={Training.selectedFile} />
       </div>
       
-    <CardContent className={classes.MuiCardContentroot}>
+    <CardContent >
         <div className={classes.formatdate}>
         <span className={classes.title}>{Training.nomformation} </span>
-        {/* <div>
-        <span className={classes.date}>{moment(Training.date).format("L")}</span>
-        </div> */}
         </div>
-           <div  className={classes.icons}>
-          <PlaceIcon className={classes.Placeicon} />
-          <PeopleIcon className={classes.Placeicon} />
-          <AccessTimeIcon className={classes.Placeicon} />
+        <div className={classes.place}>
+           <PlaceIcon className={classes.Placeicon} /> 
+           <span className={classes.lieu}>{Training.citynom}</span>
+        </div>
+          <div className={classes.place}> 
+          <CalendarTodayIcon className={classes.Placeicon} />
+          <span className={classes.duree}>Du {moment(Training.firstdate).format("DD-MM-yyyy")} au {moment(Training.lastdate).format("DD-MM-yyyy")} </span>
           </div>
-          
-        <Typography className={classes.items} >
-         <span className={classes.lieu}>{Training.citynom}</span>
-           <span className={classes.nbh}>{Training.Nombredeplace}</span>
-         <span className={classes.nbh}>{Training.duree} heures</span>
-       
-        </Typography>
-         
-        {/*    title= { }
-        subheader=  */}
-
+          <div className={classes.place}>
+          <PeopleIcon className={classes.Placeicon} />
+          <span className={classes.nbh}>{Training.Nombredeplace}</span>
+          </div>
 
       </CardContent>
-      <CardActions>
+      <CardActions className={classes.btns}>
         <Button className={classes.buttonVoir} variant="outlined" size="large">
-          details
+          Details
+        </Button>
+        <Button className={classes.btnreservez} variant="outlined" size="large">
+          Réservez
         </Button>
       </CardActions>
 

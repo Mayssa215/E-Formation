@@ -1,5 +1,4 @@
-import { makeStyles,fade } from '@material-ui/core/styles';
-
+import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles((theme) => ({
    Paper: {
       padding: theme.spacing(2),
@@ -23,7 +22,7 @@ export default makeStyles((theme) => ({
       },
       '@media  screen and (max-width: 320px)': {
          width: 250,
-         marginLeft: 12,
+         marginLeft: 10,
          marginRight: 0,
          height: 230,
 
@@ -131,14 +130,21 @@ export default makeStyles((theme) => ({
   
   
  
-   
+   iconhide:{
+      fontSize: 22, 
+      color: "#fa7d39 ",
+   },
 
    hide: {
-      marginTop: 15,
       width: 250,
       fontSize: 12,
+      color:"#4e3e8c",
+      backgroundColor:'#ffffff',
+      boxShadow:"10px 10px 10px #f5f5f5",
       '&:hover ': {
-         background: 'transparent',
+         background: '#4e3e8c',
+         color:"#f5f5f5",
+
       },
       '@media  screen and (max-width: 960px)': {
          marginLeft: "75%",
@@ -153,49 +159,30 @@ export default makeStyles((theme) => ({
 
       },
       '@media screen and (max-width: 500px)': {
-         marginLeft: "70%",
+         marginLeft: "63%",
 
       },
       '@media  screen and (max-width: 320px)': {
-         marginLeft: "25%",
+         marginLeft: "30%",
+         fontSize: 10,
+         width: 220,
+
+
 
       },
 
    },
-   rech: {
-      width: 180,
-      marginLeft: 600,
-      fontSize: 8,
-      marginRight:290,
-      '@media  screen and (max-width: 960px)': {
-         marginLeft: 350,
-      },
-      '@media  screen and (max-width: 600px)': {
-         marginLeft: 220,
-      },
-      '@media screen and (max-width: 500px)': {
-         marginLeft: 160,
-         marginRight:0,
 
-      },
-      '@media  screen and (max-width: 320px)': {
-         marginLeft: 45,
-         marginRight:0,
-      },
-   },
    barre: {
       marginTop: 95,
       display: "flex",
       '@media  screen and (max-width: 960px)': {
-         display: "block",
-      },
+       display: "block",
+       },
    },
 
  
-   filedbtn: {
-      display: "flex",
-   },
-
+ 
    scroll: {
       width: 280,
       height: 540,
@@ -231,21 +218,7 @@ export default makeStyles((theme) => ({
          marginBottom: 8,
       },
    },
-   /* categlabel2: {
-      marginTop: 8,
-      fontSize: 16,
-      marginLeft:2,
-      '@media  screen and (max-width: 960px)':
-      {
-         fontSize: 16,
-         marginBottom: 8,
-      },
-      '@media  screen and (max-width: 500px)':
-      {
-         fontSize: 16,
-         marginTop:0,
-      },
-   }, */
+  
    icon: {
       fontSize: 22,
       color: "#74B5BD",
@@ -421,7 +394,6 @@ export default makeStyles((theme) => ({
     },
    },
     filtremasq : {
-      fontFamily: 'Raleway, Arial',
     
     },
     gouvVille : {
@@ -458,27 +430,70 @@ export default makeStyles((theme) => ({
      },
 
     },
-    /* openicon2: {
-      marginLeft: 170,
-      
-      color: 'transparent',
+     //barre de recherche : 
+    search1: {
+      borderRadius: theme.shape.borderRadius,
+      marginLeft: 550,
+      marginRight:260,
+      display: 'flex',
+      position:'realative',
+      backgroundColor:"#f5f5f5",
       '&:hover': {
-         background: 'transparent',
+        backgroundColor:"#f5f5f5",
       },
+        [theme.breakpoints.up('sm')]: {
+      width: 'auto', 
+      }, 
       '@media  screen and (max-width: 960px)': {
-         marginLeft: "79%",
-      },
-         '@media  screen and (max-width: 600px)': {
-            marginLeft: "73%",
-         },
-         '@media screen and (max-width: 500px)': {
-            marginLeft:"62%",
-   
-   
-         },
-         '@media  screen and (max-width: 320px)': {
-            marginLeft: "42%",
-         },
+         marginLeft: 350,
+         marginRight:220,
+     },
+     '@media  screen and (max-width: 600px)': {
+         marginLeft: 240,
+         marginRight:220,
+     },
+     '@media  screen and (max-width: 500px)': {
+      marginLeft: 140,
+      marginRight:1,
 
-   }, */
+  },
+  '@media  screen and (max-width: 320px)': {
+   marginLeft: 70,
+   marginRight:25,
+
+},
+   },
+    searchIcon1: {
+       position: 'absolute',
+       pointerEvents: 'none',
+       alignItems: 'center',
+       justifyContent: 'center',
+       marginTop:5,
+       marginLeft:10,
+       color:'#fa7d39',
+    },
+ 
+    inputInput: {
+        // vertical padding + font size from searchIcon
+        paddingLeft:40,
+        transition: theme.transitions.create('width'),
+      [theme.breakpoints.up('sm')]: {
+        width: '16ch',
+        '&:focus': {
+         width: '22ch',
+        },
+      },
+      '@media  screen and (max-width: 500px)': {
+         width: '12ch',
+         '&:focus': {
+          width: '16ch',
+         },
+      },
+         '@media  screen and (max-width: 320px)': {
+            width: '12ch',
+            '&:focus': {
+             width: '13ch',
+            },
+     },
+    },
 }));
