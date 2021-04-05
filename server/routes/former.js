@@ -1,9 +1,9 @@
 import express from 'express';
-import {getFormer} from '../controllers/former.js';
+import { getFormer,signupformer,getOneFormer } from '../controllers/former.js';
 
 const router = express.Router();
 
 router.get('/', getFormer );
-
- 
+router.post('/signup', signupformer);
+router.get('/one', getOneFormer);
  export default router;

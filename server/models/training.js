@@ -2,13 +2,17 @@ import mongoose from 'mongoose';
 const trainingSchema = mongoose.Schema({
 nomformation:  String, 
 coach: String, 
-date: Date,
+firstdate: Date,
+lastdate:Date,
 horaire: String,
-lieu: String,
 prix: Number,
+nomcities:String,
 duree:Number,
 Nombredeplace: String,
+programme: String,
 description : String,
+objectifsformation: String,
+prerequis: String,
 selectedFile: String,
 createdAt: {
     type: Date,
@@ -16,7 +20,8 @@ createdAt: {
 },
 idcities:{type: mongoose.Schema.ObjectId, ref : 'cities'},
 idgouvernorat:{type: mongoose.Schema.ObjectId, ref : 'gouvernorat'},
-idcategorie:{type: mongoose.Schema.ObjectId, ref : 'Categorie'},
+
+idcategorie:{type: mongoose.Schema.ObjectId, ref : 'categorie'},
 id_formateur: {type: mongoose.Schema.ObjectId, ref : 'Former'},
 id_formateur: {type: mongoose.Schema.ObjectId, ref : 'Centre'},
 
