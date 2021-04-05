@@ -1,3 +1,4 @@
+  
 import { makeStyles } from "@material-ui/core/styles";
 export default makeStyles((theme) => ({
 voirplus :{
@@ -12,7 +13,6 @@ voirplus :{
       background: "#4e3e8c",
       color: " #ffffff",
   },
-  card:{
-  }
+  
 },
 }));

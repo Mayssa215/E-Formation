@@ -1,7 +1,7 @@
 import React from "react";
 import {Grid } from "@material-ui/core";
 import { useSelector } from "react-redux";
-import Form from "./form";
+import Cards from "../../Training/cards";
 
 const Resultatform = () => {
   const formation = useSelector(state => state.formations);
@@ -9,10 +9,12 @@ const Resultatform = () => {
   console.log("formations", formation);
   return !formation.length  ? null : (
     
-   <Grid>
-      {formation.map((form) => (
-        <Grid key={form.nom} item xs={12} sm={6}>
-          <Form form={form} />
+   <Grid container lg={12}>
+      {formation.map((Training) => (
+        <Grid key={Training.nom}  container item md={6}
+        sm={6}
+        lg={4}>
+          <Cards Training={Training} />
         </Grid>
       ))}
     </Grid> 

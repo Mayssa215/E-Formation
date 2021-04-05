@@ -3,12 +3,11 @@ import { TextField, Button, Paper, Grid, Container, Typography } from '@material
 import useStyles from './styles';
 import TuneIcon from '@material-ui/icons/Tune';
 import SearchIcon from '@material-ui/icons/Search';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import InputBase from '@material-ui/core/InputBase';
 
 
 
-const Recherche = ({ onClick, show }) => {
+const Recherche = ({ onClick, show ,handlechangeRecherche}) => {
     const classes = useStyles();
     return (
         <div className={classes.barre}>
@@ -18,6 +17,8 @@ const Recherche = ({ onClick, show }) => {
             </div>
             <InputBase
               placeholder="Rechercher..."
+              onChange={handlechangeRecherche}
+              
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,

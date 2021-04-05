@@ -7,7 +7,19 @@ import Navbar from './components/Navbar/index';
 import Footer from './components/Footer/footer';
 import Search from './components/Search/search';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import Recherche from './components/Filter/recherche';
+import SignupF from './components/authentification/signupformer';
+import SignupU from './components/authentification/signupuser';
+import SignupC from './components/authentification/signupcentre';
+import Signin from './components/authentification/Signin';
+import Forgetpassword from './components/authentification/forgetpass';
+import Resetpassword from './components/authentification/resetpass';
+import Account from './components/Profils/profiluser';
+import PrivateRoute from './components/PrivateRoutes/privateroute';
+import Details  from './components/Details/details';
+import DetailsFormer from './components/Details/detailsformer';
+import DetailsCentre from './components/Details/detailscentre';
+import Centre from './pages/centre';
+import Former from './pages/former';
 
 const App = () => {
     const [currentId, setCurrentId] = useState(null);
@@ -17,17 +29,31 @@ const App = () => {
      }, [currentId]);  */
 
     return (
-  
+
         <Router>
-            <Navbar />
-            <Switch>
+              <Switch>
+            
+               <Route path="/signin"> <Signin /> </Route>
+                <Route path="/forget"> <Forgetpassword /> </Route>
+                <Route path="/user/resetpassword/:token" exact component={Resetpassword} />
+                <Route path="/signupformer"><SignupF/></Route>
+                <Route path="/signupuser"><SignupU/></Route>
+                <Route path="/signupcentre"><SignupC/></Route>
+                <>
+                <Navbar /> 
                 <Route path="/" exact component={Search} />
                 <Route path="/formations"> <Training/>  </Route>
-                <Route path="/formateurs"> <Form currentId={currentId} setCurrentId={setCurrentId} /></Route>
-              
+                <Route path="/formateurs"> <Former/></Route>
+                <PrivateRoute path="/myaccount" component={Account}></PrivateRoute>
+                <Route path="/centredeformation">  <Centre/> </Route>
+                 <Route path="/formation/:id">  <Details/></Route>  
+                 <Route path="/centre/:id"> <DetailsCentre/> </Route>
+                 <Route path="/formateur/:id"> <DetailsFormer/> </Route>
+                <Footer />
+                </>
+                
             </Switch>
-            <Footer />
-        </Router>
+      </Router>
     
            
     )

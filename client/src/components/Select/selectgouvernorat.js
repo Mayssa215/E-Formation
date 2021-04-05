@@ -10,12 +10,12 @@ import { getgouvernorat } from '../../actions/gouvernorat';
 
   return (
     <Autocomplete
-    onChange={onChangeGouvernorat}
-
+    required
+        onChange={onChangeGouvernorat}
         options={gouvernorat}
         getOptionLabel={(option) => option.nom}
         renderInput={(params) => <TextField    {...params} label="Gouvernorat"    variant="outlined" 
-        className={classes.gouvernorat}
+        className={classes.autocomplete}
         />}
       />
   );

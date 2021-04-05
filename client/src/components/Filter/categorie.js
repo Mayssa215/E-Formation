@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
-  TextField,
   Button,
-  Paper,
-  Grid,
-  Container,
-  Typography,
+  
 } from "@material-ui/core";
 import useStyles from "./styles";
 import FormLabel from "@material-ui/core/FormLabel";
@@ -17,11 +13,10 @@ import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import CloseIcon from "@material-ui/icons/Close";
 import Checkbox from "@material-ui/core/Checkbox";
 
-const Categorie = ( { onFilterCategoriesAplly }    /* {onFilterByAll} */ ) => {
+const Categorie = ( {onFilterCategoriesAplly } ) => {
   const dispatch = useDispatch();
   const [Categories, setCategories] = useState([]);
   const [CategoriesIds, setCategoriesIds] = useState([]);
-  //const [Categids, setCategIds] = useState([]);
 
   useEffect(() => {
     dispatch(getcategorie()).then((res) => {
@@ -80,7 +75,7 @@ const Categorie = ( { onFilterCategoriesAplly }    /* {onFilterByAll} */ ) => {
                   size="medium"
                   onChange={onChangeCategories}
                   value={c._id}
-                />
+                               />
               }
               label={<span className={classes.categnom}>{c.nom} </span>}
             />

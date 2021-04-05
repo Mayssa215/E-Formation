@@ -1,0 +1,208 @@
+import React, { useState, useEffect } from "react";
+import CardOne from "../Centre/cardone";
+import useStyles from "./styles";
+
+import { Grid, Paper,Button } from "@material-ui/core";
+import { useDispatch } from "react-redux";
+import { getOneCenter } from "../../actions/centre";
+import {getTrainingcenter} from "../../actions/centre";
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import {ReactComponent as Graduate} from "../Pictures/graduate.svg";
+import PlaceIcon from "@material-ui/icons/Place";
+import EmailIcon from '@material-ui/icons/Email';
+
+import Cards from "../Training/cards";
+const DetailsCentre = () => {
+  const dispatch = useDispatch();
+  const [pageNumber, setPageNumber] = useState(1);
+  const [pageBack, setPageBack] = useState(1);
+
+const [shownext, setShownext]= useState(true);
+const [idstraining, setIdstraining] = useState([]);
+  const [OneCenter, setOneCenter] = useState([]);
+ const [showBack , setShowBack] = useState(true);
+
+  const url = window.location.href;
+  console.log(url);
+  const idcenter = url.substr(29);
+   
+  useEffect(() => {
+  
+    dispatch(getOneCenter(idcenter)) .then((res) => {
+      setOneCenter(res.OneCenter);
+         
+   
+    });
+   dispatch(getTrainingcenter(pageNumber)).then((res)=> {
+      setIdstraining(res.Trainingcenter);
+      setPageNumber(pageNumber + 1);
+    })
+  }, [dispatch]);
+
+
+  const handleTraining = () => {    
+  
+    dispatch(
+      getTrainingcenter(
+        pageNumber )).then((res) => {
+            if(res.Trainingcenter.length === 0)
+            {
+              setIdstraining(idstraining);
+                setShownext(false);
+            }
+            else{
+              setIdstraining(res.Trainingcenter);
+
+            }
+   
+    });
+  };
+  const handleTrainingBack = () => {    
+  
+    dispatch(
+      getTrainingcenter(
+        pageBack)).then((res) => {
+            if(pageBack===0) {
+              setIdstraining(idstraining);
+                setShowBack(false);
+            }
+            else {
+              setIdstraining(res.Trainingcenter);
+
+            }
+    });
+  };
+  const showMore = (page) => {
+    handleTraining();
+    console.log(pageNumber);
+};
+
+const showMorebtn = () => {
+ showMore(pageNumber);
+ setPageBack(pageNumber - 1);
+setPageNumber(pageNumber + 1);
+
+
+};
+
+const showBackbtn = (page) => {
+
+   handleTrainingBack();
+}
+const showbackbutton =() => {
+console.log("back", pageBack);
+   showBackbtn(pageBack);
+setPageBack(pageBack - 1)
+
+}
+
+  const classes = useStyles();
+
+
+
+  return (
+    <div className={classes.root}>
+      <Grid
+        container
+        spacing={0}
+        direction="column"
+        alignItems="center"
+        justify="center"
+      >
+        <Grid container>
+          <Grid item lg={9}>
+            <Paper elevation={3} className={classes.papercenter}>
+              <div className={classes.div1}>
+                <h2 className={classes.propriéte}>Description</h2>
+                {OneCenter.map((e) => (
+                  <span className={classes.resumcentre}>{e.description}</span>
+                ))}
+              </div>
+              <div className={classes.divcenter}>
+
+             
+              <div className={classes.div2}>
+                <span className={classes.emailicon}><EmailIcon/></span>
+                <h2  className={classes.adressexacte1}>Email</h2>
+                {OneCenter.map((e) => (
+                  <span className={classes.email}>{e.email}</span>
+                ))}
+              </div>
+             
+              <div className={classes.div2}>
+                <span className={classes.place}><PlaceIcon/> </span>
+                <h2  className={classes.adressexacte}>Adresse exacte</h2>
+                {OneCenter.map((e) => (
+                  <span className={classes.adresse}>{e.adresseexact}</span>
+                ))}
+              </div>
+              <div className={classes.div2}>
+                <span className={classes.graduate}><Graduate/></span>
+                <h2 className={classes.training}>formations  </h2>
+                {OneCenter.map((e) => (
+                  <span className= {classes.nbreform}>{e.formationdecentre.length}</span>
+                ))}
+              </div>
+
+              </div>
+         
+
+            </Paper>
+            <div className={classes.div1}>
+               <h2 className={classes.presenté}> Les formations présentées par</h2>
+                 {OneCenter.map((e) => 
+                <h2 className={classes.namecenter}>{e.name}</h2>
+                 )}
+               </div>
+          </Grid>
+
+          <Grid item lg={3} className={classes.cardcenter}>
+            {!OneCenter
+              ? null
+              : OneCenter.map((Centre) => (
+                  <CardOne Centre={Centre} key={Centre._id} elevation={3} />
+                ))}
+          </Grid>
+
+          <div className={classes.cards}>
+             <Grid container item lg={12}  spacing={2} >
+            
+               
+  {
+    !idstraining ? null : idstraining.map((Training) =>
+    (
+
+       <Grid
+       container
+  
+                  item
+                  xs={12}
+                  md={4}
+                  sm={6}
+                  lg={4}
+                  key={Training._id}
+                
+                >
+                  <Cards Training={Training} />
+                </Grid>
+    ))
+  }
+</Grid>
+             </div>
+             {     showBack ? <Button className={classes.voirback} onClick={showbackbutton} ><ArrowBackIosIcon  className={classes.back}/></Button>
+: null
+}
+     
+     { shownext ?
+      <Button className={classes.voirplus}  onClick={showMorebtn}>
+        < NavigateNextIcon  className={classes.next} />
+        </Button>: null
+     } 
+
+        </Grid>
+      </Grid>
+    </div>
+  );
+};
+export default DetailsCentre;

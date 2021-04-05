@@ -1,10 +1,13 @@
 import { makeStyles } from "@material-ui/core/styles";
 export default makeStyles((theme) => ({
     
-     
+    root:{
+        marginLeft:"6%",
+    },
      
 search: {
-    padding:"10% 20% ",
+    marginTop:"10%",
+    marginLeft:0,
     display: "flex-end",
     "@media (max-width: 500px)": {
          paddingLeft: 0,
@@ -14,7 +17,10 @@ search: {
 },
 
 searchClass:{
-   width:"50%",
+    paddingTop:"10%",
+marginLeft:"10%",
+marginBottom:"5%",
+   width:"40%",
    "@media (max-width: 200px)": {
   width:"10%",
   padding:"0 ",
@@ -38,9 +44,45 @@ button:{
    
 
 },
+'&:': {
+    background: "#ffffff",
 
 
 },
 
+},
+voirplus:{
+    marginLeft:"92%",
+    fontWeight:"bolder",
+    color: " #fa7d39",
+    
+    marginTop:"-45%",
+    '&:hover': {
+        background: "#4e3e8c",
+        color: " #fa7d39",
+    },
+    
+},
+next:{
+    fontSize:30,
+},
+voirback:{
+    color: " #fa7d39",
+    marginLeft:-68,
+    marginTop:"-48%",
+    '&:hover': {
+        background: "#4e3e8c",
+        color: " #fa7d39",
+    },
+},
+back:{
+    fontSize:20,
+},
+text:{
+    color:"#fa7d39",
+    textDecoration:"underline",
+    fontFamily :'Open Sans', 
+
+}
 
 }));

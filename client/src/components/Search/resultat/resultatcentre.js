@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
 import { useSelector } from "react-redux";
-import Centre from "./centre";
+import Cards from "../../Centre/cards";
 
 const Resultatcentres = () => {
   const centres = useSelector(state => state.centre);
@@ -13,7 +13,7 @@ const Resultatcentres = () => {
    <Grid>
       {centres.map((centres) => (
         <Grid key={centres.nomcentre} item xs={12} sm={6}>
-          <Centre centres={centres} />
+          <Cards Centre={centres} />
         </Grid>
       ))}
     </Grid> 

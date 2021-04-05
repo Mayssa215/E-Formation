@@ -41,7 +41,7 @@ const Cards = ({ Training}) => {
         </div>
         <div className={classes.place}>
            <PlaceIcon className={classes.Placeicon} /> 
-           <span className={classes.lieu}>{Training.citynom}</span>
+           <span className={classes.lieu}>{Training.nomcities}</span>
         </div>
           <div className={classes.place}> 
           <CalendarTodayIcon className={classes.Placeicon} />
@@ -54,7 +54,7 @@ const Cards = ({ Training}) => {
 
       </CardContent>
       <CardActions className={classes.btns}>
-        <Button className={classes.buttonVoir} variant="outlined" size="large">
+        <Button className={classes.buttonVoir} variant="outlined" size="large" href={ `/formation/${Training._id}`} >
           Details
         </Button>
         <Button className={classes.btnreservez} variant="outlined" size="large">

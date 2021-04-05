@@ -7,6 +7,8 @@ export default makeStyles((theme) => ({
       marginLeft:45,
       marginRight:0,
       borderRadius:0,
+      marginTop:-45,
+      position:'fixed',
       '@media  screen and (max-width: 960px)': {
          width: 750,
          height: 200,

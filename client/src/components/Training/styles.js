@@ -1,4 +1,3 @@
-
 import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
@@ -6,17 +5,73 @@ export default makeStyles((theme) => ({
     marginTop: 30,
     width: 350,
     height:515,
-    marginLeft:90,
+    marginLeft:0,
+    '@media  screen and (max-width: 1200px)': {
+    
+      marginLeft:48,
+      marginRight:-35,
+    },
     '@media  screen and (max-width: 960px)': {
-      marginTop: 300,
-      marginLeft:0,
+      
+      marginLeft:10,
+      marginRight:-90,
+  },
+  '@media  screen and (max-width: 850px)':{
+    marginRight:-90,
+    marginLeft:-20,
+    
+  },
+  '@media  screen and (max-width: 750px)':{
+width:300,
+marginRight:-90,
+marginLeft:-20,
+  },
+  '@media  screen and (max-width: 520px)':{
+marginLeft:10,
+width:350,
   },
 },
+root1: {
+  marginTop: 30,
+  width: 350,
+  height:515,
+  marginLeft:180,
+  position:"relative",
+  '@media screen and (max-width: 1400px)':{
+    width:315,
+    marginLeft:"60%",
+  },
+  '@media screen and (max-width: 1100px)': {
+    marginLeft:"40%",
+  
+  },
+  '@media  screen and (max-width: 900px)': {
+   marginTop:-1600,
+width:500,
+marginLeft:60,
+  
+},
+"@media screen and (max-width: 800px)": {
+  marginLeft: 50,
+height:570,
+marginTop:-1650,
 
+},
+'@media  screen and (max-width: 600px)': {
+  marginTop:-1730,
+width:410,
+marginLeft:0,
+height:515,
+ 
+},
+
+
+},
   media: {
     height: 50,
     paddingTop: "56.25%", 
    marginTop:-152,
+   
   },
   avatar: {
     backgroundColor: " #f5f5f5 ",
@@ -45,15 +100,53 @@ export default makeStyles((theme) => ({
    marginLeft:270,
    position: "absolute",
    marginTop:45,
+   '@media screen and (max-width: 1400px)': {
+    marginLeft:260,
+     
+    
   },
+   '@media screen and (max-width: 1100px)': {
+    marginLeft:265,
+     
+    
+  },
+  '@media screen and (max-width: 800px)': {
+    marginLeft:"650%",
+     
+    
+  },
+  '@media screen and (max-width: 600px)': {
+    marginLeft:360,
+     
+    
+  
+  },
+},
   prix : {
    color:'#ffffff',
    fontSize:24,
+   marginLeft:5,
+   
   },
   tnd :{
-    marginLeft:9,
+    marginLeft:8,
     color:'#ffffff',
     fontSize:14,
+    '@media screen and (max-width: 1400px)': {
+      marginLeft:5,
+       
+      
+    },
+     '@media screen and (max-width: 1100px)': {
+      marginLeft:5,
+       
+      
+    },
+    '@media screen and (max-width: 900px)': {
+      marginLeft:6,
+       
+      
+    }
   },
 
   Placeicon : {
@@ -75,7 +168,7 @@ export default makeStyles((theme) => ({
   title :{
    fontSize:22,
    textTransform:"capitalize",
-   marginLeft:115,
+   marginLeft:10,
    color: "#4e3e8c",
 
 
@@ -100,6 +193,31 @@ export default makeStyles((theme) => ({
   },
   mauve :{
    marginLeft:260,
+   '@media screen and (max-width: 1400px)': {
+    marginLeft:248,
+     
+    
+  },
+  '@media screen and (max-width: 1100px)': {
+    marginLeft:250,
+     
+    
+  },
+   '@media screen and (max-width: 900px)': {
+    marginLeft:242,
+     
+    
+  },
+  '@media screen and (max-width: 800px)': {
+    marginLeft:"635%",
+     
+    
+  },
+  '@media screen and (max-width: 600px)': {
+    marginLeft:342,
+     
+    
+  }
   
   },
   Container : {
@@ -111,7 +229,7 @@ export default makeStyles((theme) => ({
    display:"flex"
   },
   btnreservez:{
-    marginLeft: 2,
+    marginLeft: 100,
     color: " #4e3e8c",
     border:"2px solid",
     borderColor: "#4e3e8c",
@@ -124,5 +242,13 @@ export default makeStyles((theme) => ({
       color: " #f5f5f5",
       marginTop:0,
   },
+  "@media  screen and (max-width: 800px)": {
+    
+    marginLeft:"40%", 
+       },
+       "@media  screen and (max-width: 600px)": {
+    
+        marginLeft:"35%", 
+           },
 },
 }));

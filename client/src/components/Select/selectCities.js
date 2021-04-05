@@ -9,11 +9,12 @@ import useStyles from './styles';
 
   return (
     <Autocomplete
+    required
     onChange={handleChangecity}
     options={filtredCity}
     getOptionLabel={(option) => option.nom}
     renderInput={(params) => <TextField    {...params} label="ville"   
-    variant="outlined"   className={classes.cities}
+    variant="outlined"   className={classes.autocomplete}
     />}
   />
   );

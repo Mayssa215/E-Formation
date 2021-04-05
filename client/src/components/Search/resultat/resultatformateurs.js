@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
 import { useSelector } from "react-redux";
-import Formateur from "./formateur";
+import Cards from "../../Former/cards";
 
 const Resultatformteurs = () => {
   const formateur = useSelector(state => state.formateur);
@@ -11,9 +11,9 @@ const Resultatformteurs = () => {
     
     
    <Grid>
-      {formateur.map((formt) => (
+      {formateur.map((Former) => (
         <Grid item xs={12} sm={6}>
-          <Formateur formt={formt} />
+          <Cards Former={Former} />
         </Grid>
       ))}
     </Grid> 

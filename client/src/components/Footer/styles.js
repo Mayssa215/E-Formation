@@ -11,11 +11,18 @@ export default makeStyles(() => ({
         position: "absolute",
         backgroundColor: "#F8F6FA",
         width: "100%",
+        "@media (max-width: 960px)": {
+            marginTop:2800,
+
+        },
         "@media (max-width: 700px)": {
             height: 320,
+            marginTop:2800,
+
         },
-        "@media (max-width: 510px)": {
+        "@media (max-width: 500px)": {
             height: 340,
+            marginTop:3200,
         },
 
 

@@ -12,7 +12,7 @@ import { makeStyles } from '@material-ui/core/styles';
       marginTop: 50,
     },
   }));
-export default function DatePickers({ onChangeDate, date }) {
+export default function DatePickers({ onChangeFirstDate,firstdate,onChangeLastDate,lastdate }) {
     const classes = useStyles();
 
   return (
@@ -20,12 +20,26 @@ export default function DatePickers({ onChangeDate, date }) {
       <TextField
       required
         id="date"
-        label="Date"
+        label="Date Début"
         type="date"
         name="date"
         variant="outlined"
-        value={date}
-        onChange={onChangeDate}
+        value={firstdate}
+        onChange={onChangeFirstDate}
+        style={{ width: 360 , marginTop: 15 }}
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+       <TextField
+      required
+        id="date"
+        label="Date Fin"
+        type="date"
+        name="date"
+        variant="outlined"
+        value={lastdate}
+        onChange={onChangeLastDate}
         style={{ width: 360 , marginTop: 15 }}
         InputLabelProps={{
           shrink: true,
