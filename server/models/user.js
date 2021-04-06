@@ -1,14 +1,14 @@
 import mongoose from 'mongoose' ;
 const userSchema = mongoose.Schema ({
-  nom : {type: String, required:true, trim: true },
-  prenom : { type:String , required:true , trim:true},
-  telephone : { type: String , required:true , minlength:8},
+  firstname : {type: String, required:true, trim: true },
+  lastname : { type:String , required:true , trim:true},
+  phone : { type: String , required:true , minlength:8},
   cin : { type: Number , required:true, minlength:8 },
-  villeu : {type: String, required:true, trim: true },
-  gouvernoratu : {type: String, required:true, trim: true },
+  city : {type: String, required:true, trim: true },
+  gouvernorate : {type: String, required:true, trim: true },
   email :{ type:String, required:true , unique:true},
   image: String,
-  motdepasse : {
+  password : {
     type: String,
      required:true, 
      minlength: 8,

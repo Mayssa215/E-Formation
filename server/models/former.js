@@ -3,16 +3,16 @@ import mongoose from 'mongoose';
 const formerSchema = mongoose.Schema({
     firstname: {type: String , required:true },
     lastname:  {type: String , required:true },
-    tel: { type: String , required:true , minlength:8},
-    sexe:  {type: String , required:true },
+    phone: { type: String , required:true , minlength:8},
+    gender:  {type: String , required:true },
     Numbreofexperience:{type: String , required:true },
     description:{type: String, required:true},
     cin: {type: String , minlength:8} , 
     namespeciality:  {type: String , required:true },
+    selectedimage: String,
     selectedFile: String,
-    selectedFileimage: String,
     email:{ type:String, required:true , unique:true},
-    motdepasse : {type:String, required:true},
+    password : {type:String, required:true},
     createdAt: {
     type: Date,
     default: new Date()

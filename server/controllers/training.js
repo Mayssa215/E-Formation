@@ -14,7 +14,7 @@ export const getSearchedTraining = async (req, res) => {
       {
         $lookup: {
           from: "formers",
-          localField: "id_formateur",
+          localField: "id_former",
           foreignField: "_id",
           as: "formateurs",
         },
@@ -26,7 +26,7 @@ export const getSearchedTraining = async (req, res) => {
       {
         $lookup: {
           from: "centres",
-          localField: "id_formateur",
+          localField: "id_center",
           foreignField: "_id",
           as: "centres",
         },
@@ -69,12 +69,12 @@ export const getSearchedTraining = async (req, res) => {
       {
         $match: {
           $or: [
-            { nomformation: { $regex: wordsearched } },
+            { name: { $regex: wordsearched } },
             { description: { $regex: wordsearched } },
-            { "formateurs.firstname": { $regex: wordsearched } },
-            { "centres.nomcentre": { $regex: wordsearched } },
-
             { "formateurs.lastname": { $regex: wordsearched } },
+            { "centres.lastname": { $regex: wordsearched } },
+
+            { "formateurs.firstname": { $regex: wordsearched } },
             { fullName: { $regex: wordsearched } },
             { fullNameInverse: { $regex: wordsearched } },
           ],
@@ -137,7 +137,7 @@ export const getTrainings = async (req, res) => {
     const datefin = req.query.datefin;
     console.log(datefin);
     const inputsearched = req.query.InputSearch.replace(/\s\s+/g, " ");
-console.log(inputsearched); 
+    console.log(inputsearched); 
 
 
     let idscategories = [];
@@ -207,21 +207,21 @@ console.log(select);
         $and: [
       
 
-          {nomformation:{$regex : inputsearched}},
+          {name:{$regex : inputsearched}},
           /* &&{lastdate:{$lte:datefin}}&&{firstdate:{datedebut}}&&
           {lastdate:{datefin}}:select==="Termine" ? {lastdate:{datedebut}}&&{firstdate:{datedebut}}&& {lastdate:{datefin}}&&
           {lastdate:{$lte:datefin, $gte:datedebut}}&& {firstdate:{$lte:datefin, $gte:datedebut}}:{datedebut:{$lte:2030,$gte:1920}},  */
          
          
-          //select==="Commence" ? {lastdate:{$gte:datefin}}:{lastdate:{$gte:datefin}},
+      //select==="Commence" ? {lastdate:{$gte:datefin}}:{lastdate:{$gte:datefin}},
   
       // { idcategorie: { $in: idscategories } },
-          { prix: { $gte: minPrice, $lte: maxPrice } },
-         /* { duree: { $gte: minHeure, $lte: maxHeure } }, 
+          { price: { $gte: minPrice, $lte: maxPrice } },
+         /* { periode: { $gte: minHeure, $lte: maxHeure } }, 
           { idcategorie: { $in: idscategories } },
      
-           { idgouvernorat: { $in: idsgouvernorat } }, 
-          { idcities: { $in: idscity } },  */
+           { idgouvernorate: { $in: idsgouvernorat } }, 
+          { idcity: { $in: idscity } },  */
   /*         datedebut ==="1920-01-01" ? {firstdate: {$gte: datedebut} } : {firstdate: datedebut},
    */    /*     datefin ==="2030-01-01" ? {lastdate: {$lte: datefin} } : {lastdate: datefin}, */
   
@@ -234,7 +234,7 @@ console.log(select);
     console.log("houni1");
     const total = await Training.countDocuments();
     // console.log("total", total);
-   // console.log("Alltraining", Alltraining);
+    console.log("Alltraining", Alltraining);
     //let totalPages = Math.ceil(total / PAGE_SIZE);
     //console.log("totalpages", totalPages);
     res.status(200).json({
@@ -246,55 +246,7 @@ console.log(select);
   }
 };
 
-export const creatTraining = async (req, res) => {
-  const {
-    nomformation,
-    coach,
-    idcategorie,
-    firstdate,
-    lastdate,
-    horaire,
-    duree,
-    idgouvernorat,
-    idcities,
-    prix,
-    nomcities,
-    Nombredeplace,
-    programme,
-    description,
-    objectifsformation,
-    prerequis,
-    selectedFile,
-    createdAt,
-  } = req.body;
 
-  const newTraining = new Training({
-    nomformation,
-    coach,
-    idcategorie,
-    firstdate,
-    lastdate,
-    horaire,
-    duree,
-    idgouvernorat,
-    idcities,
-    prix,
-    nomcities,
-    Nombredeplace,
-    programme,
-    description,
-    objectifsformation,
-    prerequis,
-    selectedFile,
-    createdAt,
-  });
-  try {
-    await newTraining.save();
-    res.status(201).json(newTraining);
-  } catch (error) {
-    res.status(409).json({ message: error.message });
-  }
-};
 
 export const updateTraining = async (req, res) => {
   const { id: _id } = req.params;
@@ -361,4 +313,56 @@ export const getOneTraining = async (req, res) => {
   } catch (error) {
     res.status(404).json({ message: error.message });
   };
+};
+
+
+
+export const creatTraining = async (req, res) => {
+  const {
+    name,
+    idcategorie,
+    firstdate,
+    lastdate,
+    hour,
+    periode,
+    idgouvernorate,
+    idcities,
+    price,
+    namecity,
+    numberplace,
+    planning,
+    description,
+    objectif,
+    skills,
+    selectedimage,
+    createdAt,
+    
+  } = req.body;
+
+  const newTraining = new Training({
+    name,
+    idcategorie,
+    firstdate,
+    lastdate,
+    hour,
+    periode,
+    idgouvernorate,
+    idcities,
+    price,
+    namecity,
+    numberplace,
+    planning,
+    description,
+    objectif,
+    skills,
+    selectedimage,
+    createdAt,
+
+  });
+  try {
+    await newTraining.save();
+    res.status(201).json(newTraining);
+  } catch (error) {
+    res.status(409).json({ message: error.message });
+  }
 };

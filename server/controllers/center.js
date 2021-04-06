@@ -1,23 +1,27 @@
 import Former from "../models/former.js";
-import Centre from "../models/centre.js";
+import Center from "../models/centre.js";
 import User from '../models/user.js';import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken'; 
+import Gouvernorat from '../models/gouvernorat.js';
+import Categorie from '../models/categorie.js';
+import City from '../models/cities.js';
+import Training from '../models/training.js';
 export const getCentre = async (req, res) => {
   try {
     console.log("params", req.query.InputSearch);
     const wordsearched = req.query.InputSearch.replace( /\s\s+/g, ' ' );
 
-    const centres = await Centre.aggregate([
+    const center= await Center.aggregate([
       {
         $lookup: {
           from: "trainings",
-          localField: "formationdecentre",
+          localField: "trainingcenter",
           foreignField: "_id",
-          as: "formationdecentre",
+          as: "trainingcenter",
         },
       },
 
-      {
+   /*    {
         $unwind: "$formationdecentre",
       },
        {
@@ -30,13 +34,13 @@ export const getCentre = async (req, res) => {
           },
         },
       }, 
-
+ */
       {
         $match: {
           $or: [
-            { nomcentre: { $regex: wordsearched } },
-            { "formationdecentre.nomformation": { $regex: wordsearched } },
-            { "formationdecentre.description": { $regex: wordsearched } },
+            { lastname: { $regex: wordsearched } },
+            { "trainingcenter.name": { $regex: wordsearched } },
+            { "trainingcenter.description": { $regex: wordsearched } },
 
             { fullName: { $regex: wordsearched } },
             { fullNameInverse: { $regex: wordsearched } },
@@ -45,23 +49,24 @@ export const getCentre = async (req, res) => {
       },
     ]);
 
-    console.log("Centres", centres);
-    res.status(200).json(centres);
+    console.log("Centres", center);
+    res.status(200).json(center);
+    console.log('houni');
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
 };
 
 export const  signupcentre = async (req, res) => {
-  const {  name,namespeciality,idspeciality, phonenumber, adresseexact, nomcities, nomgouvernorat,idcities, description, idgouvernorat, email, motdepasse, confirmerMotdepasse, selectedFileimage} = req.body;
+  const {  lastname,namespeciality,idspeciality, phone, adressexact, namecities, namegouvernorate,idcity, description, idgouvernorate, email, password, confirmerMotdepasse, selectedimage} = req.body;
    try {
      const userexist = await User.findOne({ email });
       const formerexist = await Former.findOne({email});
-      const centreexist = await Centre.findOne({email});
+      const centreexist = await Center.findOne({email});
       if (userexist || formerexist || centreexist) return res.status(400).json({ message: 'Email exist déjà' });
-      if (motdepasse !== confirmerMotdepasse ) return res.status(400).json({message:'confimer votre mot de passe'});
-      const hashedpassword = await bcrypt.hash(motdepasse, 12);
-      const result = await Centre.create({name,namespeciality,idspeciality, phonenumber, adresseexact,  nomcities, nomgouvernorat,idcities,description, idgouvernorat, email,  selectedFileimage, motdepasse: hashedpassword});
+      if (password !== confirmerMotdepasse ) return res.status(400).json({message:'confimer votre mot de passe'});
+      const hashedpassword = await bcrypt.hash(password, 12);
+      const result = await Center.create({lastname,namespeciality,idspeciality, phone, adressexact, namecities, namegouvernorate,idcity, description, idgouvernorate, email, password: hashedpassword, confirmerMotdepasse, selectedimage});
       const token = jwt.sign({email: result.email, id: result._id}, 'test', {expiresIn:"1d"});
       res.status(200).json({result, token});
    }
@@ -80,86 +85,71 @@ export const  signupcentre = async (req, res) => {
     
       const inputsearched = req.query.InputSearch.replace(/\s\s+/g, " ");
       console.log(inputsearched);
-      
       let idsspecialitys = [];
-      //console.log("before if ");
+
       if (req.query.SpecialityIds && req.query.SpecialityIds.length > 0) {
         console.log("in if ", req.query.SpecialityIds);
   
         idsspecialitys = req.query.SpecialityIds;
       } else {
-        //console.log("in else ");
   
         const specialty = await Categorie.find({}, { _id: 1 });
-  
-        //console.log(cats);
+      
+
         specialty.map((el) => {
-          //console.log(el._id);
           idsspecialitys.push(el._id);
         });
-        //console.log(idscategories);
       }
-      //console.log("after if ");
   
   
       let idsgouvernorat = [];
       if (req.query.gouvernoratid && req.query.gouvernoratid.length > 0) {
-        // console.log("in if2", req.query.gouvernoratid);
         idsgouvernorat = req.query.gouvernoratid;
-      } else {
-        // console.log("in else gouvernorat");
+     
+      } else {        
+
         const gouver = await Gouvernorat.find({}, { _id: 1 });
-        //console.log(gouver);
         gouver.map((el) => {
-          //console.log(el._id);
           idsgouvernorat.push(el._id);
+        
         });
-        //console.log(idsgouvernorat);
+
       }
-      //console.log("after else gouvernorat");
   
   
       let idscity = [];
       if (req.query.cityid && req.query.cityid.length > 0) {
-        //console.log("in if3", req.query.cityid);
         idscity = req.query.cityid;
         
       } else {
-        //console.log("in else cities");
         const cities = await City.find({}, { _id: 1 });
-        //console.log(cities);
         cities.map((el) => {
-          //console.log(el._id);
           idscity.push(el._id);
         });
-        //console.log(idscity);
       }
-      //console.log("after else cities");
+
   
   
   
-      const AllCentres = await Centre.find({
+      const AllCentres = await Center.find({
         $and: [
         { idspeciality: { $in: idsspecialitys } },
-        //{ idgouvernorat: { $in: idsgouvernorat } }, 
-        //{ idcities: { $in: idscity } },
-        {name:{$regex : inputsearched}},
+
+      
+       // {lastname:{$regex : inputsearched}},
   
   
         ],
       }).limit(PAGE_SIZE).skip(PAGE_SIZE * (page - 1));
   
       console.log("houni1");
-      const total = await Centre.countDocuments();
-      // console.log("total", total);
-      //console.log("AllCentres", AllCentres);
-      //let totalPages = Math.ceil(total / PAGE_SIZE);
-      //console.log("totalpages", totalPages);
+      console.log(AllCentres)
       res.status(200).json({
         AllCentres,
-        totalPages: Math.ceil(total / PAGE_SIZE),
+        
       });
     } catch (error) {
+  
       res.status(404).json({ message: error.message });
     }
   };
@@ -175,11 +165,11 @@ export const  signupcentre = async (req, res) => {
      
   
     
-      const AllCentres = await Centre.find({}
+      const AllCentres = await Center.find({}
       ).limit(PAGE_SIZE).skip(PAGE_SIZE * (page - 1));
   
       console.log("filter masqué");
-      const total = await Centre.countDocuments();
+      const total = await Center.countDocuments();
     
       //console.log("AllCentres", AllCentres);
   
@@ -200,13 +190,11 @@ export const  signupcentre = async (req, res) => {
   
       const PAGE_SIZE = 3;
       
-      const AllCentres = await Centre.find().sort({ createdAt: -1 }).limit(PAGE_SIZE).skip(PAGE_SIZE * (page - 1));
+      const AllCentres = await Center.find().sort({ createdAt: -1 }).limit(PAGE_SIZE).skip(PAGE_SIZE * (page - 1));
   
-      const total = await Centre.countDocuments();
-      // console.log("total", total);
+      const total = await Center.countDocuments();
       console.log("AllCentres", AllCentres);
-      //let totalPages = Math.ceil(total / PAGE_SIZE);
-      //console.log("totalpages", totalPages);
+
       res.status(200).json({
         AllCentres,
         totalPages: Math.ceil(total / PAGE_SIZE),
@@ -224,7 +212,7 @@ export const  signupcentre = async (req, res) => {
       const  ids  = req.query.idcenter;
     
       console.log("id centre",ids);
-      const OneCenter = await Centre.find({_id:ids});
+      const OneCenter = await Center.find({_id:ids});
   
      
       console.log("OneCenter", OneCenter);
@@ -241,9 +229,9 @@ export const  signupcentre = async (req, res) => {
     try {
      
    let ids = "";
-      const trainingdids = await Centre.find({}, {formationdecentre : 1} );
+      const trainingdids = await Center.find({}, {trainingcenter : 1} );
       trainingdids.map((e)=>{
-        ids=(e.formationdecentre);
+        ids=(e.trainingcenter);
       });
       console.log("ids",ids);
       const page = parseInt(req.query.page || "1");

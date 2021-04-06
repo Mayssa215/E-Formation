@@ -5,10 +5,11 @@ import Centre from "../models/centre.js";
 import User from '../models/user.js';
 import Categorie from "../models/categorie.js";
 
+
 export const getFormer = async (req, res) => {
   try {
     console.log("params", req.query.InputSearch);
-    const wordsearched = req.query.InputSearch.replace( /\s\s+/g, ' ' );
+    const wordsearched = req.query.InputSearch.replace(/\s\s+/g, " ");
 
     const formers = await Former.aggregate([
       {
@@ -20,29 +21,39 @@ export const getFormer = async (req, res) => {
         },
       },
 
-      {
-        $unwind: "$training",
-      },
-      {
+    /*  {
+        $unwind: "$formations",
+      }, */
+       
+     /*  {
         $addFields: {
           fullName: {
-            $concat: ["$training.nomformation"," ", "$training.description"],
-          },
-          fullNameInverse: {
-            $concat: ["$training.nomformation"," ", "$training.description"],
+            $concat: [
+              "$formations.nomformation",
+              " ",
+              "$formations.description",
+            ],
           },
         },
-      },
+          fullNameInverse: {
+            $concat: [
+              "$formations.nomformation",
+              " ",
+              "$formations.description",
+            ],
+          }, 
+        }, */
+    
 
       {
         $match: {
           $or: [
-            { nomformateur: { $regex: wordsearched } },
-            { prenom: { $regex: wordsearched } },
-            { "training.nomformation": { $regex: wordsearched } },
+            { lastname: { $regex: wordsearched } },
+            { firstname: { $regex: wordsearched } },
+            { "training.name": { $regex: wordsearched } },
             { "training.description": { $regex: wordsearched } },
             { fullName: { $regex: wordsearched } },
-            { fullNameInverse: { $regex: wordsearched } },
+            { fullNameInverse: { $regex: wordsearched } },  
           ],
         },
       },
@@ -57,41 +68,43 @@ export const getFormer = async (req, res) => {
 
 
 export const  signupformer = async (req, res) => {
-  const {  firstname,
+  const { 
+     firstname,
     lastname,
- 
-    sexe,
+     gender,
     Numbreofexperience,
     idspeciality,
-    tel,
+    phone,
     namespeciality,
-    selectedFile,
+   
     description,
     cin,
-    selectedFileimage,
+    selectedimage,
+    selectedFile,
+
      email, 
-     motdepasse, 
+     password, 
      confirmerMotdepasse } = req.body;
    try {
     const userexist = await User.findOne({ email });
     const formerexist = await Former.findOne({email});
     const centreexist = await Centre.findOne({email});
     if (userexist || formerexist || centreexist) return res.status(400).json({ message: 'Email exist déjà' });
-      if (motdepasse !== confirmerMotdepasse ) return res.status(400).json({message:'confimer votre mot de passe'});
-      const hashedpassword = await bcrypt.hashSync(motdepasse, 12);
+      if (password !== confirmerMotdepasse ) return res.status(400).json({message:'confimer votre mot de passe'});
+      const hashedpassword = await bcrypt.hashSync(password, 12);
       const result = await Former.create({firstname,
         lastname,
-        sexe,
-        tel,
+        gender,
+        phone,
         Numbreofexperience,
         idspeciality,
         namespeciality,
         description,
         cin,
+        selectedimage,
         selectedFile,
-        selectedFileimage,
          email, 
-         motdepasse: hashedpassword,});
+         password: hashedpassword,});
       const token = jwt.sign({email: result.email, id: result._id}, 'test', {expiresIn:"1d"});
       res.status(200).json({result, token});
    }

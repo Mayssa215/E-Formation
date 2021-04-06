@@ -12,15 +12,15 @@ Mailgrid.setApiKey(
 const url = "http://localhost:3000";
 
 export const signup = async (req, res) => {
-  const { nom, prenom, villeu, gouvernoratu, cin, telephone, email, motdepasse, confirmerMotdepasse, } = req.body;
+  const { firstname, lastname, city, gouvernorate, cin, phone, email, password, confirmerMotdepasse, } = req.body;
   try {
     const userexist = await User.findOne({ email });
     const formerexist = await Former.findOne({email});
     const centreexist = await Centre.findOne({email});
     if (userexist || formerexist || centreexist) return res.status(400).json({ message: 'Email exist déjà' });
-    if (motdepasse !== confirmerMotdepasse) return res.status(400).json({ message: 'confimer votre mot de passe' });
-    const hashedpassword = await bcrypt.hash(motdepasse, 12);
-    const result = await User.create({ nom, prenom, villeu, gouvernoratu, cin, telephone, email, motdepasse: hashedpassword });
+    if (password !== confirmerMotdepasse) return res.status(400).json({ message: 'confimer votre mot de passe' });
+    const hashedpassword = await bcrypt.hash(password, 12);
+    const result = await User.create({  firstname, lastname, city, gouvernorate, cin, phone, email, password: hashedpassword });
     const token = jwt.sign({ email: result.email, id: result._id }, 'test', { expiresIn: "1d" });
     res.status(200).json({ result, token });
   }
@@ -32,28 +32,28 @@ export const signup = async (req, res) => {
 }
 
 export const signin = async (req, res) => {
-  const { email, motdepasse } = req.body;
+  const { email, password } = req.body;
   try {
     const user = await User.findOne({ email });
     const userformer = await Former.findOne({ email });
     const usercentre = await Centre.findOne({ email });
 
     if (user) {
-      const isPasswordCorrect = await bcrypt.compare(motdepasse, user.motdepasse);
+      const isPasswordCorrect = await bcrypt.compare(password, user.password);
       if (!isPasswordCorrect) return res.status(400).json({ message: "mot de passe incorrect" });
       const token = jwt.sign({ email: user.email, id: user._id }, 'test', { expiresIn: "1d" });
       res.status(200).json({ result: user, token });
     }
     else
       if (userformer) {
-        const isPasswordCorrect = await bcrypt.compare(motdepasse, userformer.motdepasse);
+        const isPasswordCorrect = await bcrypt.compare(password, userformer.password);
         if (!isPasswordCorrect) return res.status(400).json({ message: "mot de passe incorrect" });
         const token = jwt.sign({ email: userformer.email, id: userformer._id }, 'test', { expiresIn: "1d" });
         res.status(200).json({ result: userformer, token });
       }
       else
         if (usercentre) {
-          const isPasswordCorrect = await bcrypt.compare(motdepasse, usercentre.motdepasse);
+          const isPasswordCorrect = await bcrypt.compare(password, usercentre.password);
           if (!isPasswordCorrect) return res.status(400).json({ message: "mot de passe incorrect" });
           const token = jwt.sign({ email: usercentre.email, id: usercentre._id }, 'test', { expiresIn: "1d" });
           res.status(200).json({ result: usercentre, token });
@@ -216,7 +216,7 @@ export const resetpassword = async (req, res) => {
 }
 else if (userformer) {
   const updatedFields = {
-    motdepasse: hashedpassword,
+    password: hashedpassword,
   };
   console.log(updatedFields);
   //update the user in the databae
@@ -237,7 +237,7 @@ else if (userformer) {
 }
 else if (usercentre) {
   const updatedFields = {
-    motdepasse: hashedpassword,
+    password: hashedpassword,
   };
   console.log(updatedFields);
   //update the user in the databae
@@ -275,19 +275,19 @@ export const updateUser = async (req, res) => {
     const centerexist = await Centre.findOne({ email });
   if ( user.email !== infos.email && !userexist && !formerexist && !centerexist ) {
 
-  const isPasswordCorrect = await bcrypt.compare(infos.mdpactuel, user.motdepasse);
+  const isPasswordCorrect = await bcrypt.compare(infos.mdpactuel, user.password);
   if (!isPasswordCorrect) return res.status(400).json({ message: "mot de passe incorrect" });
-  const hashedpassword = await bcrypt.hash(infos.motdepasse, 12);
-  const result = await User.findByIdAndUpdate(_id,{nom: infos.nom, prenom:infos.prenom, telephone:infos.telephone,email:infos.email,motdepasse:hashedpassword, cin:infos.cin, villeu:infos.villeu,gouvernoratu:infos.gouvernoratu}, { new: true });
+  const hashedpassword = await bcrypt.hash(infos.password, 12);
+  const result = await User.findByIdAndUpdate(_id,{firstname: infos.firstname, lastname:infos.lastname, phone:infos.phone,email:infos.email,password:hashedpassword, cin:infos.cin, city:infos.city,gouvernorate:infos.gouvernorate}, { new: true });
   const message="success!";
   res.json({result,message });
  }
   else
   if (user && user.email === infos.email) {
-  const isPasswordCorrect = await bcrypt.compare(infos.mdpactuel, user.motdepasse);
+  const isPasswordCorrect = await bcrypt.compare(infos.mdpactuel, user.password);
   if (!isPasswordCorrect) return res.status(400).json({ message: "mot de passe incorrect" });
-  const hashedpassword = await bcrypt.hash(infos.motdepasse, 12);
-  const result = await User.findByIdAndUpdate(_id,{nom: infos.nom, prenom:infos.prenom, telephone:infos.telephone,email:infos.email,motdepasse:hashedpassword, cin:infos.cin, villeu:infos.villeu,gouvernoratu:infos.gouvernoratu , image:infos.image}, { new: true });
+  const hashedpassword = await bcrypt.hash(infos.password, 12);
+  const result = await User.findByIdAndUpdate(_id,{firstname: infos.firstname, lastname:infos.lastname, phone:infos.phone,email:infos.email,password:hashedpassword, cin:infos.cin, city:infos.city,gouvernorate:infos.gouvernorate, image:infos.image}, { new: true });
   const message="success!";
   res.json({result, message });
   }

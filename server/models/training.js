@@ -1,29 +1,28 @@
 import mongoose from 'mongoose';
 const trainingSchema = mongoose.Schema({
-nomformation:  String, 
-coach: String, 
+name:  String, 
 firstdate: Date,
 lastdate:Date,
-horaire: String,
-prix: Number,
-nomcities:String,
-duree:Number,
-Nombredeplace: String,
-programme: String,
+hour: String,
+price: Number,
+namecity:String,
+periode:Number,
+numberplace: String,
+planning: String,
 description : String,
-objectifsformation: String,
-prerequis: String,
-selectedFile: String,
+objectif: String,
+skills: String,
+selectedimage: String,
 createdAt: {
     type: Date,
     default: new Date()
 },
-idcities:{type: mongoose.Schema.ObjectId, ref : 'cities'},
-idgouvernorat:{type: mongoose.Schema.ObjectId, ref : 'gouvernorat'},
+idcity:{type: mongoose.Schema.ObjectId, ref : 'cities'},
+idgouvernorate:{type: mongoose.Schema.ObjectId, ref : 'gouvernorat'},
 
 idcategorie:{type: mongoose.Schema.ObjectId, ref : 'categorie'},
-id_formateur: {type: mongoose.Schema.ObjectId, ref : 'Former'},
-id_formateur: {type: mongoose.Schema.ObjectId, ref : 'Centre'},
+id_former: {type: mongoose.Schema.ObjectId, ref : 'Former'},
+id_center: {type: mongoose.Schema.ObjectId, ref : 'Centre'},
 
 });
 const  Training= mongoose.model('Training', trainingSchema);
