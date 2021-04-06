@@ -21,7 +21,7 @@ const CardOne = ({Former}) => {
      
         
        <CardHeader
-        avatar={ <Avatar className={classes.avatar} src= {Former.selectedFileimage}>
+        avatar={ <Avatar className={classes.avatar} src= {Former.selectedimage}>
             
                 </Avatar>
         }     />

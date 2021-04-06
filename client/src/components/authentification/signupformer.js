@@ -19,7 +19,7 @@ import { ToastContainer, toast, zoom } from "react-toastify";
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import "react-toastify/dist/ReactToastify.css";
 const Former = ({ currentId, setCurrentId }) => {
-  const [formerData, setformerData] = useState({ firstname: '', lastname: '', tel: '', sexe: '', idspeciality: '', namespeciality: '', Numbreofexperience: '', description:'', cin: '', selectedFile: '', email: '', motdepasse: '', confirmerMotdepasse: '', selectedFileimage: '' });
+  const [formerData, setformerData] = useState({ firstname: '', lastname: '', phone: '', gender: '', idspeciality: '', namespeciality: '', Numbreofexperience: '', description:'', cin: '', selectedFile: '', email: '', password: '', confirmerMotdepasse: '', selectedimage: '' });
   const former = useSelector((state) => currentId ? state.former.find((f) => f._id === currentId) : null);
   const [error, setError] = React.useState(false);
   const [errorpdf, setErrorpdf] = React.useState(false);
@@ -38,7 +38,7 @@ const Former = ({ currentId, setCurrentId }) => {
 
 
   const clear = () => {
-    setformerData({ firstname: '', lastname: '', tel: '', sexe: '', idspeciality: '', namespeciality: '', selectedFile: '', selectedFileimage: '', Numbreofexperience: '', cin: '' , description:''});
+    setformerData({ firstname: '', lastname: '', phone: '', gender: '', idspeciality: '', namespeciality: '', Numbreofexperience: '', description:'', cin: '', selectedFile: '', email: '', password: '', confirmerMotdepasse: '', selectedimage: '' });
   }
 
   useEffect(() => {
@@ -60,7 +60,7 @@ const Former = ({ currentId, setCurrentId }) => {
   }
 
   const handleChange = (event) => {
-    setformerData({ ...formerData, sexe: event.target.value })
+    setformerData({ ...formerData, gender: event.target.value })
   };
 
 const handleChangeemail = (event) => {
@@ -69,7 +69,7 @@ const handleChangeemail = (event) => {
 }
 
   const handleChangemotdepasse = (event) => {
-    setformerData({ ...formerData, motdepasse: event.target.value })
+    setformerData({ ...formerData, password: event.target.value })
   };
   const handleChangeconfirme = (event) => {
     setformerData({ ...formerData, confirmerMotdepasse: event.target.value })
@@ -80,9 +80,9 @@ const handleChangeemail = (event) => {
   const number = value3 - value2;
   const extension = file.substr(value2, number);
 
-  const valueimg = formerData.selectedFileimage.indexOf("/");
-  const valueimg2 = formerData.selectedFileimage.indexOf(";");
-  const fileimg = formerData.selectedFileimage;
+  const valueimg = formerData.selectedimage.indexOf("/");
+  const valueimg2 = formerData.selectedimage.indexOf(";");
+  const fileimg = formerData.selectedimage;
   const numberimg = valueimg2 - valueimg;
   const extensionimg = fileimg.substr(valueimg, numberimg);
 
@@ -94,7 +94,7 @@ const handleChangeemail = (event) => {
        setCurrentId('');
        }
        else  */
-    if (extension === "/pdf" && (extensionimg === "/jpeg" || extensionimg === "/jpg" || extensionimg === "/png") && formerData.motdepasse === formerData.confirmerMotdepasse && formerData.motdepasse.length >= 8 && formerData.tel.length === 8 && formerData.cin.length === 8) {
+    if (extension === "/pdf" && (extensionimg === "/jpeg" || extensionimg === "/jpg" || extensionimg === "/png") && formerData.password === formerData.confirmerMotdepasse && formerData.password.length >= 8 && formerData.phone.length === 8 && formerData.cin.length === 8) {
 
       dispatch(signupformer(formerData, history));
       setError(false);
@@ -111,17 +111,17 @@ if (extensionimg !== "/jpeg" || extensionimg !== "/jpg" || extensionimg !== "/pn
       setHelperTextimg('Choisir un fichier de type image')
       setError(true);
     }
-   if (formerData.tel.length < 8) {
+   if (formerData.phone.length < 8) {
       toast.error('Le  Numéro de telephone doit contenir doit contenir exactement 8 chiffres  ');
     }
 
    if (formerData.cin.length < 8) {
       toast.error('Le  Numéro de carte d identité doit contenir exactement 8 chiffres ');
     }
- if (formerData.motdepasse !== formerData.confirmerMotdepasse) {
+ if (formerData.password !== formerData.confirmerMotdepasse) {
   toast.error( 'Les mots de passe ne sont pas identiques');
 }
-    if (formerData.motdepasse.length < 8) {
+    if (formerData.password.length < 8) {
       toast.error('Le  Mot de passe doit contenir au minimum  8 caractères ');
     }
   };
@@ -134,11 +134,11 @@ if (extensionimg !== "/jpeg" || extensionimg !== "/jpg" || extensionimg !== "/pn
           <Button className={classes.return} href="/signin" ><KeyboardBackspaceIcon className={classes.returnicon} /></Button>
             <h3 className={classes.compteformer}>Créer un compte</h3>
             <div className={classes.colf1}>
-              <TextField required className={classes.textf} name='first name' variant="outlined" label="nom " type="string" value={formerData.firstname} onChange={(e) => setformerData({ ...formerData, firstname: e.target.value })} autoFocus ></TextField>
-              <TextField required className={classes.textf} name='last name' variant="outlined" label="prénom" type="string" value={formerData.lastname} onChange={(e) => setformerData({ ...formerData, lastname: e.target.value })} ></TextField>
+              <TextField required className={classes.textf} name='firstname' variant="outlined" label="nom " type="string" value={formerData.firstname} onChange={(e) => setformerData({ ...formerData, firstname: e.target.value })} autoFocus ></TextField>
+              <TextField required className={classes.textf} name='lastname' variant="outlined" label="prénom" type="string" value={formerData.lastname} onChange={(e) => setformerData({ ...formerData, lastname: e.target.value })} ></TextField>
               <Selectspecialty onChangeData2={onChangeData2} speciality={speciality} />
-              <TextField required className={classes.textf} name='tel' variant="outlined" label=" Telephone" type="number" value={formerData.tel} onChange={(e) => setformerData({ ...formerData, tel: e.target.value })} ></TextField>
-              <TextField required className={classes.textf} name='Anée d expérience ' variant="outlined" label=" Année  d'expérience (ans)" type="number" value={formerData.Numbreofexperience} onChange={(e) => setformerData({ ...formerData, Numbreofexperience: e.target.value })} ></TextField>
+              <TextField required className={classes.textf} name='phone' variant="outlined" label=" Telephone" type="number" value={formerData.phone} onChange={(e) => setformerData({ ...formerData, phone: e.target.value })} ></TextField>
+              <TextField required className={classes.textf} name='Numbreofexperience ' variant="outlined" label=" Année  d'expérience (ans)" type="number" value={formerData.Numbreofexperience} onChange={(e) => setformerData({ ...formerData, Numbreofexperience: e.target.value })} ></TextField>
        
               <TextField required name='description' type="string" variant="outlined" label="Déscription" value={formerData.description} onChange={(e) => setformerData({ ...formerData, description: e.target.value })} rows={5} cols={6} multiline className={classes.textf} ></TextField>
              
@@ -162,16 +162,16 @@ if (extensionimg !== "/jpeg" || extensionimg !== "/jpg" || extensionimg !== "/pn
                   ),
                 }}
               />
-              <Input name="motdepasse" label="Mot de passe" handleChange={handleChangemotdepasse} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
+              <Input name="password" label="Mot de passe" handleChange={handleChangemotdepasse} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
               <Input name="confirmerMotdepasse" label="Confimer  Mot de passe" handleChange={handleChangeconfirme} type={showPassword1 ? 'text' : 'password'} handleShowPassword={handleShowPassword1} />
               <Typography className={classes.labela}  >Ajouter une image </Typography>
               <div className={classes.filebase1}>
-                <FileBase type="file" name="choisir une image" multiple={false} onDone={({ base64 }) => setformerData({ ...formerData, selectedFileimage: base64 })} />
+                <FileBase type="file" name="choisir une image" multiple={false} onDone={({ base64 }) => setformerData({ ...formerData, selectedimage: base64 })} />
               </div>
               <FormHelperText className={classes.error} >{helperTextimg}</FormHelperText>
        
             <FormLabel className={classes.labels} component="legend">Sexe</FormLabel>
-              <RadioGroup aria-label="gender" name="gender1" value={formerData.sexe} onChange={handleChange}>
+              <RadioGroup aria-label="gender" name="gender1" value={formerData.gender} onChange={handleChange}>
               <div className={classes.radio}>
                   <FormControlLabel value="Femme" control={<Radio style={{ color: '#4e3e8c' }} />} label={<span className={classes.words} >Femme</span>} />
                   <FormControlLabel value="Homme" control={<Radio style={{ color: '#4e3e8c' }} />} label={<span className={classes.words} >Homme</span>} />

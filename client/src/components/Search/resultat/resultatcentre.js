@@ -12,7 +12,7 @@ const Resultatcentres = () => {
     
    <Grid>
       {centres.map((centres) => (
-        <Grid key={centres.nomcentre} item xs={12} sm={6}>
+        <Grid key={centres.lastname} item xs={12} sm={6}>
           <Cards Centre={centres} />
         </Grid>
       ))}

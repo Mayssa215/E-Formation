@@ -22,7 +22,7 @@ import "react-toastify/dist/ReactToastify.css";
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 
 const FormCentre = ({ currentId, setCurrentId }) => {
-  const [centreData, setcentreData] = useState({ name: '', idspeciality: '', namespeciality: '', selectedFileimage: '', idgouvernorat: '', idcities: '', nomcities: '',description:'', nomgouvernorat: '', phonenumber: '', email: '', motdepasse: '', confirmerMotdepasse: '' });
+  const [centreData, setcentreData] = useState({ lastname: '', idspeciality: '', namespeciality: '', selectedimage: '', idgouvernorate: '', idcity: '', namecities: '',description:'', namegouvernorate: '', phone: '', email: '', password: '', confirmerMotdepasse: '' });
   const centre = useSelector((state) => currentId ? state.centre.find((f) => f._id === currentId) : null);
   const [error, setError] = React.useState(false);
 
@@ -38,7 +38,7 @@ const FormCentre = ({ currentId, setCurrentId }) => {
   const [showPassword1, setShowPassword1] = useState(false);
   const handleShowPassword1 = () => setShowPassword1(!showPassword1);
   const clear = () => {
-    setcentreData({ name: '', idspeciality: '', namespeciality: '', selectedFileimage: '', idgouvernorat: '', idcities: '', adresseexat:'', nomcities: '', nomgouvernorat: '', phonenumber: '',description:'' });
+    setcentreData({  lastname: '', idspeciality: '', namespeciality: '', selectedimage: '', idgouvernorate: '', idcity: '', namecities: '',description:'', namegouvernorate: '', phone: '', email: '', password: '', confirmerMotdepasse: ''  });
   }
 
   useEffect(() => {
@@ -65,28 +65,27 @@ const FormCentre = ({ currentId, setCurrentId }) => {
   const handleChangegouvernorat = (e, val) => {
     let nom = val.nom;
 
-    val === null ? setcentreData({ ...centreData, idgouvernorat: null, nomgouvernorat: null }) :
+    val === null ? setcentreData({ ...centreData, idgouvernorate: null, namegouvernorate: null }) :
 
-      setcentreData({ ...centreData, idgouvernorat: val._id, nomgouvernorat: nom })
+      setcentreData({ ...centreData, idgouvernorate: val._id, namegouvernorate: nom })
     val === null ? setfiltredCity([]) :
       setfiltredCity(City.filter((x) => x.id_gouvernorat === val._id));
   };
-
   const handleChangecity = (e, val) => {
     let nom = val.nom;
     console.log(nom);
     e.preventDefault();
-    val === null ? setcentreData({ ...centreData, idcities: null, nomcities: null }) :
+    val === null ? setcentreData({ ...centreData, idcity: null, namecities: null }) :
 
-      setcentreData({ ...centreData, idcities: val._id, nomcities: nom });
-    console.log(centreData.nomcities);
+      setcentreData({ ...centreData, idcity: val._id, namecities: nom });
+    console.log(centreData.namecities);
 
   };
   const handleChangeemail = (event) => {
     setcentreData({ ...centreData, email: event.target.value })
   };
   const handleChangemotdepasse = (event) => {
-    setcentreData({ ...centreData, motdepasse: event.target.value })
+    setcentreData({ ...centreData, password: event.target.value })
   };
   const handleChangeconfirme = (event) => {
     setcentreData({ ...centreData, confirmerMotdepasse: event.target.value })
@@ -105,9 +104,9 @@ const FormCentre = ({ currentId, setCurrentId }) => {
       setcentreData({ ...centreData, idspeciality: val._id, namespeciality: name })
   }
 
-  const valueimg = centreData.selectedFileimage.indexOf("/");
-  const valueimg2 = centreData.selectedFileimage.indexOf(";");
-  const fileimg = centreData.selectedFileimage;
+  const valueimg = centreData.selectedimage.indexOf("/");
+  const valueimg2 = centreData.selectedimage.indexOf(";");
+  const fileimg = centreData.selectedimage;
   const numberimg = valueimg2 - valueimg;
   const extensionimg = fileimg.substr(valueimg, numberimg);
 
@@ -120,7 +119,7 @@ const FormCentre = ({ currentId, setCurrentId }) => {
      setCurrentId('');
      }
      else  */
-    if ((extensionimg === "/jpeg" || extensionimg === "/jpg" || extensionimg === "/png")  && centreData.motdepasse === centreData.confirmerMotdepasse && centreData.motdepasse.length >= 8  && centreData.phonenumber.length === 8 ) {
+    if ((extensionimg === "/jpeg" || extensionimg === "/jpg" || extensionimg === "/png")  && centreData.password === centreData.confirmerMotdepasse && centreData.password.length >= 8  && centreData.phone.length === 8 ) {
       dispatch(signupcentre(centreData, history));
       setError(false);
       setHelperTextimg('');
@@ -130,17 +129,17 @@ const FormCentre = ({ currentId, setCurrentId }) => {
       setHelperTextimg('Choisir un fichier de type image');
       setError(true);
     }
-      if ( centreData.motdepasse !== centreData.confirmerMotdepasse) {
+      if ( centreData.password !== centreData.confirmerMotdepasse) {
         setHelperTextimg('');
 
         toast.error( 'Les mots de passe ne sont pas identiques');
       }
-     if (centreData.motdepasse.length <8 ) {
+     if (centreData.password.length <8 ) {
       setHelperTextimg('');
 
       toast.error( 'Le   Mot de passe doit contenir  au minimum 8 caractéres ');
     } 
-    if (centreData.phonenumber.length <8){
+    if (centreData.phone.length <8){
       toast.error( 'Le   Numéro de telephone  doit contenir  exactement 8 chiffres ');
     }
     
@@ -154,12 +153,12 @@ const FormCentre = ({ currentId, setCurrentId }) => {
           <Button className={classes.return} href="/signin" ><KeyboardBackspaceIcon className={classes.returnicon} /></Button>
           <h3 className={classes.comptecentre}>Créer un compte</h3>
             <div className={classes.col1}>
-              <TextField required className={classes.textf} name='name' variant="outlined" label="nom " type="string" value={centreData.name} onChange={(e) => setcentreData({ ...centreData, name: e.target.value })} autoFocus></TextField>
+              <TextField required className={classes.textf} name='lastname' variant="outlined" label="nom " type="string" value={centreData.lastname} onChange={(e) => setcentreData({ ...centreData, lastname: e.target.value })} autoFocus></TextField>
               <Selectspecialty onChangeData2={onChangeData2} speciality={speciality} />
-              <TextField required className={classes.textf} name='phonenumber' variant="outlined" label="numéro de téléphone" type="number" value={centreData.phonenumber} onChange={(e) => setcentreData({ ...centreData, phonenumber: e.target.value })} ></TextField>
+              <TextField required className={classes.textf} name='phone' variant="outlined" label="numéro de téléphone" type="number" value={centreData.phone} onChange={(e) => setcentreData({ ...centreData, phone: e.target.value })} ></TextField>
               <Selectgouvernorat onChangeGouvernorat={handleChangegouvernorat} gouvernorat={gouvernorat} />
               <SelectCities handleChangecity={handleChangecity} filtredCity={filtredCity} />
-              <TextField required className={classes.textf} name='adresseexact' variant="outlined" label="Adresse exacte" type="string" value={centreData.adresseexat} onChange={(e) => setcentreData({ ...centreData, adresseexact: e.target.value })} ></TextField>
+              <TextField required className={classes.textf} name='adressexact' variant="outlined" label="Adresse exacte" type="string" value={centreData.adressexact} onChange={(e) => setcentreData({ ...centreData, adressexact: e.target.value })} ></TextField>
 
             </div>
           </Grid>
@@ -175,13 +174,13 @@ const FormCentre = ({ currentId, setCurrentId }) => {
                     ),
                   }}
                 />
-            <Input className={classes.textf}  name="motdepasse" label="Mot de passe" handleChange={handleChangemotdepasse} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
+            <Input className={classes.textf}  name="password" label="Mot de passe" handleChange={handleChangemotdepasse} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
             <Input  className={classes.textf} name="confirmerMotdepasse" label="Confimer  Mot de passe" handleChange={handleChangeconfirme}   type={showPassword1 ? 'text' : 'password'} handleShowPassword={handleShowPassword1}/>
            <div>
             <Typography className={classes.labela}>Ajouter une image </Typography>
           
             <div className={classes.filebase}>
-            <FileBase   type="file" name="choisir une image"  multiple={false} onDone={({ base64 }) => setcentreData({ ...centreData, selectedFileimage: base64 })} />
+            <FileBase   type="file" name="choisir une image"  multiple={false} onDone={({ base64 }) => setcentreData({ ...centreData, selectedimage: base64 })} />
             </div>
             </div>
             <FormHelperText className={classes.error} >{helperTextimg}</FormHelperText>

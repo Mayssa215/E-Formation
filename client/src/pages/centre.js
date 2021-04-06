@@ -1,9 +1,10 @@
+  
 import React, { useState, useEffect } from "react";
 import { Grid, Button } from "@material-ui/core";
 import useStyles from "./styles";
 import FilterCentre from "../components/FilterCentre/filtercentre";
 import Recherche from "../components/Filter/recherche";
-import { getCentre } from "../actions/centre";
+import {getCentre} from "../actions/centre";
 import { useDispatch } from "react-redux";
 import {getnotshowfilter} from "../actions/centre";
 import Cards from "../components/Centre/cards";

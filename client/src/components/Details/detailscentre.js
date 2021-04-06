@@ -134,14 +134,14 @@ setPageBack(pageBack - 1)
                 <span className={classes.place}><PlaceIcon/> </span>
                 <h2  className={classes.adressexacte}>Adresse exacte</h2>
                 {OneCenter.map((e) => (
-                  <span className={classes.adresse}>{e.adresseexact}</span>
+                  <span className={classes.adresse}>{e.adressexact}</span>
                 ))}
               </div>
               <div className={classes.div2}>
                 <span className={classes.graduate}><Graduate/></span>
                 <h2 className={classes.training}>formations  </h2>
                 {OneCenter.map((e) => (
-                  <span className= {classes.nbreform}>{e.formationdecentre.length}</span>
+                  <span className= {classes.nbreform}>{e.trainingcenter.length}</span>
                 ))}
               </div>
 
@@ -152,7 +152,7 @@ setPageBack(pageBack - 1)
             <div className={classes.div1}>
                <h2 className={classes.presenté}> Les formations présentées par</h2>
                  {OneCenter.map((e) => 
-                <h2 className={classes.namecenter}>{e.name}</h2>
+                <h2 className={classes.namecenter}>{e.lastname}</h2>
                  )}
                </div>
           </Grid>

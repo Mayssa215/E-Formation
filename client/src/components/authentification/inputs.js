@@ -17,7 +17,7 @@ const Input = ({ name, handleChange, label,  autoFocus, type, handleShowPassword
       label={label}
       autoFocus={autoFocus}
       type={type}
-      InputProps={name === 'motdepasse' || name ==='confirmerMotdepasse' || name ==='newpassword' || name ==='confirmmotdepasse' || name ==='mdpactuel' ? {
+      InputProps={name === 'password' || name ==='confirmerMotdepasse' || name ==='newpassword' || name ==='confirmmotdepasse' || name ==='mdpactuel' ? {
         endAdornment: (
           <InputAdornment position="end">
             <IconButton onClick={handleShowPassword}>

@@ -1,7 +1,10 @@
   
 import * as api from "../api/centre";
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+
 export const getSearchedCentres = (InputSearch) => async (dispatch) => {
 
  try {
@@ -16,17 +19,6 @@ export const getSearchedCentres = (InputSearch) => async (dispatch) => {
  }
 } 
 
-export const signupcentre = (centreData, history) => async (dispatch) => {
-  try {
-    const { data } = await api.signUp(centreData);
-    dispatch({ type: 'auth', data });
-    history.push('/formations');
-    toast.success(`Bienvenue ${data.result.name} !`);
-
-  } catch (error) {
-    console.log(error);
-  }
-}
 export const creatCentre = (former) => async (dispatch) => {
   try {
       const {data} = await api.creatCentre(former);
@@ -48,7 +40,7 @@ export const updateCentre = (id, former) => async (dispatch) => {
 export const getCentre =(page,SpecialityIds,gouvernoratid,cityid,InputSearch) => async (dispatch) => {
   
   try {
-    const {data} =  await api.fetchCentre(page,SpecialityIds,gouvernoratid,cityid,InputSearch);
+    const {data} =  await api.fetchCentres(page,SpecialityIds,gouvernoratid,cityid,InputSearch);
    console.log('page numero', page);
 
     dispatch ({ type: 'FETCH_ALL', payload: data }) ;
@@ -111,3 +103,15 @@ export const getTrainingcenter =(page) => async (dispatch) => {
    
   }
 };
+
+export const signupcentre = (centreData, history) => async (dispatch) => {
+  try {
+    const { data } = await api.signUp(centreData);
+    dispatch({ type: 'auth', data });
+    history.push('/formations');
+    toast.success(`Bienvenue ${data.result.name} !`);
+
+  } catch (error) {
+    console.log(error);
+  }
+}

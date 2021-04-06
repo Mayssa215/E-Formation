@@ -16,7 +16,7 @@ const Signin = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [signinData, setsigninData] = useState({
-    email: '', motdepasse: ''
+    email: '', password: ''
   });
   const [showPassword, setShowPassword] = useState(false);
   const handleShowPassword = () => setShowPassword(!showPassword);
@@ -63,7 +63,7 @@ const Signin = () => {
                     ),
                   }}
                 />
-                <Input  name="motdepasse" label="Mot de passe" handleChange={handleChange} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
+                <Input  name="password" label="Mot de passe" handleChange={handleChange} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
                 <div >
                   <a className={classes.oublie} href="/forget" >Mot de passe oublié? </a>
                 </div>

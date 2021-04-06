@@ -44,13 +44,13 @@ try {
 };
 
 export const creatTraining = (formation) => async (dispatch) => {
-try {
-   const {data} = await api.creatTraining(formation);
-   dispatch({ type:'CREATE', payload: data})
-}catch (error){
-   console.log(error);
+  try {
+      const {data} = await api.creatTraining(formation);
+      dispatch({ type:'CREATE', payload: data})
+  }catch (error){
+      console.log(error);
 
-}
+  }
 };
 
 export const updateTraining = (id, formation) => async (dispatch) => {

@@ -19,12 +19,12 @@ const Cards = ({ Centre}) => {
   return (
     <Card className={classes.root}>
      
-     <CardMedia className={classes.media} image={Centre.selectedFileimage} />
+     <CardMedia className={classes.media} image={Centre.selectedimage} />
 
       
     <CardContent >
         <div className={classes.formatdate}>
-        <span className={classes.title}>{Centre.name} </span>
+        <span className={classes.title}>{Centre.lastname} </span>
         </div>
         
         <div className={classes.place}>
@@ -33,13 +33,13 @@ const Cards = ({ Centre}) => {
         </div>
         <div className={classes.place}>
            <PlaceIcon className={classes.Placeicon} /> 
-           <span className={classes.lieu}>{Centre.nomgouvernorat} / {Centre.nomcities}</span>
+           <span className={classes.lieu}>{Centre.namegouvernorate} / {Centre.namecities}</span>
         </div> 
       
        
         <div className={classes.place}>
            <PhoneIcon className={classes.Placeicon} /> 
-           <span className={classes.lieu}>{Centre.phonenumber}</span>
+           <span className={classes.lieu}>{Centre.phone}</span>
         </div>
       </CardContent>
       <CardActions className={classes.btns}>

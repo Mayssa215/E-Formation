@@ -11,7 +11,7 @@ const Resultatform = () => {
     
    <Grid container lg={12}>
       {formation.map((Training) => (
-        <Grid key={Training.nom}  container item md={6}
+        <Grid key={Training.name}  container item md={6}
         sm={6}
         lg={4}>
           <Cards Training={Training} />

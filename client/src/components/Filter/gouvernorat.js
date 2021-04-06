@@ -31,7 +31,7 @@ const Gouvernorat = ({onFilterGouvernoratAplly, onFilterCityAplly}) => {
     const handleChangegouvernorat = (event, value) => {
 
         value === null ? setfiltredCity([]) :
-        setfiltredCity(City.filter((x) => x.id_gouvernorat === value._id));
+        setfiltredCity(City.filter((x) => x.id_gouvernorate === value._id));
         if(value !== null) 
         {
             let val=value._id;

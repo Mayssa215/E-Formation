@@ -42,10 +42,11 @@ const App = () => {
                 <>
                 <Navbar /> 
                 <Route path="/" exact component={Search} />
-                <Route path="/formations"> <Training/>  </Route>
+                <Route path="/formations"> <Form/>  </Route>
                 <Route path="/formateurs"> <Former/></Route>
-                <PrivateRoute path="/myaccount" component={Account}></PrivateRoute>
                 <Route path="/centredeformation">  <Centre/> </Route>
+                <PrivateRoute path="/myaccount" component={Account}></PrivateRoute>
+               
                  <Route path="/formation/:id">  <Details/></Route>  
                  <Route path="/centre/:id"> <DetailsCentre/> </Route>
                  <Route path="/formateur/:id"> <DetailsFormer/> </Route>

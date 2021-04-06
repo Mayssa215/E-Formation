@@ -22,7 +22,7 @@ const Signup = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [signData, setsignData] = useState({
-    nom: '', prenom: '', gouvernoratu: '', villeu:'',cin: '', telephone: '', email: '', motdepasse: '', confirmerMotdepasse: ''
+    firstname: '', lastname: '', gouvernorate: '', city:'',cin: '', phone: '', email: '', password: '', confirmerMotdepasse: ''
   });
   const [showPassword, setShowPassword] = useState(false);
   const handleShowPassword = () => setShowPassword(!showPassword);
@@ -49,40 +49,40 @@ const Signup = () => {
   const handleChangegouvernorat = (e, val) => {
     let nom = val.nom;
 
-    val === null ? setsignData({ ...signData, gouvernoratu: null }) :
+    val === null ? setsignData({ ...signData, gouvernorate: null }) :
    
-      setsignData({ ...signData,  gouvernoratu: nom })
+      setsignData({ ...signData,  gouvernorate: nom })
     val === null ? setfiltredCity([]) :
-      setfiltredCity(City.filter((x) => x.id_gouvernorat === val._id));
+      setfiltredCity(City.filter((x) => x.id_gouvernorate === val._id));
   };
 
   const handleChangecity = (e, val) => {
     let nom = val.nom;
     console.log(nom);
     e.preventDefault();
-    val === null ? setsignData({ ...signData,  villleu: null }) :
+    val === null ? setsignData({ ...signData,  city: null }) :
 
-      setsignData({ ...signData, villeu: nom });
+      setsignData({ ...signData, city: nom });
 
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (signData.motdepasse === signData.confirmerMotdepasse && signData.motdepasse.length >= 8 &&  signData.cin.length ===8 &&  signData.telephone.length === 8) {
+    if (signData.password === signData.confirmerMotdepasse && signData.password.length >= 8 &&  signData.cin.length ===8 &&  signData.phone.length === 8) {
     dispatch(signup(signData, history));
 
     }
-    else if (signData.motdepasse !== signData.confirmerMotdepasse){
+    else if (signData.password !== signData.confirmerMotdepasse){
       toast.error( 'Les mots de passe ne sont pas identiques');
     }
-    else if(signData.motdepasse.length < 8){
+    else if(signData.password.length < 8){
       toast.error( 'Le  Mot de passe doit contenir au minimum 8 caratéres ');
     } 
     else if ( signData.cin.length< 8){
       toast.error( 'Le  Numero de carte d identité doit contenir exactement 8 chiffres ');
 
     }
-    else if ( signData.telephone.length < 8){
+    else if ( signData.phone.length < 8){
       toast.error( 'Le  Numéro de telephone doit contenir doit contenir exactement 8 chiffres  ');
 
     }
@@ -102,8 +102,8 @@ const Signup = () => {
             <Button className={classes.return} href="/signin" ><KeyboardBackspaceIcon className={classes.returnicon} /></Button>
               <h3 className={classes.compte}>Créer un compte</h3>
               <div className={classes.gr1}>
-                <Input  name="nom" label="Nom" handleChange={handleChange} autoFocus />
-                <Input name="prenom" label="Prénom" handleChange={handleChange} />
+                <Input  name="firstname" label="Nom" handleChange={handleChange} autoFocus />
+                <Input name="lastname" label="Prénom" handleChange={handleChange} />
                 <Selectgouvernorat onChangeGouvernorat={handleChangegouvernorat} gouvernorat={gouvernorat} />
                 <SelectCities handleChangecity={handleChangecity} filtredCity={filtredCity} />         
                      
@@ -111,7 +111,7 @@ const Signup = () => {
             </Grid>
             <Grid item lg={4} sm={3} md={3} xs={4}>
               <div className={classes.gr2} >
-                <Input  name="telephone" label="Telephone" handleChange={handleChange} type="number" />
+                <Input  name="phone" label="Telephone" handleChange={handleChange} type="number" />
                 <Input  name="cin" label="Cin" handleChange={handleChange} type="number" />
                 <TextField name="email" label="Email" onChange={handleChange} variant="outlined" required type="email"  className={classes.email1}
                   InputProps={{
@@ -122,7 +122,7 @@ const Signup = () => {
                     ),
                   }}
                 />                 
-                 <Input   name="motdepasse" label="Mot de passe" handleChange={handleChange} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
+                 <Input   name="password" label="Mot de passe" handleChange={handleChange} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
                 <Input   name="confirmerMotdepasse" label="Confimer  Mot de passe" handleChange={handleChange} type={showPassword1 ? 'text' : 'password'} handleShowPassword={handleShowPassword1} />
               </div>
             </Grid>

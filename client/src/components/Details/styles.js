@@ -516,7 +516,7 @@ export default makeStyles((theme) => ({
     },
   },
   graduate: {
-    marginLeft: 80,
+    marginLeft: 180,
     fill: "#4e3e8c",
     "@media  screen and (max-width: 960px)": {
       marginLeft: 40,
