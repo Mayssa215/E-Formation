@@ -1,12 +1,12 @@
 import axios from "axios";
-const url0 = "http://localhost:5010/centre/signup";
-const url = "http://localhost:5010/centre";
-const url2 = 'http://localhost:5010/paging/pagecentre';
-const url3 = 'http://localhost:5010/paging/pageshowcentre';
-const url4 = 'http://localhost:5010/paging/recentcentre';
+const url0 = "http://localhost:5030/centre/signup";
+const url = "http://localhost:5030/centre";
+const url2 = 'http://localhost:5030/paging/pagecentre';
+const url3 = 'http://localhost:5030/paging/pageshowcentre';
+const url4 = 'http://localhost:5030/paging/recentcentre';
 
-const url5 = 'http://localhost:5010/centre/one';
-const url6 ='http://localhost:5010/paging/trainingcenter';
+const url5 = 'http://localhost:5030/centre/one';
+const url6 ='http://localhost:5030/paging/trainingcenter';
 
 export const fetchSearchedCentres = (InputSearch) => {
   return axios.get(url, {

@@ -9,7 +9,7 @@ const TextEditor = ({handleEditorChange,editor}) =>{
         apiKey="m5ds1483geh0i7enbzr28bas9o5tol7hk3w3no4pa8yfjbw5"
         init={{ /* your other settings */ }}
 
-        initialValue=""
+        initialValue={editor}
         init={{
           
             selector: 'textarea#full-featured-non-premium',

@@ -195,7 +195,7 @@ const Navbar = () => {
 
             <Button className={classes.btn} onClick={handleClick} >
               <div className={classes.avatardesgin}>
-                <Avatar alt={user?.email} src={user?.image}>{user?.lastname.charAt(0)}</Avatar>
+                <Avatar alt={user?.email} src={user?.selectedimage}>{user?.lastname.charAt(0)}</Avatar>
                 <ArrowDropDownIcon className={classes.arrow} />
               </div>
             </Button>
@@ -245,7 +245,7 @@ null        }
             <div  >
               <Button className={classes.btn} onClick={handleClick}>
                 <div className={classes.avatardesgin}>
-                  <Avatar alt={user?.email} src={user?.image}> {user?.lastname.charAt(0)}</Avatar>
+              <Avatar alt={user?.email} src={user?.selectedimage}>{user?.lastname.charAt(0)}</Avatar>
                   <ArrowDropDownIcon className={classes.arrow} />
                 </div>
               </Button>

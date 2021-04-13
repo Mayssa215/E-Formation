@@ -13,7 +13,7 @@ const Input = ({ name, handleChange, label,  autoFocus, type, handleShowPassword
       name={name}
       onChange={handleChange}
       variant="outlined"
-      required
+      
       label={label}
       autoFocus={autoFocus}
       type={type}

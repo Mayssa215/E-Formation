@@ -39,7 +39,7 @@ return (
     <div className={classes.root} >
          {
                OneTraining.map((e)=>
-               <h2 className={classes.nom}> { e.nomformation}</h2>
+               <h2 className={classes.nom}> { e.name}</h2>
            
                )
            }
@@ -49,17 +49,14 @@ return (
                    <div className={classes.div}>
                      <div className={classes.date}>
                      <AccessTimeIcon className={classes.duree}/>
-                      <span className={classes.heure}>{e.duree} Heures</span> 
+                      <span className={classes.heure}>{e.periode} Heures</span> 
                      </div>
                       
                   < div className={classes.love} >
                    <FavoriteBorderIcon className={classes.favorite}  />
                    <span className={classes.intersted}>50 sont intéressés</span>
                    </div>
-                   <div className={classes.trainer}>
-                   <FaceIcon className={classes.former} />
-                    <span className={classes.coach}>Présenté Par : {e.coach}</span>
-                   </div>
+               
                    
                     </div>
                
@@ -75,7 +72,7 @@ return (
    <h2 className={classes.programme}>Programme</h2>
    {OneTraining.map((e)=>
    <div className={classes.text2}
-     dangerouslySetInnerHTML= {{__html: e.programme}}
+     dangerouslySetInnerHTML= {{__html: e.planning}}
    />
 
  
@@ -98,7 +95,7 @@ return (
              
                <h2 className={classes.connaissance}> Prerequis</h2>
      {OneTraining.map((e)=> 
-  <div className={classes.prerequis }  dangerouslySetInnerHTML= {{__html:e.prerequis}}/> 
+  <div className={classes.prerequis }  dangerouslySetInnerHTML= {{__html:e.skills}}/> 
     )  }
        
        
@@ -106,7 +103,7 @@ return (
     { 
        OneTraining.map((e)=> 
           
-           <p className={classes.objectif} dangerouslySetInnerHTML= {{__html: e.objectifsformation}}/>
+           <p className={classes.objectif} dangerouslySetInnerHTML= {{__html: e.objectif}}/>
           
       )
    } 

@@ -1,31 +1,32 @@
-import React, { useState, useEffect } from 'react';
- 
+import React ,{ useState, useEffect } from "react";
 import FileBase from 'react-file-base64';
 import useStyles from './styles';
 import { TextField, Button, FormLabel, Paper, Grid, Container, Typography} from '@material-ui/core';
-import Select from '../Select/selectcategorie';
-import Selectgouvernorat from '../Select/selectgouvernorate1';
+import Select from '../Select/select';
 import MaterialUIPickers from '../Datepicker/datepicker';
 import Time from '../Timepicker/timepicker';
-import { creatTraining,  updateTraining, creatTrainingcenter} from '../../actions/training';
+import { getTrainingbyid, updateTraining} from '../../actions/training';
 import { useDispatch, useSelector } from 'react-redux';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import { getcategorie } from '../../actions/categorie';
 import {getgouvernorat} from '../../actions/gouvernorat';
 import {getCity} from '../../actions/cities';
-import SelectCities from '../Select/selectcity1';
+import Selectgouvernorat from '../Select/selectgouvernorat';
+import SelectCities from '../Select/selectCities';
 import moment from 'moment';
 import TextEditor from '../TextEditor/texteditor';
 import Mapformer from "../MapFormers/mapcreate";
 
-
-const Form = ({ currentId, setCurrentId }) => {
-  const [yGouv, setYGouvernorat] = useState(10);
+const UpdateForm = () =>{
+const url = window.location.href;
+const id = url.substr(37);
+const [yGouv, setYGouvernorat] = useState(10);
   const [xGouv, setXGouvernorat] = useState(36);
   const [yCity, setYCity] = useState(10);
   const [xCity, setXCity] = useState(36);
   const [x, setX] = useState();
   const [y, setY] = useState();
+
   const [formationData, setformationData] = useState({name: '', 
     firstdate: '',
     lastdate:'',
@@ -40,17 +41,19 @@ const Form = ({ currentId, setCurrentId }) => {
     skills:'',
     selectedimage :'',
     idcity:'',
-    idgouvernorate:'',
     namegouvernorate:'',
+    idgouvernorate:'',
     namecategorie:'',
     idcategorie:'',
     longitude:'',
     latitude:'',
     id_former:'',
     id_center:''
-
   });
-  const formation = useSelector((state) => currentId ? state.formations.find((f) => f._id === currentId) : null);
+
+  
+
+
   const [error, setError] = React.useState(false);
   const [helperText, setHelperText] = React.useState('');
   const [categorie, setCategorie] = useState([]);
@@ -58,9 +61,6 @@ const Form = ({ currentId, setCurrentId }) => {
   const dispatch = useDispatch();
   const [City, setCity] = useState([]);
   const [filtredCity, setfiltredCity] = useState([]);
-  const [userinfos, setuserinfos] = useState(JSON.parse(localStorage.getItem('profile')));
-  const [Data, setData] = useState(userinfos);
-  const [userid, setuserid] = useState(Data._id);
   const TextPoint=(props) =>{
     return (
       <div>
@@ -89,29 +89,9 @@ const Form = ({ currentId, setCurrentId }) => {
     );
   }
 
-  const clear = () => {
-    setformationData({name: '', 
-    firstdate: '',
-    lastdate:'',
-    hour:'',
-    price: '',
-    namecity:'',
-    periode:'',
-    numberplace: '',
-    planning:'',
-    description : '',
-    objectif: '',
-    skills:'',
-    selectedimage :'',
-    idcity:'',
-    idgouvernorate:'',
-    idcategorie:'',});
-  }
 
-  useEffect (()=> {
-    if(formation) {setformationData(formation) 
-    }
-    } ,[formation]  ) 
+
+ 
 
     useEffect(() => {
       dispatch(getcategorie()).then((res) => {
@@ -123,8 +103,20 @@ const Form = ({ currentId, setCurrentId }) => {
      dispatch(getgouvernorat()).then((res) => {
       setGouvernorats(res);
   });
+  dispatch(getTrainingbyid(id)).then((res) =>{
+    setformationData(res);
 
+  });
   }, []);
+   useEffect(() => {
+     handleset();
+   },[])
+  const handleset = () =>{
+    setX(formationData.latitude)
+     setY(formationData.longitude)
+    }
+
+
 
 const onChangeLastDate = (e) => {
   setformationData({ ...formationData, lastdate: e.target.value })
@@ -133,7 +125,7 @@ const onChangeFirstDate = (e) => {
 setformationData({ ...formationData, firstdate: e.target.value })
 }
 const handleChangegouvernorat = (e, val) => {
-  let nom = val.nom;
+  
   if (val === null) {
     setformationData({...formationData, idgouvernorate:null})
     setXGouvernorat(36);
@@ -142,7 +134,7 @@ const handleChangegouvernorat = (e, val) => {
     setXGouvernorat(val.latitude);
     setYGouvernorat(val.longitude);
     
-  setformationData({ ...formationData, idgouvernorate: val._id , namegouvernorate: nom});
+  setformationData({ ...formationData, idgouvernorate: val._id });
   console.log(formationData.idgouvernorate);
   val === null ? setfiltredCity([]) :
   setfiltredCity(City.filter((x) => x.id_gouvernorat === val._id));
@@ -174,18 +166,16 @@ const getLocation = (location) => {
 setX(location[0]);
 setY(location[1]);
 
- setformationData({...formationData , latitude : x , longitude : y });
+setformationData({...formationData , latitude : x , longitude : y });
  
   
  console.log(x,y);
 };
   
 const onChangeData2 = (e, val ) => {
-  let nom =val.nom
   console.log(formationData.idcategorie);
   val ===  null ? setformationData({...formationData, idcategorie:null}):
-  setformationData({ ...formationData, idcategorie: val._id , namecategorie: nom})
-  console.log(nom)
+  setformationData({ ...formationData, idcategorie: val._id })
  
   
 };
@@ -207,7 +197,7 @@ const handleEditorChangeprerequis  = (e) => {
      
   setformationData({...formationData, skills:e.target.getContent()});
 }
-    const value2 = formationData.selectedimage.indexOf("/");
+     const value2 = formationData.selectedimage.indexOf("/");
     const value3 = formationData.selectedimage.indexOf(";");
     const file = formationData.selectedimage;
     const number = value3 - value2;
@@ -219,38 +209,12 @@ const handleEditorChangeprerequis  = (e) => {
     setformationData({ ...formationData, hour: e.target.value })
   }
 
-  const  handleclick = () => {
-
-    Data.Role ==='formateur'? 
-   setformationData({ ...formationData, id_former: userid }): 
-   setformationData({ ...formationData, id_center: userid })
-  } 
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if(currentId  && (extension === "/jpeg" || extension === "/jpg" || extension === "/png" )) {
-    dispatch(updateTraining(currentId, formationData));
-    clear();
-    setCurrentId('');
-    }
-    else 
-    if(extension === "/jpeg" || extension === "/jpg" || extension === "/png") {
-
-      if (Data.Role === 'formateur')  {
-        dispatch(creatTraining(formationData))
-        setError(false)
-        setHelperText('')
-        alert(" Succés !")
-        clear();
-      }
-      else if  (Data.Role === 'centre'){
-        dispatch(creatTrainingcenter(formationData));
-        setError(false);
-        setHelperText('');
-        alert(" Succés !")
-        clear();
-        }
-  
+   if( (extension === "/jpeg" || extension === "/jpg" || extension === "/png" )) {
+   dispatch(updateTraining(id, formationData));
       } 
     else {
       setHelperText('Choisir un fichier de type image.');
@@ -275,17 +239,17 @@ const handleEditorChangeprerequis  = (e) => {
                   x1={xGouv}
                   y1={yGouv}  />
             <TextField className={classes.Textfiled} required name='name' variant="outlined" label="nom du formation" type="string" value={formationData.name} onChange={(e) => setformationData({ ...formationData, name: e.target.value })} style={{ width: 360, marginTop: 15 }}></TextField>
-            <Select onChangeData2={onChangeData2}  categorie={categorie} />
-            <MaterialUIPickers onChangeFirstDate={onChangeFirstDate}  onChangeLastDate={onChangeLastDate} />
+            <Select onChangeData2={onChangeData2}  categorie={categorie}  value={formationData.namecategorie} />
+            <MaterialUIPickers onChangeFirstDate={onChangeFirstDate}  onChangeLastDate={onChangeLastDate}   firstdate={moment(formationData.firstdate).format("yyyy-MM-DD")} lastdate={moment(formationData.lastdate).format("yyyy-MM-DD")}/>
 
             <Time onChangetime={onChangeTime} time={formationData.hour} />
-            <TextField className={classes.Textfiled}  name='periode ' variant="outlined" label="durée du formation (heures)" type="number" value={formationData.duree} onChange={(e) => setformationData({ ...formationData, periode: e.target.value })} style={{ width: 360, marginTop: 15 }}></TextField>
+            <TextField className={classes.Textfiled}  name='periode ' variant="outlined" label="durée du formation (heures)" type="number" value={formationData.periode} onChange={(e) => setformationData({ ...formationData, periode: e.target.value })} style={{ width: 360, marginTop: 15 }}></TextField>
   
           </Grid>
           <Grid item xs={12} md={6} lg={6} >
-          <Selectgouvernorat     onChangeGouvernorat={handleChangegouvernorat} gouvernorat={gouvernorat}  />
+          <Selectgouvernorat     onChangeGouvernorat={handleChangegouvernorat} gouvernorat={gouvernorat}  value={formationData.namegouvernorate} />
 
-          <SelectCities handleChangecity={handleChangecity} filtredCity={filtredCity}  />
+          <SelectCities handleChangecity={handleChangecity} filtredCity={filtredCity} value={formationData.namecity}  />
 
             <TextField required name='price' type="number" variant="outlined" label="prix (TND)" value={formationData.price} onChange={(e) => setformationData({ ...formationData, price: e.target.value })} style={{ width: 360, marginTop: 15 }}></TextField>
             <TextField required name='numberplace' type="number" variant="outlined" label="Nombre de place" value={formationData.numberplace} onChange={(e) => setformationData({ ...formationData, numberplace: e.target.value })} style={{ width: 360, marginTop: 15 }}></TextField>
@@ -308,14 +272,15 @@ const handleEditorChangeprerequis  = (e) => {
       <FormHelperText className={classes.error} >{helperText}</FormHelperText>
 
             </div>
-            <Button className={classes.buttonSubmit} variant="outlined" color="primary" type="submit"  onClick={handleclick} > Envoyer</Button>
+            <Button className={classes.buttonSubmit} variant="outlined" color="primary" type="submit"   > Envoyer</Button>
           </Grid>
         </Grid>
 
       </form>
     </Paper>
+)
 
-  );
+
 
 }
-export default Form;
+export default UpdateForm;

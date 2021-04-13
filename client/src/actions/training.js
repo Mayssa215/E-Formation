@@ -52,6 +52,16 @@ export const creatTraining = (formation) => async (dispatch) => {
 
   }
 };
+export const creatTrainingcenter = (formation) => async (dispatch) => {
+  try {
+      const {data} = await api.creatTrainingcenter(formation);
+      dispatch({ type:'CREATE', payload: data})
+  }catch (error){
+      console.log(error);
+
+  }
+};
+
 
 export const updateTraining = (id, formation) => async (dispatch) => {
 try {
@@ -67,7 +77,6 @@ export const deleteTraining = (id) => async (dispatch) => {
 try {
   await api.deleteTraining(id);
  dispatch({ type:'DELETE', payload: id });
-
 } catch (error) {
  console.log(error);
 }
@@ -96,3 +105,15 @@ try {
 
 }
 };
+
+export const getTrainingbyid = (id) => async (dispatch) =>{
+
+  try {
+    const {data} =  await api.fetchTrainingbyid(id);
+  dispatch ({ type: 'FETCH_ALL', payload: data }) ;
+  return data;
+} catch (error) {
+ console.log('error action',error.message);
+
+  }
+}

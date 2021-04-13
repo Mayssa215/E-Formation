@@ -60,8 +60,8 @@ marginTop:100,
 
 },
   media: {
-    height: 130,
-    paddingTop: -10, 
+    height: 90,
+    paddingTop: 10, 
    marginTop:0,
    marginBottom:20,
   },

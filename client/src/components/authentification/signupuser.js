@@ -53,7 +53,7 @@ const Signup = () => {
    
       setsignData({ ...signData,  gouvernorate: nom })
     val === null ? setfiltredCity([]) :
-      setfiltredCity(City.filter((x) => x.id_gouvernorate === val._id));
+      setfiltredCity(City.filter((x) => x.id_gouvernorat === val._id));
   };
 
   const handleChangecity = (e, val) => {

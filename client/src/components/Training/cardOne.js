@@ -24,7 +24,7 @@ const CardOne = ({ Training}) => {
         <div className={classes.svg}>
           <div className={classes.Container}>
           <div className={classes.price}>
-          <span  className={classes.prix}>{Training.prix}</span>
+          <span  className={classes.prix}>{Training.price}</span>
           <br/>
           <span className={classes.tnd}>TND</span>
           </div>
@@ -33,16 +33,16 @@ const CardOne = ({ Training}) => {
           </div>
           </div>
         </div>
-        <CardMedia className={classes.media} image={Training.selectedFile} />
+        <CardMedia className={classes.media} image={Training.selectedimage} />
       </div>
       
     <CardContent >
         <div className={classes.formatdate}>
-        <span className={classes.title}>{Training.nomformation} </span>
+        <span className={classes.title}>{Training.name} </span>
         </div>
         <div className={classes.place}>
            <PlaceIcon className={classes.Placeicon} /> 
-           <span className={classes.lieu}>{Training.nomcities}</span>
+           <span className={classes.lieu}>{Training.namecity}</span>
         </div>
           <div className={classes.place}> 
           <CalendarTodayIcon className={classes.Placeicon} />
@@ -50,7 +50,7 @@ const CardOne = ({ Training}) => {
           </div>
           <div className={classes.place}>
           <PeopleIcon className={classes.Placeicon} />
-          <span className={classes.nbh}>{Training.Nombredeplace}</span>
+          <span className={classes.nbh}>{Training.numberplace}</span>
           </div>
 
       </CardContent>

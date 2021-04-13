@@ -100,7 +100,8 @@ const FormCentre = ({ currentId, setCurrentId }) => {
 
   const onChangeData2 = (e, val) => {
     let name = val.nom;
-    val === null ? setcentreData({ ...centreData, idspeciality: null, namespeciality: null }) :
+    val === null ?   setcentreData({ ...centreData, idspeciality: null, namespeciality: null }) :
+ 
       setcentreData({ ...centreData, idspeciality: val._id, namespeciality: name })
   }
 

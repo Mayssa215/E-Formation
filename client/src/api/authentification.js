@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-const url = 'http://localhost:5010/user/signup';
-const url1 = 'http://localhost:5010/user/signin';
-const url2= 'http://localhost:5010/user/forgetpassword';
-const url3= 'http://localhost:5010/user/resetpassword';
-const url4= 'http://localhost:5010/user';
+const url = 'http://localhost:5030/user/signup';
+const url1 = 'http://localhost:5030/user/signin';
+const url2= 'http://localhost:5030/user/forgetpassword';
+const url3= 'http://localhost:5030/user/resetpassword';
+const url4= 'http://localhost:5030/user';
 
 
 export const signUp = ( signData ) => axios.post(url, signData);

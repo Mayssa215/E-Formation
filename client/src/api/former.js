@@ -1,11 +1,16 @@
 import axios from "axios";
 
-const url = "http://localhost:5010/former";
-const url2 ="http://localhost:5010/former/signup";
-const url3 = 'http://localhost:5010/paging/pageformer';
-const url4 = 'http://localhost:5010/paging/pageshowformer';
-const url5 = 'http://localhost:5010/paging/recentformer';
-const url6 = 'http://localhost:5010/former/one';
+const url = "http://localhost:5030/former";
+const url1 = "http://localhost:5030/former/trainings";
+
+const url2 ="http://localhost:5030/former/signup";
+const url3 = 'http://localhost:5030/paging/pageformer';
+const url4 = 'http://localhost:5030/paging/pageshowformer';
+const url5 = 'http://localhost:5030/paging/recentformer';
+const url6 = 'http://localhost:5030/former/one';
+
+
+
 
 export const fetchSearchedFormer = (InputSearch) => {
   return axios.get(url, {
@@ -37,4 +42,8 @@ export const fetchrecentFormer=(page)=> {
 
 export const fetchOneFormer = (idformer) => {
   return axios.get(url6,{params:{idformer}})
+};
+
+export const fetchTrainingFormer = (id) => {
+  return axios.get(url1,{params : {id}})
 };
