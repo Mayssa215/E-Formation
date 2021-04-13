@@ -3,11 +3,11 @@ const userSchema = mongoose.Schema ({
   firstname : {type: String, required:true, trim: true },
   lastname : { type:String , required:true , trim:true},
   phone : { type: String , required:true , minlength:8},
-  cin : { type: Number , required:true, minlength:8 },
+  cin : { type: String , required:true, minlength:8 },
   city : {type: String, required:true, trim: true },
   gouvernorate : {type: String, required:true, trim: true },
   email :{ type:String, required:true , unique:true},
-  image: String,
+  selectedimage: String,
   password : {
     type: String,
      required:true, 

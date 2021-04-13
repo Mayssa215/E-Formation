@@ -34,6 +34,5 @@ const formerSchema = mongoose.Schema({
 
 });
 
-
 const Former = mongoose.model('Former', formerSchema);
 export default Former;

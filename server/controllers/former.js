@@ -4,8 +4,7 @@ import Former from "../models/former.js";
 import Centre from "../models/centre.js";
 import User from '../models/user.js';
 import Categorie from "../models/categorie.js";
-
-
+import Training from '../models/training.js';
 export const getFormer = async (req, res) => {
   try {
     console.log("params", req.query.InputSearch);
@@ -254,3 +253,22 @@ export const  signupformer = async (req, res) => {
       res.status(404).json({ message: error.message });
     };
   };
+
+
+  export const getTrainingFormer = async (req,res) => {
+
+    try {
+      const  idf  = req.query.id;
+       console.log(idf)
+      const Trainings = await Training.find({id_former:idf});
+      console.log(Trainings);
+      res.status(200).json(
+        Trainings
+       
+      );
+    } catch (error) {
+      res.status(404).json({ message: error.message });
+
+    };
+  };
+

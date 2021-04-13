@@ -2,6 +2,10 @@ import Training from "../models/training.js";
 import Categorie from "../models/categorie.js";
 import Gouvernorat from "../models/gouvernorat.js";
 import City from "../models/cities.js";
+import Former from "../models/former.js";
+import Center from "../models/centre.js";
+import  mongoose  from 'mongoose';
+
 export const getSearchedTraining = async (req, res) => {
   try {
     const wordsearched = req.query.InputSearch.toLowerCase().replace(
@@ -246,30 +250,21 @@ console.log(select);
   }
 };
 
-
-
-export const updateTraining = async (req, res) => {
-  const { id: _id } = req.params;
-  const training = req.body;
-
-  if (!mongoose.Types.ObjectId.isValid(_id))
-    return res.status(404).send("Aucune formation avec cet id");
-
-  const updatedTraining = await Training.findByIdAndUpdate(
-    _id,
-    { ...training, _id },
-    { new: true }
-  );
-  res.json(updatedTraining);
-};
-
 export const deleteTraining = async (req, res) => {
-  const { id } = req.params;
+  try {
+  const  id  = req.query.id;
 
   if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send("Aucune formation avec cet id ");
+  const training = await Training.findOne({_id:id});
   await Training.findByIdAndRemove(id);
+  await Former.updateOne({ $pull :{training: training._id}} );
+
   res.json({ message: "la formation a ete supprimer avec succés !" });
+  }catch (error) {
+    res.status(404).json({ message: error.message });
+    console.log(error.message)
+  }
 };
 
 export const getrecentTraining = async (req, res) => {
@@ -319,6 +314,72 @@ export const getOneTraining = async (req, res) => {
 
 export const creatTraining = async (req, res) => {
   const {
+    name, 
+    firstdate,
+    lastdate,
+    hour,
+    price,
+    namecity,
+    periode,
+    numberplace,
+    planning,
+    description ,
+    objectif,
+    skills,
+    selectedimage,
+    namegouvernorate,
+    namecategorie,
+    idcity,
+    idgouvernorate,
+    idcategorie,
+    longitude,
+    latitude,
+    createdAt,
+    id_former,
+  } = req.body;
+
+  const newTraining = new Training({
+    name, 
+    firstdate,
+    lastdate,
+    hour,
+    price,
+    namecity,
+    periode,
+    numberplace,
+    planning,
+    description ,
+    objectif,
+    skills,
+    selectedimage,
+    idcity,
+    namegouvernorate,
+    namecategorie,
+    idgouvernorate,
+    idcategorie,
+    longitude,
+    latitude,
+    id_former,
+    createdAt,
+
+  });
+  try {
+    await newTraining.save();
+    await Former.updateOne({ $push :{training: newTraining._id}} )
+    res.status(201).json(newTraining);
+    
+
+
+  } catch (error) {
+    res.status(409).json({ message: error.message });
+    console.log(error.message)
+  }
+};
+
+
+export const creatTrainingcenter = async (req, res) => {
+
+  const {
     name,
     idcategorie,
     firstdate,
@@ -326,7 +387,7 @@ export const creatTraining = async (req, res) => {
     hour,
     periode,
     idgouvernorate,
-    idcities,
+    idcity,
     price,
     namecity,
     numberplace,
@@ -335,6 +396,12 @@ export const creatTraining = async (req, res) => {
     objectif,
     skills,
     selectedimage,
+    namegouvernorate,
+    namecategorie,
+    longitude,
+    latitude,
+    id_center,
+
     createdAt,
     
   } = req.body;
@@ -347,22 +414,74 @@ export const creatTraining = async (req, res) => {
     hour,
     periode,
     idgouvernorate,
-    idcities,
+    idcity,
     price,
     namecity,
     numberplace,
+    namegouvernorate,
+    namecategorie,
     planning,
     description,
     objectif,
     skills,
     selectedimage,
+    longitude,
+    latitude,
+    id_center,
     createdAt,
-
   });
   try {
-    await newTraining.save();
+    console.log(`ggg`, newTraining)
+     await newTraining.save();
+     await Center.updateOne({ $push :{trainingcenter: newTraining._id}} )
+
     res.status(201).json(newTraining);
   } catch (error) {
-    res.status(409).json({ message: error.message });
+    res.status(404).json({ message: error.message });
+    console.log(error.message);
   }
 };
+
+export const getAllTrainings = async (req, res) => {
+  try {
+    const trainingall = await Training.find();
+    res.status(200).json(trainingall);
+  }catch(error) {
+     res.status(404).json({message: error.message});
+  }
+}
+
+export const getTrainingbyid = async (req,res) => {
+  try {
+    const  id = req.query.id;
+  const result = await Training.findOne({_id: id});
+  res.status(200).json(result);
+
+  }
+  catch(error) {
+   res.status(404).json({message: error.message});
+ }
+}
+export const updateTraining = async (req, res) => {
+  try {
+  const id = req.query.id;
+  const _id = id;
+  const training = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(_id))
+    return res.status(404).send("Aucune formation avec cet id");
+
+  const updatedTraining = await Training.findByIdAndUpdate(
+    _id,
+    { ...training, _id },
+    { new: true }
+  );
+  res.json(updatedTraining);
+  console.log(updatedTraining)
+  }
+  catch(error) {
+    res.status(404).json({message: error.message});
+    console.log(error.message)
+  }
+};
+
