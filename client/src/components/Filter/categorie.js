@@ -21,7 +21,6 @@ const Categorie = ( {onFilterCategoriesAplly } ) => {
   useEffect(() => {
     dispatch(getcategorie()).then((res) => {
       setCategories(res);
-     
 });
   }, [dispatch]);
 
@@ -33,14 +32,12 @@ const Categorie = ( {onFilterCategoriesAplly } ) => {
       {
           CategoriesIds.push( event.target.value);
         setCategoriesIds(CategoriesIds);
-        console.log(CategoriesIds);
 
       }
       else 
       {
           CategoriesIds.splice(CategoriesIds.indexOf(event.target.value),1);
           setCategoriesIds(CategoriesIds);
-          console.log(CategoriesIds);
 
       }
       onFilterCategoriesAplly(CategoriesIds);

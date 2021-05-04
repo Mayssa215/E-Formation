@@ -125,7 +125,7 @@ const onChangeFirstDate = (e) => {
 setformationData({ ...formationData, firstdate: e.target.value })
 }
 const handleChangegouvernorat = (e, val) => {
-  
+  let nom = val.nom;
   if (val === null) {
     setformationData({...formationData, idgouvernorate:null})
     setXGouvernorat(36);
@@ -134,7 +134,7 @@ const handleChangegouvernorat = (e, val) => {
     setXGouvernorat(val.latitude);
     setYGouvernorat(val.longitude);
     
-  setformationData({ ...formationData, idgouvernorate: val._id });
+  setformationData({ ...formationData, idgouvernorate: val._id , namegouvernorate: nom});
   console.log(formationData.idgouvernorate);
   val === null ? setfiltredCity([]) :
   setfiltredCity(City.filter((x) => x.id_gouvernorat === val._id));

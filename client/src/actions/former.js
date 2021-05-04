@@ -96,10 +96,11 @@ export const getOneFormer = (idformer) => async (dispatch)  => {
   }
 };
 
-export const getTrainingFormer = (id) => async (dispatch) => {
+
+export const getTrainingFormer = (id, page) => async (dispatch) => {
 
   try {
-    const {data} = await api.fetchTrainingFormer(id);
+    const {data} = await api.fetchTrainingFormer(id,page);
     dispatch ({type: 'FETCH_ALL', payload: data});
     return data;
   } catch(error){

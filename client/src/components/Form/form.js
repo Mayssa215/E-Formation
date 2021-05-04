@@ -10,7 +10,7 @@ import Time from '../Timepicker/timepicker';
 import { creatTraining,  updateTraining, creatTrainingcenter} from '../../actions/training';
 import { useDispatch, useSelector } from 'react-redux';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import { getcategorie } from '../../actions/categorie';
+import { getcategories } from '../../actions/categorie';
 import {getgouvernorat} from '../../actions/gouvernorat';
 import {getCity} from '../../actions/cities';
 import SelectCities from '../Select/selectcity1';
@@ -114,9 +114,20 @@ const Form = ({ currentId, setCurrentId }) => {
     } ,[formation]  ) 
 
     useEffect(() => {
-      dispatch(getcategorie()).then((res) => {
-        setCategorie(res);
-      });
+      if(Data.Role === "centre") {
+        dispatch(getcategories(userid)).then((res) => {
+          console.log(res);
+setCategorie(res.centercateg)
+      })
+    }
+else if(Data.Role === "formateur") {
+  dispatch(getcategories(userid)).then((res) => {
+       setCategorie(res.formercateg);
+   
+
+})}
+
+     
       dispatch(getCity()).then((res) => {
         setCity(res);
      }); 
@@ -181,13 +192,10 @@ setY(location[1]);
 };
   
 const onChangeData2 = (e, val ) => {
-  let nom =val.nom
-  console.log(formationData.idcategorie);
+let name = val.nom;
   val ===  null ? setformationData({...formationData, idcategorie:null}):
-  setformationData({ ...formationData, idcategorie: val._id , namecategorie: nom})
-  console.log(nom)
+  setformationData({ ...formationData, idcategorie:val._id , namecategorie: name})
  
-  
 };
     
 
@@ -226,25 +234,19 @@ const handleEditorChangeprerequis  = (e) => {
    setformationData({ ...formationData, id_center: userid })
   } 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-    if(currentId  && (extension === "/jpeg" || extension === "/jpg" || extension === "/png" )) {
-    dispatch(updateTraining(currentId, formationData));
-    clear();
-    setCurrentId('');
-    }
-    else 
+    e.preventDefault();console.log(formationData);
+  
     if(extension === "/jpeg" || extension === "/jpg" || extension === "/png") {
 
       if (Data.Role === 'formateur')  {
-        dispatch(creatTraining(formationData))
+        dispatch(creatTraining(formationData, userid))
         setError(false)
         setHelperText('')
         alert(" Succés !")
         clear();
       }
       else if  (Data.Role === 'centre'){
-        dispatch(creatTrainingcenter(formationData));
+        dispatch(creatTrainingcenter(formationData, userid));
         setError(false);
         setHelperText('');
         alert(" Succés !")

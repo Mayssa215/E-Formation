@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import {
   Container,
   AppBar,
@@ -25,7 +26,7 @@ import useStyles from "./styles";
 
 import { Menu } from '@material-ui/icons';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-
+import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import Menus from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
@@ -56,6 +57,14 @@ const Navbar = () => {
   const Profil = () => {
     history.push('/myaccount');
   };
+  const Favorite = () => {
+    history.push('/mesfavoris');
+  };
+
+  const Reservation = () => {
+    history.push('/mesreservations');
+
+  }
   useEffect(() => {
     if (token) {
       const tokendecode = decode(token);
@@ -71,8 +80,8 @@ const Navbar = () => {
     { link: "Formations", path: '/formations', id: "2", icon: <Graduate /> },
     { link: "Formateurs", path: '/formateurs', id: "3", icon: <Teacher /> },
     { link: " Centres de formations", path: '/centredeformation', id: "4", icon: <Centre /> },
-    user ?
-      { link: " Mes  formations", path: '/mesformations', id: "5" } : { link: '', path: '/', id: "" }
+    user?.Role ==="formateur" ||  user?.Role ==="centre"   ?
+      { link: " Mes  formations", path: '/mesformations', id: "5" } :  { link: '', path: '/', id: "" }
   ];
 
   const [state, setState] = useState({
@@ -207,10 +216,11 @@ const Navbar = () => {
               onClose={handleClose}
             >
               <MenuItem onClick={Profil} className={classes.item}> <PersonOutlineIcon className={classes.iconuser} /> Profil</MenuItem>
+              { user.Role==="client" ?  <MenuItem className={classes.item} > <FavoriteBorderIcon  className={classes.iconuser} /> Mes favoris</MenuItem> : null }
+              { user.Role==="client" ?  <MenuItem className={classes.item} >  <EventAvailableIcon  className={classes.iconuser} />  Mes réservations</MenuItem>  : null }
+
               <MenuItem onClick={logout} className={classes.item} > <ExitToAppIcon className={classes.iconuser} /> Déconnexion</MenuItem>
             </Menus>
-
-
           </div>
           :
 null        }
@@ -258,6 +268,8 @@ null        }
                 className={classes.menus}
               >
                 <MenuItem onClick={Profil} className={classes.item}> <PersonOutlineIcon className={classes.iconuser} /> Mon profil</MenuItem>
+                { user.Role==="client" ?  <MenuItem className={classes.item}  onClick={Favorite}>  <FavoriteBorderIcon  className={classes.iconuser} />  Mes favoris</MenuItem>  : null }
+                { user.Role==="client" ?  <MenuItem className={classes.item} onClick={Reservation} >    <EventAvailableIcon  className={classes.iconuser} />  Mes réservations</MenuItem>  : null }
                 <MenuItem onClick={logout} className={classes.item}> <ExitToAppIcon className={classes.iconuser} /> Déconnexion</MenuItem>
               </Menus>
               {/*             <Typography  variant="h6">{user?.result.prenom}</Typography>

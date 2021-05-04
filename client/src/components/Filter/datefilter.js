@@ -8,10 +8,8 @@ const Datefilter = ({
   OnfilterApplyDuree,
   OnfilterApplyDatedebut,
   OnfilterApplyDatefin,
-  OnfilterApplycheckdate,
+ 
 }) => {
-  const states = ["Commence", "Appartient", "Termine"];
-  const [selected, setselected] = useState(["Commence", "Appartient", "Termine"]);
 
   const classes = useStyles();
 
@@ -42,31 +40,10 @@ const Datefilter = ({
   };
 
 
-  const handleChange = (e, val) => {
-    setselected(val);
-    OnfilterApplycheckdate(val);
-    
-  };
   return (
     <div>
       <div className={classes.dates}>
-        <div>
-          <Autocomplete
-            id="combo-box-demo"
-            value={selected}
-            onChange={handleChange}
-            options={states}
-            getOptionLabel={(option) => option}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Commence"
-                variant="outlined"
-                className={classes.détails}
-              />
-            )}
-          />
-        </div>
+        
         <div className={classes.debutfin}>
           <div>
             <TextField
@@ -109,9 +86,9 @@ const Datefilter = ({
           onChange={handleChange1}
           valueLabelDisplay="auto"
           aria-labelledby="range-slider"
-          step={1}
+          step={4}
           min={0}
-          max={10000}
+          max={500}
           className={classes.duree}
         />
       </div>

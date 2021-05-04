@@ -5,10 +5,9 @@ export default makeStyles((theme) => ({
       width: 230,
       height: 520,
       marginLeft:45,
-      marginRight:0,
       borderRadius:0,
       marginTop:-45,
-      position:'fixed',
+      position:'relative',
       '@media  screen and (max-width: 960px)': {
          width: 750,
          height: 200,

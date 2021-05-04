@@ -150,8 +150,7 @@ const Former = () => {
         {   unshowfilter()}
         </Grid>
         {show ? <Grid  container item lg={9}>
-        {!AllFormer
-            ? null
+        {!AllFormer.length ? <h2>Aucun formateur trouvé</h2>
             : AllFormer.map((Former) => (
                 <Grid
                   container
@@ -166,8 +165,7 @@ const Former = () => {
                 </Grid>
               ))}
         </Grid> : <Grid container item lg={12}> 
-        {!AllFormer
-            ? null
+        {!AllFormer.length ? <h2>Aucun formateur trouvé</h2>
             : AllFormer.map((Former) => (
                 <Grid
                   container

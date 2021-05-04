@@ -22,7 +22,7 @@ import "react-toastify/dist/ReactToastify.css";
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 
 const FormCentre = ({ currentId, setCurrentId }) => {
-  const [centreData, setcentreData] = useState({ lastname: '', idspeciality: '', namespeciality: '', selectedimage: '', idgouvernorate: '', idcity: '', namecities: '',description:'', namegouvernorate: '', phone: '', email: '', password: '', confirmerMotdepasse: '' });
+  const [centreData, setcentreData] = useState({ lastname: '', idspeciality: [], namespeciality: [], selectedimage: '', idgouvernorate: '', idcity: '', namecities: '',description:'', namegouvernorate: '', phone: '', email: '', password: '', confirmerMotdepasse: '' });
   const centre = useSelector((state) => currentId ? state.centre.find((f) => f._id === currentId) : null);
   const [error, setError] = React.useState(false);
 
@@ -99,11 +99,16 @@ const FormCentre = ({ currentId, setCurrentId }) => {
   }, []);
 
   const onChangeData2 = (e, val) => {
-    let name = val.nom;
-    val === null ?   setcentreData({ ...centreData, idspeciality: null, namespeciality: null }) :
- 
-      setcentreData({ ...centreData, idspeciality: val._id, namespeciality: name })
-  }
+    let tab =[];
+    let tabname=[];
+        val === null ?   setcentreData({ ...centreData, idspeciality: null, namespeciality: null }) :
+    val.map((e)=> 
+
+    {tab.push(e._id);
+    tabname.push(e.nom);}
+        )
+      setcentreData({ ...centreData, idspeciality : tab, namespeciality : tabname })
+  };
 
   const valueimg = centreData.selectedimage.indexOf("/");
   const valueimg2 = centreData.selectedimage.indexOf(";");
@@ -155,7 +160,7 @@ const FormCentre = ({ currentId, setCurrentId }) => {
           <h3 className={classes.comptecentre}>Créer un compte</h3>
             <div className={classes.col1}>
               <TextField required className={classes.textf} name='lastname' variant="outlined" label="nom " type="string" value={centreData.lastname} onChange={(e) => setcentreData({ ...centreData, lastname: e.target.value })} autoFocus></TextField>
-              <Selectspecialty onChangeData2={onChangeData2} speciality={speciality} />
+              <Selectspecialty  value={centreData.idspeciality}  onChangeData2={onChangeData2} speciality={speciality} />
               <TextField required className={classes.textf} name='phone' variant="outlined" label="numéro de téléphone" type="number" value={centreData.phone} onChange={(e) => setcentreData({ ...centreData, phone: e.target.value })} ></TextField>
               <Selectgouvernorat onChangeGouvernorat={handleChangegouvernorat} gouvernorat={gouvernorat} />
               <SelectCities handleChangecity={handleChangecity} filtredCity={filtredCity} />

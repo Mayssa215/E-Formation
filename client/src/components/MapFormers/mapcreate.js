@@ -28,18 +28,24 @@ const MapWrapper = (props) => {
         var y1 = map.getCenter().lng;
         center = [x1, y1];
         onGetLocation([x1, y1]);
+      
+
       }
       map.on("click", handleRegion);
       const searchControl = new GeoSearchControl({
+        
         provider,
         marker: {
            click: map.on("click", handleRegion),
 
           icon: myIcon,
 
-       //  title: "lat: " + map.getCenter().lat + " lng :" + map.getCenter().lng,
+         title: "lat: " + map.getCenter().lat + " lng :" + map.getCenter().lng,
+
         },
+
       });
+      
       map.addControl(searchControl);
       const handleDragEnd = (e) => {
         const { lat, lng } = e.target.getLatLng();
@@ -84,9 +90,7 @@ const MapWrapper = (props) => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
    <LeafletgeoSearch onGetLocation={props.onGetLocation}>
-        <Marker>
-          <Popup>U are here {center.x}</Popup>
-        </Marker>
+       
       </LeafletgeoSearch>
     </MapContainer>
   );

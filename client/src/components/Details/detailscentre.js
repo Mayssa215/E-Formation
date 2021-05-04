@@ -10,14 +10,22 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import {ReactComponent as Graduate} from "../Pictures/graduate.svg";
 import PlaceIcon from "@material-ui/icons/Place";
+import { Getreservationbyid } from '../../actions/booking';
+import { Getfavoritebyid } from '../../actions/favorite';
 import EmailIcon from '@material-ui/icons/Email';
 
 import Cards from "../Training/cards";
 const DetailsCentre = () => {
   const dispatch = useDispatch();
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+const idu = user?._id;
+const iduser = idu;
   const [pageNumber, setPageNumber] = useState(1);
   const [pageBack, setPageBack] = useState(1);
-
+  const [tablefav, settablefav] = useState([]);
+  const [tableidvide , settableidvide] = useState([]);
+  const [tableidannuler , settableidannuler] = useState([]);
+  const [tableidvalider , settableidvalider] = useState([]);  
 const [shownext, setShownext]= useState(true);
 const [idstraining, setIdstraining] = useState([]);
   const [OneCenter, setOneCenter] = useState([]);
@@ -34,10 +42,18 @@ const [idstraining, setIdstraining] = useState([]);
          
    
     });
-   dispatch(getTrainingcenter(pageNumber)).then((res)=> {
-      setIdstraining(res.Trainingcenter);
+   dispatch(getTrainingcenter(idcenter,pageNumber)).then((res)=> {
+      setIdstraining(res);
       setPageNumber(pageNumber + 1);
-    })
+    });
+    dispatch(Getreservationbyid(iduser)).then((res) => {
+      settableidvide(res.trainingidvide);
+      settableidvalider(res.trainingsidvalider)
+      settableidannuler(res.trainingsidannuler);
+    });
+    dispatch (Getfavoritebyid(iduser)).then((res) => {
+      settablefav(res);
+    });
   }, [dispatch]);
 
 
@@ -45,14 +61,14 @@ const [idstraining, setIdstraining] = useState([]);
   
     dispatch(
       getTrainingcenter(
-        pageNumber )).then((res) => {
-            if(res.Trainingcenter.length === 0)
+       idcenter, pageNumber )).then((res) => {
+            if(res.length === 0)
             {
               setIdstraining(idstraining);
                 setShownext(false);
             }
             else{
-              setIdstraining(res.Trainingcenter);
+              setIdstraining(res);
 
             }
    
@@ -62,13 +78,13 @@ const [idstraining, setIdstraining] = useState([]);
   
     dispatch(
       getTrainingcenter(
-        pageBack)).then((res) => {
+        idcenter,pageBack)).then((res) => {
             if(pageBack===0) {
               setIdstraining(idstraining);
                 setShowBack(false);
             }
             else {
-              setIdstraining(res.Trainingcenter);
+              setIdstraining(res);
 
             }
     });
@@ -161,7 +177,7 @@ setPageBack(pageBack - 1)
             {!OneCenter
               ? null
               : OneCenter.map((Centre) => (
-                  <CardOne Centre={Centre} key={Centre._id} elevation={3} />
+                  <CardOne Centre={Centre} key={Centre._id} elevation={3}    />
                 ))}
           </Grid>
 
@@ -178,13 +194,13 @@ setPageBack(pageBack - 1)
   
                   item
                   xs={12}
-                  md={4}
+                  md={8}
                   sm={6}
-                  lg={4}
+                  lg={12}
                   key={Training._id}
                 
                 >
-                  <Cards Training={Training} />
+                  <Cards Training={Training}  Tableids={tableidvide} Tablefav={tablefav}  Tablevalider={tableidvalider} Tableannuler={tableidannuler} />
                 </Grid>
     ))
   }

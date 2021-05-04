@@ -13,60 +13,54 @@ import {
 import HistoryIcon from '@material-ui/icons/History';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import Fade from '@material-ui/core/Fade';
+import { useHistory } from 'react-router-dom';
 import CloseIcon from "@material-ui/icons/Close";
-import Radio from '@material-ui/core/Radio';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import PlaceIcon from "@material-ui/icons/Place";
 import PeopleIcon from "@material-ui/icons/People";
 import moment from "moment";
-import IconButton from '@material-ui/core/IconButton';
-
+import Menu from '@material-ui/core/Menu';
+import CancelIcon from '@material-ui/icons/Cancel';
+import MenuItem from '@material-ui/core/MenuItem';
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
+import SmsIcon from '@material-ui/icons/Sms';
 import useStyles from "./styles";
 import { ReactComponent as ReactLogo } from '../Pictures/Tracé 3.svg';
-import {Reserverformation} from '../../actions/booking';
-import { Favoritetraining,Deletefavoritetraining } from '../../actions/favorite';
+import {Annuleréservation, réservationCancled} from '../../actions/booking';
 import { useDispatch } from 'react-redux';
-const Cards = ({ Training, Tableids ,Tablefav, Tablevalider, Tableannuler}) => {
+const Cards = ({ Training, Tableids , Tablevalider}) => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
   const iduser = user?._id;
   const phone = user?.phone;
   const idtraining= Training._id;
-  const [RerservationData, setRerservationData]= useState({ iduser,phone,idtraining,status:''});
-  const [favoritedata, setfavoritedata]= useState({iduser, idtraining});
   const [open, setOpen] = React.useState(false);
   const [favoris, setfavoris] = useState(false);
   const  dispatch = useDispatch();
-  const [anuuler, setannuler] = useState(false);
+  const history = useHistory();
 
   const handleOpen = () => {
     setOpen(true);
   };
   const Handleclick = () => {
-   
-    dispatch(Reserverformation(idtraining,RerservationData));
-    setannuler(true);
+    dispatch(Annuleréservation(iduser,idtraining));
+
     setOpen(!open);
+    window.location.reload(false);
     }
-    const handlefavoris = () => {
-      dispatch(Favoritetraining(favoritedata));
-      setfavoris(true);
-      
-    }
-
-    const handleannulerfavoris = () => {
-      dispatch(Deletefavoritetraining(iduser,idtraining));
-      setfavoris(false);
-
-
-    }
+ 
       const handleClose = () => {
     setOpen(false);
+  }
+  const Annuler= () =>{
+    dispatch( réservationCancled(iduser,idtraining));
+    window.location.reload(false);
+   
+  }
+
+  const Avis = () => {
+    window.location.replace(`/formation/${Training._id}/#section1`)
   }
   const classes = useStyles();
   return (
@@ -80,16 +74,6 @@ const Cards = ({ Training, Tableids ,Tablefav, Tablevalider, Tableannuler}) => {
           <span  className={classes.prix}>{Training.price}</span>
           <br/>
           <span className={classes.tnd}>TND</span>
- { user?.Role==="client"  && !favoris &&  Tablefav && ( Tablefav.indexOf(Training._id) ===-1 ) ?
-          <IconButton  onClick={handlefavoris}>
-          <FavoriteBorderIcon  className={classes.favoris}/>
-          </IconButton>
-: user?.Role==="client" && favoris ? <IconButton   onClick={handleannulerfavoris} >
-<FavoriteIcon  className={classes.favoris}/>
-</IconButton> 
- : user?.Role ==="client" && Tablefav && (Tablefav.indexOf(Training._id) > -1 ) ? <IconButton   onClick={handleannulerfavoris} >
- <FavoriteIcon  className={classes.favoris}/>
- </IconButton>  : null}
           </div>
           <div>
           <ReactLogo className={classes.mauve} />
@@ -123,23 +107,25 @@ const Cards = ({ Training, Tableids ,Tablefav, Tablevalider, Tableannuler}) => {
         </Button>
         
       
-      { user?.Role ==="client" && Tablevalider && ( Tablevalider.indexOf(Training._id) > -1 )  ?  <Button className={classes.btnreservez}  variant="outlined" size="large">
-       < CheckCircleIcon className={classes.booked}  /> Réservée
-      </Button>   
-        : user?.Role ==="client" && Tableids && ( Tableids.indexOf(Training._id) > -1 ) ?   <Button className={classes.btnreservez}  variant="outlined" size="large">
+      { user?.Role ==="client" && Tablevalider && ( Tablevalider.indexOf(Training._id) > -1 )  ? 
+      <PopupState variant="popover" popupId="demo-popup-menu">
+      {(popupState) => (
+        <React.Fragment>
+        <Button  className={classes.btnupdates} {...bindTrigger(popupState)} >
+        <MoreVertIcon className={classes.iconupdates}/>
+        </Button>
+        <Menu {...bindMenu(popupState)}>
+            <MenuItem   onClick={Annuler}> Annuler la réservation  <CancelIcon  className={classes.iconsu1}/></MenuItem>
+            <MenuItem  onClick={Avis}> Laisser un avis  <SmsIcon  className={classes.iconsu}/></MenuItem>
+          </Menu>
+        </React.Fragment>
+      )}
+    </PopupState>
+        : user?.Role ==="client" && Tableids && ( Tableids.indexOf(Training._id) > -1 ) ?   <Button className={classes.btnreservez}   onClick={handleOpen} variant="outlined" size="large">
         < HistoryIcon className={classes.booked} />  en attente   
+    
         
-      </Button> : user?.Role === "client"  &&  anuuler ?  <Button className={classes.btnreservez}   variant="outlined" size="large">
-      < HistoryIcon  className={classes.booked} />  en attente  
-        
-      </Button> :   user?.Role === "client"  && Tableannuler  && ( Tableannuler.indexOf(Training._id) > -1 ) ?  <Button className={classes.btnreservez}  onClick={handleOpen}  variant="outlined" size="large">
-        Réservez  
-        
-      </Button> : 
-      user?.Role==="formateur" || user?.Role==="centre"? null   :  <Button className={classes.btnreservez}   variant="outlined" size="large" onClick={handleOpen} > 
-      Réservez  
-      
-    </Button>  }
+      </Button> : null  }
 
             <Modal
             aria-labelledby="transition-modal-title"
@@ -167,8 +153,7 @@ const Cards = ({ Training, Tableids ,Tablefav, Tablevalider, Tableannuler}) => {
                     </div>
                     <Grid container>
                     <Grid item xs={12} lg={8} sm={4} md={4} >
-                    <Typography >Réserver Formation</Typography> 
-                     <TextField name="phone" label="Numéro de téléphone" type="string" variant="outlined" value={RerservationData.phone} onChange={(e)=> setRerservationData({...RerservationData, phone: e.target.value})} className={classes.phonenumber}> </TextField>
+                    <Typography >Voulez vous vraiment annuler cette réservation ? </Typography> 
                         </Grid>   
                         <Grid item xs={12} lg={8} sm={4} md={4}>
                             <div className={classes.buttonac}>

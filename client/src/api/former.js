@@ -44,6 +44,6 @@ export const fetchOneFormer = (idformer) => {
   return axios.get(url6,{params:{idformer}})
 };
 
-export const fetchTrainingFormer = (id) => {
-  return axios.get(url1,{params : {id}})
+export const fetchTrainingFormer = (id, page) => {
+  return axios.get(url1,{params : {id , page}})
 };

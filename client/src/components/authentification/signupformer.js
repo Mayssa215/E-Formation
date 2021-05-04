@@ -19,7 +19,7 @@ import { ToastContainer, toast, zoom } from "react-toastify";
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import "react-toastify/dist/ReactToastify.css";
 const Former = ({ currentId, setCurrentId }) => {
-  const [formerData, setformerData] = useState({ firstname: '', lastname: '', phone: '', gender: '', idspeciality: '', namespeciality: '', Numbreofexperience: '', description:'', cin: '', selectedFile: '', email: '', password: '', confirmerMotdepasse: '', selectedimage: '' });
+  const [formerData, setformerData] = useState({ firstname: '', lastname: '', phone: '', gender: '', idspeciality: [], namespeciality: [], Numbreofexperience: '', description:'', cin: '', selectedFile: '', email: '', password: '', confirmerMotdepasse: '', selectedimage: '' });
   const former = useSelector((state) => currentId ? state.former.find((f) => f._id === currentId) : null);
   const [error, setError] = React.useState(false);
   const [errorpdf, setErrorpdf] = React.useState(false);
@@ -54,9 +54,17 @@ const Former = ({ currentId, setCurrentId }) => {
   }, []);
 
   const onChangeData2 = (e, val) => {
-    let name = val.nom;
+    let tab =[];
+    let tabname=[];
     val === null ? setformerData({ ...formerData, idspeciality: null, namespeciality: null }) :
-      setformerData({ ...formerData, idspeciality: val._id, namespeciality: name })
+    val.map((e)=> 
+
+{tab.push(e._id);
+tabname.push(e.nom);}
+    )
+    setformerData({...formerData, idspeciality : tab, namespeciality : tabname });
+
+console.log('taab' , formerData.idspeciality);
   }
 
   const handleChange = (event) => {
@@ -87,6 +95,7 @@ const handleChangeemail = (event) => {
   const extensionimg = fileimg.substr(valueimg, numberimg);
 
   const handleSubmit = async (e) => {
+    console.log('form',formerData);
     e.preventDefault();
     /*    if(currentId  && (extension === "/pdf" )  && (extensionimg === "/jpeg" || extensionimg === "/jpg" || extensionimg === "/png" )) {
        dispatch(updateFormer(currentId, formerData));
@@ -136,7 +145,7 @@ if (extensionimg !== "/jpeg" || extensionimg !== "/jpg" || extensionimg !== "/pn
             <div className={classes.colf1}>
               <TextField required className={classes.textf} name='firstname' variant="outlined" label="nom " type="string" value={formerData.firstname} onChange={(e) => setformerData({ ...formerData, firstname: e.target.value })} autoFocus ></TextField>
               <TextField required className={classes.textf} name='lastname' variant="outlined" label="prénom" type="string" value={formerData.lastname} onChange={(e) => setformerData({ ...formerData, lastname: e.target.value })} ></TextField>
-              <Selectspecialty onChangeData2={onChangeData2} speciality={speciality} />
+              <Selectspecialty  value={formerData.idspeciality} onChangeData2={onChangeData2} speciality={speciality} />
               <TextField required className={classes.textf} name='phone' variant="outlined" label=" Telephone" type="number" value={formerData.phone} onChange={(e) => setformerData({ ...formerData, phone: e.target.value })} ></TextField>
               <TextField required className={classes.textf} name='Numbreofexperience ' variant="outlined" label=" Année  d'expérience (ans)" type="number" value={formerData.Numbreofexperience} onChange={(e) => setformerData({ ...formerData, Numbreofexperience: e.target.value })} ></TextField>
        

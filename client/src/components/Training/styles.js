@@ -96,24 +96,25 @@ height:515,
       marginTop:0,
   },
   },
-  price: {
-   marginLeft:270,
-   position: "absolute",
-   marginTop:45,
-   '@media screen and (max-width: 1400px)': {
-    marginLeft:260,
-     
+
+  favoris : {
+    marginLeft:0,
+    fontSize:40,
+    color:'#f5f5f5',
     
+  },
+  price: {
+   marginLeft:260,
+   position: "absolute",
+   marginTop:10,
+   '@media screen and (max-width: 1400px)': {
+    marginLeft:250,
   },
    '@media screen and (max-width: 1100px)': {
     marginLeft:265,
-     
-    
   },
   '@media screen and (max-width: 800px)': {
-    marginLeft:"650%",
-     
-    
+    marginLeft:"650%", 
   },
   '@media screen and (max-width: 600px)': {
     marginLeft:360,
@@ -125,15 +126,15 @@ height:515,
   prix : {
    color:'#ffffff',
    fontSize:24,
-   marginLeft:5,
+   marginLeft:15,
    
   },
   tnd :{
-    marginLeft:8,
+    marginLeft:18,
     color:'#ffffff',
     fontSize:14,
     '@media screen and (max-width: 1400px)': {
-      marginLeft:5,
+      marginLeft:15,
        
       
     },
@@ -250,5 +251,71 @@ height:515,
     
         marginLeft:"35%", 
            },
+},
+
+modal :{
+  marginTop:150,
+  marginLeft:320,
+},
+
+openicon :{
+
+marginLeft: 700,
+
+color: 'transparent',
+
+'&:hover': {
+
+  background: 'transparent',
+  
+},
+'@media  screen and (max-width: 560px)':
+{
+  marginLeft: 260,
+
+},
+'@media  screen and (max-width: 320px)':
+{
+  marginLeft: 220,
+
+},
+},
+iconclose: {
+  fontSize: 25,
+  color: "#4C4C4C",
+},
+
+paper1: {
+  backgroundColor: theme.palette.background.paper,
+  boxShadow: theme.shadows[5],
+  padding: theme.spacing(2, 4, 3),
+  width: 750,
+  height: 300,
+  outline: 0,
+  marginTop: 10,
+  marginLeft:5,
+'@media  screen and (max-width: 560px)':
+  {
+    marginTop: 100,
+    marginLeft:5,
+    width: 310,
+    height: 660,
+  },
+},
+phonenumber :{
+marginTop:35,
+},
+buttonac: {
+marginTop:65,
+marginLeft:120,
+display:'flex',
+},
+confirmer :{
+  marginLeft:20,
+  marginRight:50,
+},
+booked :{
+marginRight:10,
+marginLeft:-10,
 },
 }));

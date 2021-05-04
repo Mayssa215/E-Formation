@@ -1,4 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
+import { Block } from "@material-ui/icons";
 export default makeStyles((theme) => ({
   root: {
     marginLeft: 30,
@@ -288,6 +289,7 @@ export default makeStyles((theme) => ({
     color: "#4e3e8c",
     marginLeft: "20%",
     fontSize: 38,
+    
     "@media screen and (max-width: 1100px)": {
       marginLeft: "15%",
     },
@@ -327,20 +329,36 @@ export default makeStyles((theme) => ({
   },
   trainer: {
     display: "flex",
-    marginLeft: "60%",
-    marginTop: -45,
+    marginLeft: "50%",
+    marginTop:-30,
     "@media screen and (max-width: 600px)": {
       marginTop: 480,
     },
   },
+  formateur:{
+    fontSize:22,
+    textTransform: "capitalize",
+marginLeft:10,
+  },
+  formateur1:{
+    fontSize:22,
+    textTransform: "capitalize",
+marginLeft:10,
+  },
+  names:{
+marginTop:8,
+display:"flex",
+  },
   paper: {
     marginTop: "27%",
     width: 900,
-    height: 450,
+    height: 400,
   },
   resumé: {
     color: "#fa7d39",
     marginLeft: 30,
+    fontSize:22,
+    
   },
   div1: {
     paddingTop: 20,
@@ -352,6 +370,7 @@ export default makeStyles((theme) => ({
     marginTop: 50,
     fontFamily: "Roboto, sans-serif",
     fontSize: 18,
+    marginBottom:30,
   },
   div2: {
     display: "flex",
@@ -376,20 +395,69 @@ export default makeStyles((theme) => ({
     },
   },
   sexe: {
+   
+    fontSize:22,    marginLeft: 10,
+    color: "#fa7d39",
+    marginTop: 20,
+  },
+  icongender:{
+    marginLeft: 20,
+    color: "#4e3e8c",
+    marginTop: 20,
+  },
+  sexetext:{
     marginLeft: -40,
     marginTop: 50,
     fontFamily: "Roboto, sans-serif",
-    fontSize: 18,
+    fontSize: 16,
+  },
+  iconemail:{
+    color: "#4e3e8c",
+
+marginLeft:170,
+marginTop:-50,
+  },
+  mail: {
+    fontSize: 22,
+
+    color: "#fa7d39",
+    marginLeft: 10,
+    marginTop:-50,
+  },
+  e_mail:{
+    marginLeft:-90,
+    marginTop:-20,
+    fontSize: 16,
+    fontFamily: "Roboto, sans-serif",
+
+  },
+  iconphone:{
+    color: "#4e3e8c",
+marginLeft:400,
+marginTop:-50,
   },
   num: {
-    marginLeft: "-18%",
-    marginTop: 50,
+    marginLeft: "-20%",
+    marginTop: -20,
     fontFamily: "Roboto, sans-serif",
-    fontSize: 18,
+    fontSize: 16,
+  },
+  phone:{
+    color: "#fa7d39",
+    marginLeft: 10,
+    marginTop:-50,
+    fontSize: 22,
+
+  },
+  formation:{
+    fontSize: 22,
+    color: "#fa7d39",
+marginLeft:10,
+marginTop:-50,
   },
   nbre: {
-    marginLeft: "-18%",
-    marginTop: 50,
+    marginLeft: "-10%",
+    marginTop: -20,
     fontFamily: "Roboto, sans-serif",
     fontSize: 18,
   },
@@ -516,7 +584,7 @@ export default makeStyles((theme) => ({
     },
   },
   graduate: {
-    marginLeft: 180,
+    marginLeft: 100,
     fill: "#4e3e8c",
     "@media  screen and (max-width: 960px)": {
       marginLeft: 40,
@@ -525,6 +593,11 @@ export default makeStyles((theme) => ({
       marginTop: 140,
       marginLeft: -170,
     },
+  },
+  graduatef: {
+    marginLeft: 700,
+    fill: "#4e3e8c",
+    marginTop:-73,
   },
   place: {
     marginLeft: 70,
@@ -633,5 +706,68 @@ export default makeStyles((theme) => ({
     marginLeft: 10,
 
     color: "#fa7d39",
+  },
+  pdf:{
+    marginLeft: 400,
+    marginTop:50,
+    color: " #4e3e8c",
+    border:"2px solid",
+    borderColor: "#4e3e8c",
+    backgroundColor:"#ffffff",
+    borderRadius:5,
+    fontSize:12,
+    paddingRight:20,
+    paddingLeft:20,
+    '&:hover': {
+      background: "#4e3e8c",
+      color: " #f5f5f5",
+  },
+  },
+
+  papercomment :{
+height:350,
+width:1200,
+marginTop: 200,
+marginLeft:35,
+  },
+  avatar:{
+    width:100,
+    height:100,
+    marginLeft:50,
+    marginTop:50,
+  },
+  title : {
+ marginLeft:460,
+ fontSize:22,
+ paddingTop:25,
+  },
+  rootRating : {
+    display: 'flex',
+    flexDirection: 'column',
+    '& > * + *': {
+      marginTop: theme.spacing(1),
+    },
+    marginLeft:45,
+  },
+  fullname :{
+    marginLeft: 35,
+    marginTop:12,
+    fontSize:16,
+    textTransform: "capitalize",
+
+  },
+  div2 :{
+    display: 'block',
+  },
+  div1: {
+    display:'flex',
+  },
+  textfield :{
+    marginLeft:90,
+    marginTop:120,
+    width:600,
+  },
+  btnpub : {
+marginLeft:'65%',
   },
 }));

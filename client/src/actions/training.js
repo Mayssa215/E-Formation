@@ -43,18 +43,18 @@ try {
 }
 };
 
-export const creatTraining = (formation) => async (dispatch) => {
+export const creatTraining = (formation,id) => async (dispatch) => {
   try {
-      const {data} = await api.creatTraining(formation);
+      const {data} = await api.creatTraining(formation,id);
       dispatch({ type:'CREATE', payload: data})
   }catch (error){
       console.log(error);
 
   }
 };
-export const creatTrainingcenter = (formation) => async (dispatch) => {
+export const creatTrainingcenter = (formation,id) => async (dispatch) => {
   try {
-      const {data} = await api.creatTrainingcenter(formation);
+      const {data} = await api.creatTrainingcenter(formation,id);
       dispatch({ type:'CREATE', payload: data})
   }catch (error){
       console.log(error);
@@ -67,20 +67,30 @@ export const updateTraining = (id, formation) => async (dispatch) => {
 try {
  const { data } = await api.updateTraining(id, formation);
 
- dispatch({ type: 'UPDATE' , payload: data });
+ dispatch({ type: 'UPDATEf' , payload: data });
 } catch (error) {
  console.log(error);
 }
 };
 
-export const deleteTraining = (id) => async (dispatch) => {
+export const deleteTraining = (id,idformer) => async (dispatch) => {
 try {
-  await api.deleteTraining(id);
+  await api.deleteTraining(id,idformer);
  dispatch({ type:'DELETE', payload: id });
 } catch (error) {
  console.log(error);
 }
 };
+
+export const deleteTrainingCenter= (id,idcenter) => async (dispatch) => {
+  try {
+    await api.deleteTrainingCenter(id,idcenter);
+   dispatch({ type:'DELETE', payload: id });
+  } catch (error) {
+   console.log(error);
+  }
+  };
+
 export const getrecentTraining  =(page) => async (dispatch) => {
 
 try {
@@ -117,3 +127,30 @@ export const getTrainingbyid = (id) => async (dispatch) =>{
 
   }
 }
+
+
+export const getTrainings =() => async (dispatch)=> {
+
+  try {
+    const {data} =  await api.fetchTrainings();
+
+    dispatch ({ type: 'FETCH_ALL', payload: data }) ;
+    return data;
+  } catch (error) {
+    console.log('error action',error.message);
+    
+  }
+}; 
+
+export const getnameFormer =() => async (dispatch)=> {
+
+  try {
+    const {data} =  await api.fetchnameFormer();
+
+    dispatch ({ type: 'FETCH_ALL', payload: data }) ;
+    return data;
+  } catch (error) {
+    console.log('error action',error.message);
+    
+  }
+}; 

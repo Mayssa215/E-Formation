@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import useStyles from "./styles";
-import { Button, TextField } from "@material-ui/core";
+import { Button, TextField , Typography} from "@material-ui/core";
 import Select from "@material-ui/core/Select";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -15,12 +15,26 @@ import Resultatcentres from "./resultat/resultatcentre";
 import Former from "./recentformer";
 import Training from "./recenttraining";
 import Centre from "./recentcentre";
+import Modal from "../MapCompononent/modal";
+import Map from "../MapCompononent/map";
 const Search = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-
+const[ isconected, setisconected]=useState( JSON.parse( localStorage.getItem('profile')));
+const [Data, setData] = useState(isconected?.Role);
   const [InputSearched, setInputSearched] = useState("");
-  let history = useHistory();
+
+console.log(Data);
+
+const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -66,7 +80,7 @@ const Search = () => {
         
           onChange={handlechange2}
         />
-
+     
         <Select
           className={classes.search}
           native
@@ -98,6 +112,20 @@ const Search = () => {
           )}
         </div>
       )} 
+
+
+
+{isconected && Data === "client" ? 
+ <div>
+ <Modal  open={open} handleClose={handleClose} setOpen={setOpen} />
+
+ </div>
+: null}
+
+
+
+
+
     </div>
   );
 };

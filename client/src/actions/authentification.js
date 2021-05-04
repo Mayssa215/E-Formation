@@ -58,7 +58,7 @@ export const signup = (signData, history) => async (dispatch) => {
       history.push('/signin');
     }
     catch (error){
-      toast.error(' Lien  invalide ');
+      toast.error(' Lien invalide ');
   
 
     }
@@ -72,3 +72,9 @@ export const signup = (signData, history) => async (dispatch) => {
       console.log(error);
     }
   };
+
+
+
+
+
+  

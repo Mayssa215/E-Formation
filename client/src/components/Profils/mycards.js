@@ -22,14 +22,26 @@ import moment from "moment";
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import useStyles from "./styles";
 import { ReactComponent as ReactLogo } from '../Pictures/Tracé 3.svg';
-import {deleteTraining} from '../../actions/training';
+import {deleteTraining,deleteTrainingCenter} from '../../actions/training';
 const Cards = ({ Training}) => {
   const  dispatch = useDispatch();
     const history = useHistory();
+    const [infos, setinfos]= useState(JSON.parse(localStorage.getItem('profile')));
+    const [Data, setData] = useState(infos);
+    const [userid,setuserid]= useState(Data._id);
     const Update = () => {
         history.push(`/trainingupdate/${Training._id}`);
       };
 
+
+    const Delete = () => {
+      if( Data.Role ==="formateur"){
+      dispatch(deleteTraining(Training._id,userid))
+      }
+     else if (Data.Role === "centre"){
+      dispatch(deleteTrainingCenter(Training._id,userid))
+      }
+    }
   const classes = useStyles();
   return (
     <Card className={classes.root}>
@@ -79,7 +91,7 @@ const Cards = ({ Training}) => {
         </Button>
         <Menu {...bindMenu(popupState)}>
             <MenuItem  onClick={Update} > Modifier <EditIcon  className={classes.iconsu1}/></MenuItem>
-            <MenuItem onClick={() => dispatch(deleteTraining(Training._id)) }> Supprimer <DeleteOutlineIcon  className={classes.iconsu}/></MenuItem>
+            <MenuItem onClick={Delete }> Supprimer <DeleteOutlineIcon  className={classes.iconsu}/></MenuItem>
           </Menu>
         </React.Fragment>
       )}

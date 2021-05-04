@@ -8,7 +8,6 @@ export default (state = {authdata: null}, action) => {
       case 'logout':
         localStorage.removeItem('profile');
         localStorage.removeItem('token');
-
         return { ...state, authdata: null};
         case'forget':
         return {...state, authdata:action?.data};

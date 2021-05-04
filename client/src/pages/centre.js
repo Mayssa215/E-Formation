@@ -1,4 +1,3 @@
-  
 import React, { useState, useEffect } from "react";
 import { Grid, Button } from "@material-ui/core";
 import useStyles from "./styles";
@@ -160,8 +159,7 @@ const Centre = () => {
         {   unshowfilter()}
         </Grid>
         {show ? <Grid  container item lg={9}>
-        {!AllCentres
-            ? null
+        {!AllCentres.length ? <h2>Aucun centre trouvé</h2>
             : AllCentres.map((Centre) => (
                 <Grid
                   container
@@ -176,8 +174,7 @@ const Centre = () => {
                 </Grid>
               ))}
         </Grid> : <Grid container item lg={12}> 
-        {!AllCentres
-            ? null
+        {!AllCentres.length ? <h2>Aucun centre trouvé</h2>
             : AllCentres.map((Centre) => (
                 <Grid
                   container

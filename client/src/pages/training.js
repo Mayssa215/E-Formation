@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Button } from "@material-ui/core";
+import { Grid, Button ,CircularProgress} from "@material-ui/core";
 import useStyles from "./styles";
 import Filter from "../components/Filter/filter";
 import Recherche from "../components/Filter/recherche";
@@ -188,25 +188,45 @@ const Training = () => {
 
   const handlechangeRecherche = (e, value) => {
     //console.log(e.target.value);
-    setInputSearch(e.target.value);
-
-    //console.log("dkhal l recherche",InputSearch);
-    dispatch(
-      getTraining(
-        pagefilter,
-        prices,
-        categoriesid,
-        heures,
-        gouvernoratid,
-        cityid,
-        datedeb,
-        datefin,
-        selected,
-        InputSearch
-      )
-    ).then((res) => {
-      setAlltraining(res.Alltraining);
-    });
+  
+      setInputSearch(e.target.value);
+      if(InputSearch.length > 0) {
+      //console.log("dkhal l recherche",InputSearch);
+      dispatch(
+        getTraining(
+          pagefilter,
+          prices,
+          categoriesid,
+          heures,
+          gouvernoratid,
+          cityid,
+          datedeb,
+          datefin,
+          selected,
+          InputSearch
+        )
+      ).then((res) => {
+        setAlltraining(res.Alltraining);
+      });
+    } else {
+      dispatch(
+        getTraining(
+          pagefilter,
+          prices,
+          categoriesid,
+          heures,
+          gouvernoratid,
+          cityid,
+          datedeb,
+          datefin,
+          selected,
+          InputSearch
+        )
+      ).then((res) => {
+        setAlltraining(res.Alltraining);
+      });
+    }
+  
   };
 
 
@@ -241,7 +261,7 @@ const unshowfilter = () => {
 
  
 };
-
+console.log(Alltraining);
   return (
     <div className={classes.container}>
       <Grid container spacing={1}>
@@ -257,8 +277,7 @@ const unshowfilter = () => {
    
         </Grid>
         { show ? <Grid container item lg={9}>
-          {!Alltraining
-            ? null
+          {!Alltraining.length ? <h2>Aucune formation trouvée</h2>
             : Alltraining.map((Training) => (
                 <Grid
                   container
@@ -273,8 +292,8 @@ const unshowfilter = () => {
                 </Grid>
               ))}
         </Grid> : <Grid container item lg={12}>
-          {!Alltraining
-            ? null
+          {!Alltraining.length ? <h2>Aucune formation trouvée</h2>
+          
             : Alltraining.map((Training) => (
                 <Grid
                   container

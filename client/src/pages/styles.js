@@ -1,9 +1,8 @@
-  
 import { makeStyles } from "@material-ui/core/styles";
 export default makeStyles((theme) => ({
 voirplus :{
     marginTop: 36,
-    marginLeft: "87%",
+    marginLeft: "77%",
     color:"#4e3e8c",
     borderColor: "#4e3e8c",
     border:"2px solid",

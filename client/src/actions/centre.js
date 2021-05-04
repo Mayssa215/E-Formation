@@ -90,10 +90,10 @@ export const getOneCenter  = (idcenter) => async (dispatch)  => {
    
   }
 };
-export const getTrainingcenter =(page) => async (dispatch) => {
+export const getTrainingcenter =(id, page) => async (dispatch) => {
   
   try {
-    const {data} =  await api.fetchTrainingcenter(page);
+    const {data} =  await api.fetchTrainingcenter(id,page);
 
 
     dispatch ({ type: 'FETCH_ALL', payload: data }) ;

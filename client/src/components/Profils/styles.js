@@ -47,7 +47,7 @@ export default makeStyles((theme) => ({
     marginTop: 100,
     width: 350,
     height:515,
-    marginLeft:0,
+    marginLeft:50,
     borderRadius:0,
 
     '@media  screen and (max-width: 1200px)': {
@@ -91,14 +91,14 @@ root1: {
   },
   '@media  screen and (max-width: 900px)': {
    marginTop:-1600,
-width:500,
-marginLeft:60,
+   width:500,
+   marginLeft:60,
   
 },
 "@media screen and (max-width: 800px)": {
   marginLeft: 50,
-height:570,
-marginTop:-1650,
+  height:570,
+  marginTop:-1650,
 
 },
 '@media  screen and (max-width: 600px)': {
@@ -117,13 +117,8 @@ height:515,
    marginTop:-152,
    
   },
-  avatar: {
-    backgroundColor: " #f5f5f5 ",
-    color : '#000000',
-    marginTop: 12,
-    marginLeft: 12,
 
-  },
+
   buttonVoir: {
     color: " #f5f5f5",
     border:"2px solid",
@@ -239,7 +234,6 @@ height:515,
    '@media screen and (max-width: 1400px)': {
     marginLeft:248,
      
-    
   },
   '@media screen and (max-width: 1100px)': {
     marginLeft:250,
@@ -286,13 +280,75 @@ height:515,
   },
 
   iconsu : {
-    marginLeft:10,
+    marginLeft:68,
     color:"#fa7d39",
   },
   iconsu1 : {
-    marginLeft:25,
+    marginLeft:20,
     color:"#fa7d39",
 
-  }
+  } ,
+  voirplus :{
+    marginTop: 36,
+    marginLeft: "87%",
+    color:"#4e3e8c",
+    borderColor: "#4e3e8c",
+    border:"2px solid",
+    borderRadius:6,
+    fontSize:12,
+    '&:hover': {
+      background: "#4e3e8c",
+      color: " #ffffff",
+  },
+  
+},
+root3: {
+  marginTop:120,
+  display: 'flex',
+  height:250,
+  width:550,
+  marginLeft:40,
+  borderRadius:0,
+  position:"relative",
 
+},
+
+content: {
+  flex: '1 0 auto',
+},
+cover: {
+  width:250,
+},
+
+disp :{
+display:'flex',
+marginTop:75,
+},
+favoris :{
+  fontSize:40,
+  color:" #4e3e8c",
+
+},
+buttonVoir :{
+  marginLeft:95,
+  marginTop:12,
+  color: "#fa7d39",
+  border:"1px solid  #fa7d39 "
+},
+mauve1 :{
+  marginLeft:2,
+  
+},
+
+scrolbar:{
+marginTop:100,
+margin:'auto',
+color :'#000000',
+width:320,
+},
+indicator:{
+  '.MuiTabs-indicator':{
+    color:" #4e3e8c",
+  },
+},
 }));

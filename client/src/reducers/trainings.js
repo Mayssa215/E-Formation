@@ -6,7 +6,7 @@ export default (formations = [], action) => {
       return formations.filter((formation) => formation._id !== action.payload);
     case 'CREATE':
       return [...formations, action.payload];
-      case 'UPDATE': 
+      case 'UPDATEf': 
       return  formations.map((f) => f._id === action.payload._id ? action.payload : f);
     default:
       return formations;

@@ -22,18 +22,16 @@ import Centre from './pages/centre';
 import Former from './pages/former';
 import Mytrainings from './components/Profils/mytraining';
 import UpdateTraining from './components/Form/updateForm';
+import Cv from "./components/Cv/cv";
+import Myfavorites from "./components/Profils/myfavorites";
+import Mesreservations from "./components/Profils/myreservations";
 const App = () => {
-    const [currentId, setCurrentId] = useState(null);
-    const dispatch = useDispatch();
-    /*   useEffect(() => {
-         dispatch(getformations());
-     }, [currentId]);  */
+
 
     return (
 
         <Router>
               <Switch>
-            
                <Route path="/signin"> <Signin /> </Route>
                 <Route path="/forget"> <Forgetpassword /> </Route>
                 <Route path="/user/resetpassword/:token" exact component={Resetpassword} />
@@ -43,12 +41,16 @@ const App = () => {
                 <>
                 <Navbar /> 
                 <Route path="/" exact component={Search} />
-                <Route path="/formations"> <Form/>  </Route>
+                <Route path="/formations"> <Training/>  </Route>
                 <Route path="/formateurs"> <Former/></Route>
                 <Route path="/centredeformation">  <Centre/> </Route>
                 <PrivateRoute path="/myaccount" component={Account}></PrivateRoute>
+                <PrivateRoute path="/mesfavoris" component={Myfavorites}></PrivateRoute>
+                <PrivateRoute path="/mesreservations" component={Mesreservations}></PrivateRoute>
+
                 <PrivateRoute path="/mesformations" component={Mytrainings}></PrivateRoute>
                 <PrivateRoute path="/trainingupdate/:id" component={UpdateTraining}></PrivateRoute>
+                <Route path="/cv">  <Cv/> </Route>
                  <Route path="/formation/:id">  <Details/></Route>  
                  <Route path="/centre/:id"> <DetailsCentre/> </Route>
                  <Route path="/formateur/:id"> <DetailsFormer/> </Route>

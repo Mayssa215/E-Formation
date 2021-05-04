@@ -22,7 +22,7 @@ const Signup = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [signData, setsignData] = useState({
-    firstname: '', lastname: '', gouvernorate: '', city:'',cin: '', phone: '', email: '', password: '', confirmerMotdepasse: ''
+    firstname: '', lastname: '', gouvernorate: '', city:'',  idgouvernorate:'', idcity:'',cin: '', phone: '', email: '', password: '', confirmerMotdepasse: ''
   });
   const [showPassword, setShowPassword] = useState(false);
   const handleShowPassword = () => setShowPassword(!showPassword);
@@ -51,7 +51,7 @@ const Signup = () => {
 
     val === null ? setsignData({ ...signData, gouvernorate: null }) :
    
-      setsignData({ ...signData,  gouvernorate: nom })
+      setsignData({ ...signData,  gouvernorate: nom , idgouvernorate:val._id})
     val === null ? setfiltredCity([]) :
       setfiltredCity(City.filter((x) => x.id_gouvernorat === val._id));
   };
@@ -62,7 +62,7 @@ const Signup = () => {
     e.preventDefault();
     val === null ? setsignData({ ...signData,  city: null }) :
 
-      setsignData({ ...signData, city: nom });
+      setsignData({ ...signData, city: nom , idcity:val._id});
 
   };
 
@@ -132,7 +132,7 @@ const Signup = () => {
             </Grid>
           </Grid>
           <Button type="submit" variant="contained" color="primary" className={classes.buttonuser}>
-            s'inscrire
+            Confirmer
                      </Button>
         </form>
       </Paper>

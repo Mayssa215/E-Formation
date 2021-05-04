@@ -5,15 +5,25 @@ import { useDispatch } from "react-redux";
 import { getrecentTraining } from "../../actions/training";
 import Cards from "../../components/Training/cards";
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import { Getreservationbyid } from '../../actions/booking';
+import { Getfavoritebyid } from '../../actions/favorite';
+
+
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 const Training = () => {
   const [Alltraining, setAlltraining] = useState([]);
-
-  const [pageNumber, setPageNumber] = useState(1);
- const [pageBack, setPageBack] = useState(1);
+  const [tableidvide , settableidvide] = useState([]);
+  const [tableidannuler , settableidannuler] = useState([]);
+  const [tableidvalider , settableidvalider] = useState([]); 
+   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+  const iduser = user?._id;
+const [pageNumber, setPageNumber] = useState(1);
+const [pageBack, setPageBack] = useState(1);
 const [shownext, setShownext]= useState(true);
- const [showBack , setShowBack] = useState(true);
-  const dispatch = useDispatch();
+const [showBack , setShowBack] = useState(true);
+const [tablefav, settablefav] = useState([]);
+
+const dispatch = useDispatch();
 
 
   useEffect(() => {
@@ -25,6 +35,14 @@ const [shownext, setShownext]= useState(true);
       setAlltraining(res.Alltraining);
       setPageNumber(pageNumber + 1);
       
+    });
+    dispatch(Getreservationbyid(iduser)).then((res) => {
+      settableidvide(res.trainingidvide);
+      settableidvalider(res.trainingsidvalider)
+      settableidannuler(res.trainingsidannuler);
+    });
+    dispatch (Getfavoritebyid(iduser)).then((res) => {
+      settablefav(res);
     });
   }, [dispatch]);
 
@@ -110,7 +128,7 @@ setPageBack(pageBack - 1)
                   lg={4}
                   key={Training._id}
                 >
-                  <Cards Training={Training} />
+                  <Cards Training={Training} Tableids={tableidvide } Tablefav={tablefav}  Tablevalider={tableidvalider} Tableannuler={tableidannuler} />
                 </Grid>
               ))}
         </Grid>
