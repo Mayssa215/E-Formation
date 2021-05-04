@@ -5,10 +5,10 @@ const formerSchema = mongoose.Schema({
     lastname:  {type: String , required:true },
     phone: { type: String , required:true , minlength:8},
     gender:  {type: String , required:true },
-    Numbreofexperience:{type: String , required:true },
+    Numbreofexperience: Number ,
     description:{type: String, required:true},
     cin: {type: String , minlength:8} , 
-    namespeciality:  {type: String , required:true },
+    namespeciality: [{type : String}],
     selectedimage: String,
     selectedFile: String,
     email:{ type:String, required:true , unique:true},
@@ -33,6 +33,7 @@ const formerSchema = mongoose.Schema({
 
 
 });
+
 
 const Former = mongoose.model('Former', formerSchema);
 export default Former;

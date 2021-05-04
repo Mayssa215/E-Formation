@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const centerSchema = mongoose.Schema({
     lastname : { type: String , required:true },
-    namespeciality:{ type: String , required:true },
+    namespeciality:[{type: String}],
     selectedimage: String,
     namecities:{ type: String , required:true },
     namegouvernorate:{ type: String , required:true },

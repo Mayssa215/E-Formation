@@ -4,15 +4,15 @@ import Former from "../models/former.js";
 import Centre from "../models/centre.js";
 import User from '../models/user.js';
 import _ from 'lodash';
-
 import Mailgrid from "@sendgrid/mail";
+
 Mailgrid.setApiKey(
   "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"
 );
 const url = "http://localhost:3000";
 
 export const signup = async (req, res) => {
-  const { firstname, lastname, city, gouvernorate, cin, phone, email, password, confirmerMotdepasse, } = req.body;
+  const { firstname, lastname, city, gouvernorate, idgouvernorate,idcity, cin, phone, email, password, confirmerMotdepasse, } = req.body;
   try {
     const userexist = await User.findOne({ email });
     const formerexist = await Former.findOne({ email });
@@ -20,8 +20,9 @@ export const signup = async (req, res) => {
     if (userexist || formerexist || centreexist) return res.status(400).json({ message: 'Email exist déjà' });
     if (password !== confirmerMotdepasse) return res.status(400).json({ message: 'confimer votre mot de passe' });
     const hashedpassword = await bcrypt.hash(password, 12);
-    const result = await User.create({ firstname, lastname, city, gouvernorate, cin, phone, email, password: hashedpassword });
+    const result = await User.create({firstname, lastname, city, gouvernorate, idgouvernorate,idcity,cin, phone, email, password: hashedpassword });
     const token = jwt.sign({ email: result.email, id: result._id }, 'test', { expiresIn: "1d" });
+    
     res.status(200).json({ result, token });
   }
   catch (error) {
@@ -36,7 +37,6 @@ export const signin = async (req, res) => {
     const user = await User.findOne({ email });
     const userformer = await Former.findOne({ email });
     const usercentre = await Centre.findOne({ email });
-
     if (user) {
       const isPasswordCorrect = await bcrypt.compare(password, user.password);
       if (!isPasswordCorrect) return res.status(400).json({ message: "mot de passe incorrect" });
@@ -236,7 +236,7 @@ export const resetpassword = async (req, res) => {
         }
         else if (usercentre) {
           const updatedFields = {
-            password: hashedpassword,
+          password: hashedpassword,
           };
           console.log(updatedFields);
           //update the user in the databae
@@ -382,3 +382,60 @@ if(former) {
 
   }
 }
+export const getClients = async (req,res) => {
+  try {
+   
+    const users = await User.find();
+     console.log("center",users);
+    res.status(200).json(
+      users
+           );
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+
+  };
+};
+
+
+export const deleteUser = async (req, res) => {
+  try {
+  const  id  = req.query.id;
+  const user = await User.find({_id: {$in: id}});
+user.map(async(el)=>{
+  await User.findByIdAndRemove(el._id);
+
+})
+
+  res.json({ message: "le formateur a ete supprimer avec succés !" });
+  }catch (error) {
+    res.status(404).json({ message: error.message });
+    console.log(error.message)
+  }
+};
+
+export const getSearch = async (req, res) => {
+  try {
+    console.log(req.query.InputSearch);
+    const wordsearched = req.query.InputSearch.toLowerCase().replace(
+      /\s\s+/g,
+      " "
+    );
+   
+
+    const users = await User.find( {
+      $or:[
+        {lastname:{$regex: wordsearched}},     
+         {firstname:{$regex: wordsearched}}
+
+
+      ]
+    }
+      
+);
+
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+

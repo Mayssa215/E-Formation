@@ -10,7 +10,11 @@ import centreRoutes from "./routes/centre.js";
 import Pagingroutes from "./routes/paging.js";
 import Citiesroutes from "./routes/cities.js";
 import Userroutes from "./routes/user.js";
+import Bookingroutes from './routes/booking.js';
+import Favoriteroutes from './routes/favorite.js';
+import Opinionroutes from './routes/opinion.js';
 import Adminroutes from './routes/admin.js';
+
 const app = express();
 app.use(bodyParser.json({ limit: "40mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "40mb", extended: true }));
@@ -22,8 +26,15 @@ app.use("/centre", centreRoutes);
 app.use("/paging", Pagingroutes);
 app.use('/gouvernorat', Gouvernoratroutes);
 app.use('/cities', Citiesroutes);
-app.use('/user', Userroutes)
-app.use('/admin', Adminroutes)
+app.use('/user', Userroutes);
+app.use ('/booking',Bookingroutes);
+app.use ('/favorite',Favoriteroutes);
+app.use ('/opinion',Opinionroutes);
+app.use('/admin', Adminroutes);
+
+
+
+
 
 
 

@@ -73,7 +73,6 @@ export const  signupcentre = async (req, res) => {
    catch (error) {
        res.status(500).json({message:"erreur "});
        console.log(error);
-  
    }
   }
   export const getAllCenters = async (req, res) => {
@@ -225,26 +224,82 @@ export const  signupcentre = async (req, res) => {
       res.status(404).json({ message: error.message });
     };
   };
+
+
   export const getTrainingcenter = async (req,res) => {
     try {
-     
-   let ids = "";
-      const trainingdids = await Center.find({}, {trainingcenter : 1} );
-      trainingdids.map((e)=>{
-        ids=(e.trainingcenter);
-      });
-      console.log("ids",ids);
-      const page = parseInt(req.query.page || "1");
-  
+      const  idf  = req.query.id;
+      console.log(idf)
+   const page = parseInt(req.query.page || "1");
+
       console.log("page numéro", req.query.page);
       const PAGE_SIZE = 3;
-        const Trainingcenter= await Training.find({_id :{$in: ids}}).limit(PAGE_SIZE).skip(PAGE_SIZE* (page - 1));
-  console.log(("trainingcenter", Trainingcenter));
-      res.status(200).json({
-        Trainingcenter,
-       
-      });
+      const Trainings = await Training.find({id_center:idf}).limit(PAGE_SIZE).skip(PAGE_SIZE* (page - 1));
+       console.log("trainings",Trainings);
+      res.status(200).json(
+        Trainings
+             );
     } catch (error) {
       res.status(404).json({ message: error.message });
+
     };
+  
+  };
+
+  export const getCenters = async (req,res) => {
+    try {
+     
+      const center = await Center.find();
+       console.log("center",center);
+      res.status(200).json(
+        center
+             );
+    } catch (error) {
+      res.status(404).json({ message: error.message });
+
+    };
+  };
+
+  export const deleteCenter = async (req, res) => {
+    try {
+    const  id  = req.query.id;
+    const center = await Center.find({_id: {$in: id}});
+center.map(async(el)=> {
+  await Center.findByIdAndRemove(el._id);
+  const training = await Training.find({id_center: id});
+  console.log(training);
+  training.map(async(e)=>
+{   
+ await Training.findByIdAndRemove(e._id);
+ await Categorie.findByIdAndRemove(e._id);
+}
+  )
+
+})
+     
+    res.json({ message: "le centre a ete supprimer avec succés !" });
+    }catch (error) {
+      res.status(404).json({ message: error.message });
+      console.log(error.message)
+    }
+  };
+
+  export const getSearched = async (req, res) => {
+    try {
+      console.log(req.query.InputSearch);
+      const wordsearched = req.query.InputSearch.toLowerCase().replace(
+        /\s\s+/g,
+        " "
+      );
+     
+  
+      const centers = await Center.find( 
+        {lastname:{$regex: wordsearched}}
+        
+  );
+  
+      res.status(200).json(centers);
+    } catch (error) {
+      res.status(404).json({ message: error.message });
+    }
   };

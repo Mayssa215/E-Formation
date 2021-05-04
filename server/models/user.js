@@ -8,6 +8,8 @@ const userSchema = mongoose.Schema ({
   gouvernorate : {type: String, required:true, trim: true },
   email :{ type:String, required:true , unique:true},
   selectedimage: String,
+  idcity:{type: mongoose.Schema.ObjectId, ref : 'cities'},
+  idgouvernorate:{type: mongoose.Schema.ObjectId, ref : 'gouvernorat'},
   password : {
     type: String,
      required:true, 

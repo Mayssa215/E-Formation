@@ -253,22 +253,84 @@ export const  signupformer = async (req, res) => {
       res.status(404).json({ message: error.message });
     };
   };
-
-
   export const getTrainingFormer = async (req,res) => {
-
     try {
       const  idf  = req.query.id;
-       console.log(idf)
-      const Trainings = await Training.find({id_former:idf});
-      console.log(Trainings);
+      console.log(idf)
+   const page = parseInt(req.query.page || "1");
+
+      console.log("page numéro", req.query.page);
+      const PAGE_SIZE = 3;
+      const Trainings = await Training.find({id_former:idf}).limit(PAGE_SIZE).skip(PAGE_SIZE* (page - 1));
+       console.log("trainings",Trainings);
       res.status(200).json(
         Trainings
-       
-      );
+             );
     } catch (error) {
       res.status(404).json({ message: error.message });
 
     };
   };
+
+  export const getFormers = async (req,res) => {
+    try {
+     
+      const formers = await Former.find();
+     
+      res.status(200).json(
+        formers
+             );
+    } catch (error) {
+      res.status(404).json({ message: error.message });
+
+    };
+  };
+  export const deleteFormer = async (req, res) => {
+    try {
+    const  id  = req.query.id;
+    const former = await Former.find({_id: {$in: id}});
+former.map(async(el)=>{
+  await Former.findByIdAndRemove(el._id);
+  const training = await Training.find({id_center: id});
+  training.map(async(e)=>
+{   
+ await Training.findByIdAndRemove(e._id);
+ await Categorie.findByIdAndRemove(e._id);
+
+}
+  )
+})
+   
+  
+
+    res.json({ message: "le formateur a ete supprimer avec succés !" });
+    }catch (error) {
+      res.status(404).json({ message: error.message });
+      console.log(error.message)
+    }
+  };
+
+
+  export const getSearched = async (req, res) => {
+    try {
+      console.log(req.query.InputSearch);
+      const wordsearched = req.query.InputSearch.toLowerCase().replace(
+        /\s\s+/g,
+        " "
+      );
+     
+  
+      const formers = await Former.find( {$or:[{firstname:{$regex: wordsearched}},
+        {lastname:{$regex: wordsearched}}
+        
+      ]});
+  
+      res.status(200).json(formers);
+    } catch (error) {
+      res.status(404).json({ message: error.message });
+    }
+  };
+
+
+
 

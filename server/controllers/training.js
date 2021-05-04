@@ -253,12 +253,29 @@ console.log(select);
 export const deleteTraining = async (req, res) => {
   try {
   const  id  = req.query.id;
-
+  const  idf = req.query.idformer
   if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send("Aucune formation avec cet id ");
   const training = await Training.findOne({_id:id});
   await Training.findByIdAndRemove(id);
-  await Former.updateOne({ $pull :{training: training._id}} );
+  await Former.findByIdAndUpdate( idf,{ $pull :{training: training._id}} );
+
+  res.json({ message: "la formation a ete supprimer avec succés !" });
+  }catch (error) {
+    res.status(404).json({ message: error.message });
+    console.log(error.message)
+  }
+};
+export const deleteTrainingCenter = async (req, res) => {
+  try {
+  const  id  = req.query.id;
+  const  idcenter = req.query.idcenter
+  console.log(idcenter)
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(404).send("Aucune formation avec cet id ");
+  const training = await Training.findOne({_id:id});
+  await Training.findByIdAndRemove(id);
+  await Center.findByIdAndUpdate( idcenter,{ $pull :{trainingcenter: training._id}} );
 
   res.json({ message: "la formation a ete supprimer avec succés !" });
   }catch (error) {
@@ -364,11 +381,10 @@ export const creatTraining = async (req, res) => {
 
   });
   try {
+    const  id = req.query.id;
     await newTraining.save();
-    await Former.updateOne({ $push :{training: newTraining._id}} )
+    await Former.findByIdAndUpdate(id ,{ $push :{training: newTraining._id}} )
     res.status(201).json(newTraining);
-    
-
 
   } catch (error) {
     res.status(409).json({ message: error.message });
@@ -431,10 +447,9 @@ export const creatTrainingcenter = async (req, res) => {
     createdAt,
   });
   try {
-    console.log(`ggg`, newTraining)
+    const  id = req.query.id;
      await newTraining.save();
-     await Center.updateOne({ $push :{trainingcenter: newTraining._id}} )
-
+     await Center.findByIdAndUpdate(  id, { $push :{trainingcenter: newTraining._id}} )
     res.status(201).json(newTraining);
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -485,3 +500,186 @@ export const updateTraining = async (req, res) => {
   }
 };
 
+export const getnameFormer = async (req, res) => {
+  try {
+    let idsforme = [];
+
+    const traing = await Training.find({}, { id_former: 1 });
+    {
+      traing.map((e) => idsforme.push(e.id_former));
+    }
+    const nameformer = await Former.find({ _id: { $in: idsforme } });
+
+    res.status(200).json(nameformer);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+export const getAllTrainingsCenter = async (req, res) => {
+  try {
+    const trainingallcenter = await Training.find(
+{id_center : { $ne: null }  }   
+    );
+    res.status(200).json(trainingallcenter);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+export const getAllTrainingsformer = async (req, res) => {
+  try {
+    const trainingallformer = await Training.find(
+{id_former : { $ne: null }  }   
+    );
+    res.status(200).json(trainingallformer);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+export const getAllTrainingsAdmin = async (req, res) => {
+  try {
+    const trainingalladmin = await Training.find(
+{   $or: [ {name_former : { $ne: null }} , {name_center : { $ne: null }} ]}   
+    );
+    res.status(200).json(trainingalladmin);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+export const getSearched = async (req, res) => {
+  try {
+    console.log(req.query.InputSearch);
+    const wordsearched = req.query.InputSearch.toLowerCase().replace(
+      /\s\s+/g,
+      " "
+    );
+   
+
+    const trainings = await Training.find( {name:{$regex: wordsearched}});
+
+    res.status(200).json(trainings);
+    console.log('lawej',trainings);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+}; 
+
+export const creatTrainingformer = async (req, res) => {
+  const {
+    name, 
+    firstdate,
+    lastdate,
+    hour,
+    price,
+    namecity,
+    periode,
+    numberplace,
+    planning,
+    description,
+    objectif,
+    skills,
+    selectedimage,
+    namegouvernorate,
+    namecategorie,
+    idcity,
+    idgouvernorate,
+    idcategorie,
+    longitude,
+    latitude,
+    createdAt,
+    name_former,
+  } = req.body;
+  const newTraining = new Training({
+    name, 
+    firstdate,
+    lastdate,
+    hour,
+    price,
+    namecity,
+    periode,
+    numberplace,
+    planning,
+    description ,
+    objectif,
+    skills,
+    selectedimage,
+    idcity,
+    namegouvernorate,
+    namecategorie,
+    idgouvernorate,
+    idcategorie,
+    longitude,
+    latitude,
+    name_former,
+    createdAt,
+  });
+  try {
+    await newTraining.save();
+    res.status(201).json(newTraining);
+  } catch (error) {
+    res.status(409).json({ message: error.message });
+    console.log(error.message)
+  }
+};
+
+
+
+export const creatTrainingforcenter = async (req, res) => {
+  const {
+    name, 
+    firstdate,
+    lastdate,
+    hour,
+    price,
+    namecity,
+    periode,
+    numberplace,
+    planning,
+    description,
+    objectif,
+    skills,
+    selectedimage,
+    namegouvernorate,
+    namecategorie,
+    idcity,
+    idgouvernorate,
+    idcategorie,
+    longitude,
+    latitude,
+    createdAt,
+    name_center,
+  } = req.body;
+  const newTraining = new Training({
+    name, 
+    firstdate,
+    lastdate,
+    hour,
+    price,
+    namecity,
+    periode,
+    numberplace,
+    planning,
+    description ,
+    objectif,
+    skills,
+    selectedimage,
+    idcity,
+    namegouvernorate,
+    namecategorie,
+    idgouvernorate,
+    idcategorie,
+    longitude,
+    latitude,
+    name_center,
+    createdAt,
+  });
+  try {
+    await newTraining.save();
+    res.status(201).json(newTraining);
+  } catch (error) {
+    res.status(409).json({ message: error.message });
+    console.log(error.message)
+  }
+};
