@@ -1,20 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Button ,CircularProgress} from "@material-ui/core";
+import { Grid, Button } from "@material-ui/core";
 import useStyles from "./styles";
 import Filter from "../components/Filter/filter";
 import Recherche from "../components/Filter/recherche";
 import { useDispatch } from "react-redux";
 import { getSearchedTraining, getTraining } from "../actions/training";
+import { Getreservationbyid } from '../actions/booking';
+import { Getfavoritebyid } from '../actions/favorite';
+
 import Cards from "../components/Training/cards";
 import { getnotshowfilter } from "../actions/training"; 
 import Resultatform from "../components/Search/resultat/resultatForm";
 const Training = () => {
   const [Alltraining, setAlltraining] = useState([]);
+  const [tableidvide , settableidvide] = useState([]);
+  const [tableidannuler , settableidannuler] = useState([]);
+  const [tableidvalider , settableidvalider] = useState([]);
 
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+
+  const id = user?._id;
+  const iduser = id;
   const [pageNumber, setPageNumber] = useState(1);
   const [pagefilter, setPageFilter] = useState(1);
-  const [pageNumber2, setPageNumber2] = useState(1);
-
+  const [tablefav, settablefav] = useState([]);
   const [prices, setPrices] = useState([0, 10000]);
   const [categoriesid, setCategoriesId] = useState([]);
   const [heures, setHeures] = useState([0, 10000]);
@@ -31,7 +40,6 @@ const Training = () => {
   const [datedeb, setDatedeb] = useState("1920-01-01");
   const [datefin, setDatefin] = useState("2030-01-01");
   const dispatch = useDispatch();
-
 
   useEffect(() => {
     dispatch(
@@ -51,6 +59,15 @@ const Training = () => {
       setAlltraining(res.Alltraining);
       setPageNumber(pageNumber + 1);
     });
+  dispatch(Getreservationbyid(iduser)).then((res) => {
+    settableidvide(res.trainingidvide);
+    settableidvalider(res.trainingsidvalider)
+    settableidannuler(res.trainingsidannuler);
+  });
+  dispatch (Getfavoritebyid(iduser)).then((res) => {
+    settablefav(res);
+  });
+
   }, [dispatch]);
 
 
@@ -68,8 +85,6 @@ const Training = () => {
   });
 
   const [show, setShow] = useState(true);
-
- 
 
   const handleTraining = (filter) => {
     const prices = filter.Prices;
@@ -116,7 +131,6 @@ const Training = () => {
       setAlltraining([...Alltraining, ...res.Alltraining]);
     });
   };
-
 
 
 
@@ -261,7 +275,8 @@ const unshowfilter = () => {
 
  
 };
-console.log(Alltraining);
+console.log(Alltraining)
+
   return (
     <div className={classes.container}>
       <Grid container spacing={1}>
@@ -288,12 +303,12 @@ console.log(Alltraining);
                   lg={6}
                   key={Training._id}
                 >
-                  <Cards Training={Training} />
+                  <Cards Training={Training} Tableids={tableidvide} Tablefav={tablefav}  Tablevalider={tableidvalider} Tableannuler={tableidannuler}/>
                 </Grid>
               ))}
         </Grid> : <Grid container item lg={12}>
-          {!Alltraining.length ? <h2>Aucune formation trouvée</h2>
-          
+          {!Alltraining
+            ?  <h2>Aucune formation trouvée</h2>
             : Alltraining.map((Training) => (
                 <Grid
                   container
@@ -304,7 +319,7 @@ console.log(Alltraining);
                   lg={4}
                   key={Training._id}
                 >
-                  <Cards Training={Training} />
+                  <Cards Training={Training} Tableids={tableidvide}  Tablefav={tablefav}  Tablevalider={tableidvalider}  Tableannuler={tableidannuler}/>
                 </Grid>
               ))}
             
@@ -313,9 +328,9 @@ console.log(Alltraining);
       <Button className={classes.voirplus} onClick={showMorebtn} size="large">
         Voir Plus
       </Button>
-    
       
     </div>
   );
 };
 export default Training;
+
