@@ -123,46 +123,37 @@ export const getnotshowfilter = async (req, res) => {
 
 
 
-
-
 export const getTrainings = async (req, res) => {
   try {
     const page = parseInt(req.query.page || "1");
-    console.log("page numéro", req.query.page);
     const PAGE_SIZE = 2;
     const minPrice = req.query.value[0];
     const maxPrice = req.query.value[1];
-    console.log(minPrice, maxPrice);
+    //console.log(minPrice, maxPrice);
     const minHeure = req.query.heures[0];
     const maxHeure = req.query.heures[1];
-    console.log(minHeure, maxHeure);
+    //console.log(minHeure, maxHeure);
     const datedebut = req.query.datedeb;
     console.log(datedebut);
     const datefin = req.query.datefin;
-    console.log(datefin);
+   // console.log(datefin);
     const inputsearched = req.query.InputSearch.replace(/\s\s+/g, " ");
-    console.log(inputsearched); 
+    //console.log(inputsearched); 
 
 
     let idscategories = [];
-    //console.log("before if ");
     if (req.query.categoriesids && req.query.categoriesids.length > 0) {
-      console.log("in if ", req.query.categoriesids);
-
+      //console.log("in if ", req.query.categoriesids);
       idscategories = req.query.categoriesids;
     } else {
-      //console.log("in else ");
-
       const cats = await Categorie.find({}, { _id: 1 });
 
       //console.log(cats);
       cats.map((el) => {
-        //console.log(el._id);
         idscategories.push(el._id);
       });
-      //console.log(idscategories);
-    }
-    //console.log("after if ");
+    }      //console.log(idscategories);
+
 
     let idsgouvernorat = [];
     if (req.query.gouvernoratid && req.query.gouvernoratid.length > 0) {
@@ -197,37 +188,22 @@ export const getTrainings = async (req, res) => {
     }
     //console.log("after else cities");
 
-   
-let select = [];
-if(req.query.selected && req.query.selected.length>0) {
-select=req.query.selected;
-}
-else {
-  select.push("Commence");
-}
-console.log(select);
-    const Alltraining = await Training.find({
+     const Alltraining = await Training.find({
       
         $and: [
       
-
-          {name:{$regex : inputsearched}},
-          /* &&{lastdate:{$lte:datefin}}&&{firstdate:{datedebut}}&&
-          {lastdate:{datefin}}:select==="Termine" ? {lastdate:{datedebut}}&&{firstdate:{datedebut}}&& {lastdate:{datefin}}&&
-          {lastdate:{$lte:datefin, $gte:datedebut}}&& {firstdate:{$lte:datefin, $gte:datedebut}}:{datedebut:{$lte:2030,$gte:1920}},  */
-         
-         
-      //select==="Commence" ? {lastdate:{$gte:datefin}}:{lastdate:{$gte:datefin}},
-  
-      // { idcategorie: { $in: idscategories } },
-          { price: { $gte: minPrice, $lte: maxPrice } },
-         /* { periode: { $gte: minHeure, $lte: maxHeure } }, 
           { idcategorie: { $in: idscategories } },
-     
-           { idgouvernorate: { $in: idsgouvernorat } }, 
-          { idcity: { $in: idscity } },  */
-  /*         datedebut ==="1920-01-01" ? {firstdate: {$gte: datedebut} } : {firstdate: datedebut},
-   */    /*     datefin ==="2030-01-01" ? {lastdate: {$lte: datefin} } : {lastdate: datefin}, */
+          { price: { $gte: minPrice, $lte: maxPrice } },
+          { idgouvernorate: { $in: idsgouvernorat } }, 
+          { idcity: { $in: idscity } },  
+          { periode: { $gte: minHeure, $lte: maxHeure } },  
+
+           {firstdate: {$gte: datedebut} } ,
+           {lastdate: {$lte: datefin} } , 
+          {name:{$regex : inputsearched}},
+          
+  
+      
   
 
       
@@ -235,12 +211,11 @@ console.log(select);
      
     }).limit(PAGE_SIZE).skip(PAGE_SIZE * (page - 1));
 
-    console.log("houni1");
     const total = await Training.countDocuments();
     // console.log("total", total);
-    console.log("Alltraining", Alltraining);
     //let totalPages = Math.ceil(total / PAGE_SIZE);
     //console.log("totalpages", totalPages);
+    console.log('gogoo',Alltraining);
     res.status(200).json({
       Alltraining,
       totalPages: Math.ceil(total / PAGE_SIZE),
@@ -249,7 +224,6 @@ console.log(select);
     res.status(404).json({ message: error.message });
   }
 };
-
 export const deleteTraining = async (req, res) => {
   try {
   const  id  = req.query.id;

@@ -115,22 +115,18 @@ export const  signupformer = async (req, res) => {
   export const getAllFormers = async (req, res) => {
     try {
       const page = parseInt(req.query.page || "1");
-      console.log("page numéro", req.query.page);
   
       const PAGE_SIZE = 3;
       const minAge = req.query.age[0];
       const maxAge = req.query.age[1];
-      console.log(minAge, maxAge);
+      console.log(minAge);
+      console.log(maxAge);
       const inputsearched = req.query.InputSearch.replace(/\s\s+/g, " ");
-      console.log(inputsearched);
       let idsspecialitys = [];
-      //console.log("before if ");
       if (req.query.SpecialityIds && req.query.SpecialityIds.length > 0) {
-        console.log("in if ", req.query.SpecialityIds);
   
         idsspecialitys = req.query.SpecialityIds;
       } else {
-        //console.log("in else ");
   
         const specialty = await Categorie.find({}, { _id: 1 });
   
@@ -142,34 +138,29 @@ export const  signupformer = async (req, res) => {
         //console.log(idscategories);
       }
       //console.log("after if ");
-  
-  
-     
+      
   let selectsexe = [];
   if(req.query.sexe && req.query.sexe.length>0) {
     selectsexe=req.query.sexe;
   }
   else {
-    selectsexe.push("Femme, Homme");
+    selectsexe.push("Femme");
+    selectsexe.push("Homme")
   }
   console.log(selectsexe);
       const AllFormer = await Former.find({
         $and: [
-          {idspeciality: { $in: idsspecialitys } },
   
-          
-    
-        //{Numbreofexperience:{ $gte: minAge, $lte: maxAge } },
-        //{sexe:selectsexe},
-        //{firstname:{$regex : inputsearched}},
-        //{lastname:{$regex : inputsearched}},
+        {idspeciality : { $in : idsspecialitys}},
+        {Numbreofexperience : { $gte: minAge, $lte: maxAge } },
+       {gender: {$in: selectsexe}},
+        {firstname:{$regex : inputsearched}},
+        {lastname:{$regex : inputsearched}}, 
   
         ],
       }).limit(PAGE_SIZE).skip(PAGE_SIZE * (page - 1));
-      console.log("houni1");
       const total = await Former.countDocuments();
-      // console.log("total", total);
-      console.log("AllFormer", AllFormer);
+      console.log("former", AllFormer);
       //let totalPages = Math.ceil(total / PAGE_SIZE);
       //console.log("totalpages", totalPages);
       res.status(200).json({
@@ -180,6 +171,7 @@ export const  signupformer = async (req, res) => {
       res.status(404).json({ message: error.message });
     }
   };
+   
    
   
   

@@ -132,10 +132,11 @@ export const  signupcentre = async (req, res) => {
   
       const AllCentres = await Center.find({
         $and: [
-        { idspeciality: { $in: idsspecialitys } },
-
+          {idspeciality : { $in : idsspecialitys}},
+        { idgouvernorate: { $in: idsgouvernorat } }, 
+        { idcity: { $in: idscity } },  
       
-       // {lastname:{$regex : inputsearched}},
+        {lastname:{$regex : inputsearched}},
   
   
         ],
@@ -152,7 +153,6 @@ export const  signupcentre = async (req, res) => {
       res.status(404).json({ message: error.message });
     }
   };
-  
   
   
   export const getnotshowcentre = async (req, res) => {
