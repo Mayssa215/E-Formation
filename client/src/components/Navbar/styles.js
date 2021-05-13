@@ -84,6 +84,7 @@ export default makeStyles((theme) => ({
   item :{
     fontSize:20,
     marginRight:25,
+    overflow:'visible',
     '&:hover': {
       background: 'transparent',
  
@@ -96,7 +97,9 @@ export default makeStyles((theme) => ({
     marginLeft:15,
   },
 
-
+  reservword:{
+    marginLeft:8,
+  },
 
     logo:{
       height:50,

@@ -142,10 +142,22 @@ export const getTrainings =() => async (dispatch)=> {
   }
 }; 
 
-export const getnameFormer =() => async (dispatch)=> {
+export const getnameFormer =(idtraining) => async (dispatch)=> {
 
   try {
-    const {data} =  await api.fetchnameFormer();
+    const {data} =  await api.fetchnameFormer(idtraining);
+
+    dispatch ({ type: 'FETCH_ALL', payload: data }) ;
+    return data;
+  } catch (error) {
+    console.log('error action',error.message);
+    
+  }
+}; 
+export const getFav =(idtraining) => async (dispatch)=> {
+
+  try {
+    const {data} =  await api.fetchfav(idtraining);
 
     dispatch ({ type: 'FETCH_ALL', payload: data }) ;
     return data;

@@ -25,6 +25,7 @@ import UpdateTraining from './components/Form/updateForm';
 import Cv from "./components/Cv/cv";
 import Myfavorites from "./components/Profils/myfavorites";
 import Mesreservations from "./components/Profils/myreservations";
+import Reservations from "./components/Profils/validerreservations";
 const App = () => {
 
 
@@ -41,13 +42,13 @@ const App = () => {
                 <>
                 <Navbar /> 
                 <Route path="/" exact component={Search} />
-                <Route path="/formations"> <Training/>  </Route>
+                <Route path="/formations"> <Form/>  </Route>
                 <Route path="/formateurs"> <Former/></Route>
                 <Route path="/centredeformation">  <Centre/> </Route>
                 <PrivateRoute path="/myaccount" component={Account}></PrivateRoute>
                 <PrivateRoute path="/mesfavoris" component={Myfavorites}></PrivateRoute>
                 <PrivateRoute path="/mesreservations" component={Mesreservations}></PrivateRoute>
-
+                <PrivateRoute path="/validerreservations" component={Reservations}></PrivateRoute>
                 <PrivateRoute path="/mesformations" component={Mytrainings}></PrivateRoute>
                 <PrivateRoute path="/trainingupdate/:id" component={UpdateTraining}></PrivateRoute>
                 <Route path="/cv">  <Cv/> </Route>

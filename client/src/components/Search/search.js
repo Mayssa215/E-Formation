@@ -4,11 +4,9 @@ import { Button, TextField , Typography} from "@material-ui/core";
 import Select from "@material-ui/core/Select";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-
 import { getSearchedTraining } from "../../actions/training";
 import { getSearchedFormer } from "../../actions/former";
 import { getSearchedCentres } from "../../actions/centre";
-
 import Resultatformteurs from "./resultat/resultatformateurs";
 import Resultatform from "./resultat/resultatForm";
 import Resultatcentres from "./resultat/resultatcentre";
@@ -121,12 +119,7 @@ const [open, setOpen] = React.useState(false);
 
  </div>
 : null}
-
-
-
-
-
-    </div>
+</div>
   );
 };
 export default Search;

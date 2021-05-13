@@ -725,21 +725,20 @@ marginTop:-50,
   },
 
   papercomment :{
-height:350,
-width:1200,
-marginTop: 200,
-marginLeft:35,
+height:330,
+width:1000,
+marginTop: 150,
   },
   avatar:{
     width:100,
     height:100,
-    marginLeft:50,
-    marginTop:50,
+    marginLeft:30,
+    marginTop:-15,
   },
   title : {
- marginLeft:460,
+ marginLeft:280,
  fontSize:22,
- paddingTop:25,
+ color:"#4e3e8c"
   },
   rootRating : {
     display: 'flex',
@@ -750,10 +749,12 @@ marginLeft:35,
     marginLeft:45,
   },
   fullname :{
-    marginLeft: 35,
+    marginLeft: 25,
     marginTop:12,
     fontSize:16,
     textTransform: "capitalize",
+    color:"#4e3e8c"
+
 
   },
   div2 :{
@@ -763,11 +764,85 @@ marginLeft:35,
     display:'flex',
   },
   textfield :{
-    marginLeft:90,
-    marginTop:120,
-    width:600,
+    marginLeft:50,
+    marginTop:45,
+    width:670,
   },
   btnpub : {
-marginLeft:'65%',
+marginLeft:'79%',
+marginTop:20,
+color:'#ffffff',
+    background: '#4e3e8c',
+    '&:hover ': {
+      background: '#4e3e8c',
+      color: "#f5f5f5",
+      transform: " scale(1.1)",
   },
+},
+
+  stars :{
+display:'flex',
+
+  },
+  opinions:{
+    marginLeft:100,
+  },
+  opinions2:{
+    marginLeft:100,
+  },
+  opinions3:{
+    marginLeft:100,
+  },
+  titlestar: {
+  marginLeft:100,
+  },
+  box1 :{
+    marginTop:-10,
+  },
+  papercomment2 : {
+height:230,
+width:1000,
+marginTop: 40,
+background:'#F3F3F3',
+  },
+
+  fullname2 :{
+    marginLeft: 25,
+    marginRight:80,
+    marginTop:12,
+    fontSize:21,
+    textTransform: "capitalize",
+    color :'#6A55BC',
+  },
+  datesm :{
+    marginLeft: '85%',
+    marginTop:18,
+    fontSize:16,
+    textTransform: "capitalize",
+    color :'#6A55BC',
+    },
+  descrptionname :{
+  display:'Block',
+  },
+  
+  desc :{
+    marginLeft:50,
+    marginTop:10,
+    fontSize:18,
+
+  },
+  box2:{
+   marginLeft:20,
+   marginTop:-25,
+  },
+  avatar2:{
+      width:100,
+      height:100,
+      marginLeft:30,
+      marginTop:30,
+  },
+  titlestar1:{
+    marginLeft:100,
+    color:'#4e3e8c',
+  }
 }));

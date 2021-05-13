@@ -351,4 +351,32 @@ indicator:{
     color:" #4e3e8c",
   },
 },
+
+rootv: {
+  width: '80%',
+  marginLeft:150,
+},
+paperreserv: {
+  width: '80%',
+  marginBottom: theme.spacing(2),
+  marginTop:40,
+  marginLeft:120,
+},
+table: {
+  minWidth: 750,
+},
+visuallyHidden: {
+  border: 0,
+  clip: 'rect(0 0 0 0)',
+  height: 1,
+  margin: -1,
+  overflow: 'hidden',
+  padding: 0,
+  position: 'absolute',
+  top: 20,
+  width: 1,
+},
+icons1: {
+  color:" #fa7d39",
+}
 }));

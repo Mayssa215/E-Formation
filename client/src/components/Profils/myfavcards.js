@@ -28,7 +28,6 @@ const  Cards = ({ Training }) => {
   const [favoris, setfavoris] = useState(false);
   const supprimerfavoris =() => {
     dispatch(Filtrerfavorite(iduser,idtraining));
-
   }
 
   return (

@@ -22,7 +22,7 @@ export const Getfavoritebyid = (iduser) => async (dispatch) => {
 export const Deletefavoritetraining = (iduser, idtraining) => async (dispatch) => {
   try {
     const { data } = await api.deletefavoritetraining(iduser, idtraining);
-    dispatch({ type: 'Delete', data });
+    dispatch({ type: 'Delete2', data });
     return data;
   } catch (error) {
     console.log('error action', error.message);

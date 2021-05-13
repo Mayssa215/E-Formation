@@ -38,10 +38,62 @@ export const Reserverformation = (idtraining, RerservationData) => async (dispat
         };
         export const réservationCancled= (iduser,idtraining) => async (dispatch) => {
           try {
-            await api.réservationCancled(iduser,idtraining);
-           dispatch({ type:'DELETE1', payload: idtraining });
+           const {data } = await api.réservationCancled(iduser,idtraining);
+           dispatch({ type:'Update', data });
           } catch (error) {
            console.log(error.message);
           }
           };
+          export const getBookings =() => async (dispatch) => {
+  
+            try {
+              const {data} =  await api.fetchBookings();
+              dispatch ({ type: 'FETCH_ALL1',  data }) ;
+               return data;
+            } catch (error) {
+              console.log('error action',error.message);
+            }
+          };
+          export const getBookingsformer =(idformer) => async (dispatch) => {
+  
+            try {
+              const {data} =  await api.reservationformer(idformer);
+             
+          
+              dispatch ({ type: 'FETCH_ALL1',  data }) ;
+               return data;
+            } catch (error) {
+              console.log('error action',error.message);
+            }
+          };
+          export const getBookingscenter=(idcenter) => async (dispatch) => {
+  
+            try {
+              const {data} =  await api.reservationcenter(idcenter); 
+              dispatch ({ type: 'FETCH_ALL1',  data }) ;
+               return data;
+            } catch (error) {
+              console.log('error action',error.message);
+            }
+          };
+          
+          export const Reservationvalidated=(selected) => async (dispatch) => {
+  
+            try {
+              const {data} =  await api.validation(selected);
+              dispatch ({ type: 'Update',  data }) ;
+            } catch (error) {
+              console.log('error action',error.message);
+            }
+          };
+    
+          export const Annulation=(selected) => async (dispatch) => {
+            try {
+              const {data} =  await api.annulation(selected);
+              dispatch ({ type: 'Update', data }) ;
+            } catch (error) {
+              console.log('error action',error.message);
+            }
+          };
+        
       

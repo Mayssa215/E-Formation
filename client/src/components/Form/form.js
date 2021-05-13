@@ -123,7 +123,7 @@ setCategorie(res.centercateg)
 else if(Data.Role === "formateur") {
   dispatch(getcategories(userid)).then((res) => {
        setCategorie(res.formercateg);
-   
+        console.log(res.formercateg)
 
 })}
 

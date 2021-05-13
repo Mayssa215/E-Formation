@@ -9,3 +9,12 @@ export const createOpinion = (newOpinion) => async (dispatch) => {
   
     }
   };
+  export const getOpinions = (idtraining) => async (dispatch) => {
+    try {
+      const { data } = await api.gettrainingopinions(idtraining);
+      dispatch({ type: 'FETCH_ALL', payload: data });
+      return data;
+    } catch (error) {
+      console.log('error action', error.message);
+    }
+  };

@@ -5,6 +5,10 @@ import decode from 'jwt-decode';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import PlaylistAddCheckIcon from '@material-ui/icons/PlaylistAddCheck';
+import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
+import Badge from '@material-ui/core/Badge';
+
 import {
   Container,
   AppBar,
@@ -29,13 +33,14 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import Menus from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import {getBookingsformer,getBookingscenter} from '../../actions/booking';
 
 const Navbar = () => {
 
   const classes = useStyles();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
   const [token, settoken] = useState(localStorage.getItem('token'));
-
+  const [count,setcount]=useState(0);
   const [anchorell, setanchorell] = useState(null);
   const handleClick = (event) => {
     setanchorell(event.currentTarget);
@@ -53,9 +58,18 @@ const Navbar = () => {
     history.push('/signin');
     setUser(null);
   };
-
+  
+const Reservations = () => {
+  history.push('/validerreservations');
+    setanchorell(null);
+}
   const Profil = () => {
     history.push('/myaccount');
+    setanchorell(null);
+  };
+  const Formations = () => {
+    history.push('/mesformations');
+    setanchorell(null);
   };
   const Favorite = () => {
     history.push('/mesfavoris');
@@ -72,6 +86,20 @@ const Navbar = () => {
     }
     settoken(localStorage.getItem('token'));
 
+   if (user?._id && user.Role==='formateur') {
+    dispatch(getBookingsformer(user._id)).then((res) => {
+      setcount(res.number);
+    });
+   } 
+   else if (user?._id && user.Role ==='centre'){
+    dispatch(getBookingscenter(user._id)).then((res) => {
+      setcount(res.number);
+    });
+   } 
+   
+
+
+ 
   }, [location]);
 
 
@@ -80,8 +108,7 @@ const Navbar = () => {
     { link: "Formations", path: '/formations', id: "2", icon: <Graduate /> },
     { link: "Formateurs", path: '/formateurs', id: "3", icon: <Teacher /> },
     { link: " Centres de formations", path: '/centredeformation', id: "4", icon: <Centre /> },
-    user?.Role ==="formateur" ||  user?.Role ==="centre"   ?
-      { link: " Mes  formations", path: '/mesformations', id: "5" } :  { link: '', path: '/', id: "" }
+   
   ];
 
   const [state, setState] = useState({
@@ -182,11 +209,9 @@ const Navbar = () => {
     );
   };
 
-
-
-  const displayDesktop = () => {
+  const displayDesktop = () =>{
+  
     <AppBar >
-
       <Toolbar  >
         <div id="idnav">
           <div className={classes.linksContainer}>
@@ -201,7 +226,6 @@ const Navbar = () => {
           </div>
         {user ?
           <div>
-
             <Button className={classes.btn} onClick={handleClick} >
               <div className={classes.avatardesgin}>
                 <Avatar alt={user?.email} src={user?.selectedimage}>{user?.lastname.charAt(0)}</Avatar>
@@ -215,14 +239,17 @@ const Navbar = () => {
               open={Boolean(anchorell)}
               onClose={handleClose}
             >
-              <MenuItem onClick={Profil} className={classes.item}> <PersonOutlineIcon className={classes.iconuser} /> Profil</MenuItem>
-              { user.Role==="client" ?  <MenuItem className={classes.item} > <FavoriteBorderIcon  className={classes.iconuser} /> Mes favoris</MenuItem> : null }
-              { user.Role==="client" ?  <MenuItem className={classes.item} >  <EventAvailableIcon  className={classes.iconuser} />  Mes réservations</MenuItem>  : null }
-
-              <MenuItem onClick={logout} className={classes.item} > <ExitToAppIcon className={classes.iconuser} /> Déconnexion</MenuItem>
-            </Menus>
-          </div>
-          :
+               <MenuItem onClick={Profil} className={classes.item}> <PersonOutlineIcon className={classes.iconuser} /> Mon profil</MenuItem>
+                {user.Role==="formateur" || user.Role==="centre"  ? <MenuItem className={classes.item}  onClick={Formations}> < PlaylistAddCheckIcon  className={classes.iconuser}/>Mes formations</MenuItem> : null }
+                {user.Role==="formateur" || user.Role==="centre"  ? <MenuItem className={classes.item}  onClick={Reservations}>    <Badge badgeContent={count} color="error"> <AssignmentTurnedInIcon  className={classes.iconuser}/></Badge> 
+              
+                Réservations </MenuItem> : null }
+                { user.Role==="client" ?  <MenuItem className={classes.item}  onClick={Favorite}>  <FavoriteBorderIcon  className={classes.iconuser} />  Mes favoris</MenuItem>  : null }
+                { user.Role==="client" ?  <MenuItem className={classes.item} onClick={Reservation} >    <EventAvailableIcon  className={classes.iconuser} />  Mes réservations</MenuItem>  : null }
+                <MenuItem onClick={logout} className={classes.item}> <ExitToAppIcon className={classes.iconuser} /> Déconnexion</MenuItem>
+              </Menus>
+              </div>
+        :
 null        }
            
       </Toolbar>
@@ -268,12 +295,15 @@ null        }
                 className={classes.menus}
               >
                 <MenuItem onClick={Profil} className={classes.item}> <PersonOutlineIcon className={classes.iconuser} /> Mon profil</MenuItem>
+                {user.Role==="formateur" || user.Role==="centre"  ? <MenuItem className={classes.item}  onClick={Formations}> < PlaylistAddCheckIcon  className={classes.iconuser}/>Mes formations</MenuItem> : null }
+                {user.Role==="formateur" || user.Role==="centre"  ? <MenuItem className={classes.item}  onClick={Reservations}>    <Badge badgeContent={count} color="error"> <AssignmentTurnedInIcon  className={classes.iconuser}/></Badge> 
+              
+              <span className={classes.reservword}>Réservations</span> </MenuItem> : null }
                 { user.Role==="client" ?  <MenuItem className={classes.item}  onClick={Favorite}>  <FavoriteBorderIcon  className={classes.iconuser} />  Mes favoris</MenuItem>  : null }
                 { user.Role==="client" ?  <MenuItem className={classes.item} onClick={Reservation} >    <EventAvailableIcon  className={classes.iconuser} />  Mes réservations</MenuItem>  : null }
                 <MenuItem onClick={logout} className={classes.item}> <ExitToAppIcon className={classes.iconuser} /> Déconnexion</MenuItem>
               </Menus>
-              {/*             <Typography  variant="h6">{user?.result.prenom}</Typography>
-           <Button variant="contained" color="secondary" onClick={logout} >Déconnexion</Button> */}
+        
             </div>
             :
             <Button className={classes.button} href="/signin" size="medium" variant="contained">Connexion</Button>

@@ -14,7 +14,7 @@ const url7= 'http://localhost:5030/training/delete';
 const url8 = 'http://localhost:5030/training/all';
 const url9 = 'http://localhost:5030/training/nameformer';
 const url10= 'http://localhost:5030/training/deletebycenter';
-
+const url11="http://localhost:5030/training/countfav";
 
 export const fetchTraining = (page, value,categoriesids,heures,gouvernoratid,cityid,datedeb,datefin,selected,InputSearch) => {
   return axios.get(url2, {
@@ -38,8 +38,7 @@ export const fetchSearchedTraining = (InputSearch) => {
 export const creatTraining = (newformation,id) => axios.post(url, newformation,{params:{id}});
 export const creatTrainingcenter = (newformation,id) => axios.post(url1, newformation,{params:{id}});
 
-
-
+export const fetchfav = (idtraining) => axios.get(url11,{params:{idtraining}});
 export const updateTraining = (id, updatedFormation) => axios.patch(url6,updatedFormation,{params:{id}});
 export const deleteTraining = (id,idformer) => axios.delete(url7,{params:{id,idformer}});
 export const deleteTrainingCenter = (id,idcenter) => axios.delete(url10,{params:{id,idcenter}});
@@ -50,6 +49,5 @@ export const fetchOneTraining = (id) => {
 export const fetchTrainingbyid = (id) => {
   return axios.get(url0,{params:{id}})
 };
-
 export const fetchTrainings=() => axios.get(url8);
-export const fetchnameFormer =() => axios.get(url9);
+export const fetchnameFormer =(idtraining) => axios.get(url9,{params:{idtraining}});

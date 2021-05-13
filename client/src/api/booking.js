@@ -1,15 +1,21 @@
 import axios from 'axios';
-
+const url0 = 'http://localhost:5030/booking/booking';
 const url = 'http://localhost:5030/booking/reserver';
 const url1= 'http://localhost:5030/booking/getbyid';
 const url2= 'http://localhost:5030/booking/getvalider';
 const url3= 'http://localhost:5030/booking/annuler';
-
 const url4= 'http://localhost:5030/booking/delete';
-
+const url5 = "http://localhost:5030/booking/bookingformer";
+const url6="http://localhost:5030/booking/validation";
+const url7="http://localhost:5030/booking/canceled";
+const url8= "http://localhost:5030/booking/bookingcenter";
+export const fetchBookings = () => axios.get(url0);
+export const reservationformer = (idformer)=> axios.get(url5, {params:{idformer}});
+export const reservationcenter = (idcenter)=> axios.get(url8, {params:{idcenter}});
 export const reserverformation = (idtraining, RerservationData) => axios.post(url,RerservationData, {params:{idtraining}});
-export const  getreservationbyid = (iduser) => axios.get(url1, {params:{iduser}});
+export const getreservationbyid = (iduser) => axios.get(url1, {params:{iduser}});
 export const getreservedtraining = (iduser,page) => axios.get(url2,{params:{iduser,page}});
 export const annulerréservation = (iduser,idtraining) => axios.delete(url3,{params:{iduser,idtraining}});
-export const réservationCancled = (iduser,idtraining) => axios.delete(url4,{params:{iduser,idtraining}});
-
+export const réservationCancled = (iduser,idtraining) => axios.post(url4,null,{params:{iduser,idtraining}});
+export const validation = (selected)=>axios.post(url6,null,{params:{selected}});
+export const annulation = (selected)=> axios.post(url7,null,{params:{selected}});

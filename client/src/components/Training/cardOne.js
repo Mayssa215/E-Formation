@@ -44,6 +44,8 @@ const CardOne = ({  Training, Tableids ,Tablefav, Tablevalider, Tableannuler}) =
   const [favoritedata, setfavoritedata]= useState({iduser, idtraining});
   const [open, setOpen] = React.useState(false);
   const [favoris, setfavoris] = useState(false);
+  const [favoris1, setfavoris1] = useState(false);
+
   const [anuuler, setannuler] = useState(false);
   console.log(Tableids);
   const handleOpen = () => {
@@ -66,8 +68,13 @@ console.log(Tablefav)
       dispatch(Deletefavoritetraining(iduser,idtraining));
       setfavoris(false);
 
-
     }
+
+    const handleannulerfavoris1 = () => {
+      dispatch(Deletefavoritetraining(iduser,idtraining));
+      setfavoris1(true);
+    }
+  
       const handleClose = () => {
     setOpen(false);
   }
@@ -88,9 +95,14 @@ console.log(Tablefav)
 : user?.Role==="client" && favoris ? <IconButton   onClick={handleannulerfavoris} >
 <FavoriteIcon  className={classes.favoris}/>
 </IconButton> 
- : user?.Role ==="client" && Tablefav && (Tablefav.indexOf(Training._id) > -1 ) ? <IconButton   onClick={handleannulerfavoris} >
- <FavoriteIcon  className={classes.favoris}/>
- </IconButton>  : null}
+: user?.Role==="client"  && favoris1 && Tablefav && (Tablefav.indexOf(Training._id) > -1 )  ?
+<IconButton  onClick={handlefavoris}>
+<FavoriteBorderIcon  className={classes.favoris}/>
+</IconButton>
+: user?.Role ==="client"  && !favoris1 && Tablefav && (Tablefav.indexOf(Training._id) > -1 ) ? <IconButton   onClick={handleannulerfavoris1} >
+<FavoriteIcon  className={classes.favoris}/>
+</IconButton> 
+: null}
           </div>
           <div>
           <ReactLogo className={classes.mauve} />
